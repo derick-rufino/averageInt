@@ -1,1 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=WDXL+Lubrifont+TC&display=swap');
+
+:root{
+    /* Colir Variables */
+    --bg-blue: #0A0B0D;
+    --txt-white: #e6f1fd;
+    --blue-btn: #24547E;
+    --red-btn: ;
+    --yellow: #F5C345;
+    --green-btn: ;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'WDXL Lubrifont TC', sans-serif;
+}
+
+body {
+    background-color: var(--bg-blue);
+    color: var(--txt-white)
+}
+
+h1, h2, h3, h4, h5, h6 {font-family: 'Pixelify Sans', sans-serif;}

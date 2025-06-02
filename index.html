@@ -20,21 +20,27 @@ wb_sunny
     <main>
         <section class="game">
             <section class="display-container">
-                <div class="number-display" id="number1">1</div>
-                <div class="number-display" id="number2">2</div>
-                <div class="number-display" id="number3">4</div>
-                <div class="number-display" id="number4">7</div>
+                <div class="number-display" id="number1">0</div>
+                <div class="number-display" id="number2">0</div>
+                <div class="number-display" id="number3">0</div>
+                <div class="number-display" id="number4">0</div>
             </section>
             <button id="randomize-btn">Randomize <i class="fa-solid fa-dice-three"></i></button>
-            <form action="#" name="guessForm" id="guessForm">
-                <input type="number" name="userGuess" id="userGuess" required>
-                <button type="submit"><i class="fa-solid fa-check"></i></button>
+            <form name="guessForm" id="guessForm">
+                <input type="number" name="userGuess" id="userGuess" required min="0">
+                <button type="submit" id="submit"><i class="fa-solid fa-check"></i></button>
             </form>
         </section>
         <button id="tutorial-btn" popovertarget="tutorial-card"><i class="fa-solid fa-question"></i> tutorial</button>
+        <section class="extra-features">
+            <button id="hint"><i class="fa-solid fa-lightbulb"></i></button>
+            <p id="currentPoints">0</p>
+            <p id="timer">00:00</p>
+        </section>
     </main>
     <footer>
 
     </footer>
+    <script src="app.js"></script>
 </body>
 </html>

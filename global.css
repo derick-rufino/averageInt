@@ -8,7 +8,8 @@
     --muted-blue: #09263d;
     --blue: #0f4d7d;
     --red: ;
-    --yellow: #F5C345;
+    --gold: #F5C345;
+    --light-yellow: #f7ca58;
     --muted-green: #225f18;
     --green: #4a9f3c;
 
@@ -35,3 +36,14 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {font-family: 'Pixelify Sans', sans-serif;}
+
+button {
+    cursor: pointer;
+    transition: all 200ms;
+    user-select: none;
+
+    border: unset;
+    background-color: unset;
+    color: var(--txt-white);
+}
+

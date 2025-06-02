@@ -13,14 +13,14 @@ main {
     height: 70vh;
 
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(6, 1fr);
     column-gap: 10px;
     row-gap: 10px;
 }
 
 section.game {
-    grid-column: 3/7; /* Posição do elemento */
+    grid-column: 4/8; /* Posição do elemento */
     grid-row: 1/6;
 
     border: var(--thin-border-grey); /* box-sizing */
@@ -44,6 +44,7 @@ section.display-container {
 }
 
 div.number-display {
+    background-color: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,7 +71,12 @@ button#randomize-btn {
 
     font-family: 'Pixelify Sans', sans-serif;
     color: var(--txt-white);
+
+    &:hover{
+        background-color: var(--muted-blue);
+    }
 }
+
 
 form#guessForm {
     grid-column: 2/6;
@@ -102,7 +108,13 @@ form > button[type="submit"] {
     /* width: 20%; */
     height: 80%;
     aspect-ratio: 1;
+
+    &:hover{
+        background-color: var(--muted-green);
+    }
 }
+
+
 
 button#tutorial-btn {
     border: unset;
@@ -112,6 +124,27 @@ button#tutorial-btn {
     position: fixed;
     bottom: 20px;
     right: 50px;
+}
+
+section.extra-features {
+    grid-column: 4/8;
+    grid-row: 6/7;
+
+    border: var(--thin-border-grey);
+    border-radius: 5px;
+
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+button#hint {
+    color: var(--gold);
+    &:hover{
+        color: var(--light-yellow);
+        filter: drop-shadow(var(--gold) 0 0 5px);
+    }
 }
 
 footer {

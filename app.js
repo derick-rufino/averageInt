@@ -12,10 +12,10 @@ let randomizeBtn = document.getElementById('randomize-btn')
 
 randomizeBtn.addEventListener("click", function generateRandom(){
     console.clear(); //limpa a tentativa anterior
-    num1.innerHtml = parseInt(Math.random()*20);
-    num2.innerHtml = parseInt(Math.random()*20);
-    num3.innerHtml = parseInt(Math.random()*20);
-    num4.innerHtml = parseInt(Math.random()*20);
+    num1.innerText = parseInt(Math.random()*20);
+    num2.innerText = parseInt(Math.random()*20);
+    num3.innerText = parseInt(Math.random()*20);
+    num4.innerText = parseInt(Math.random()*20);
 
     media = (num1 + num2 + num3 + num4)/4;
     

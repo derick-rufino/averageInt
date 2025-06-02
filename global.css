@@ -4,10 +4,17 @@
     /* Colir Variables */
     --bg-blue: #0A0B0D;
     --txt-white: #e6f1fd;
-    --blue-btn: #24547E;
-    --red-btn: ;
+    --dark-blue: #141c22;
+    --muted-blue: #09263d;
+    --blue: #0f4d7d;
+    --red: ;
     --yellow: #F5C345;
-    --green-btn: ;
+    --muted-green: #225f18;
+    --green: #4a9f3c;
+
+    /* Element Properties */
+    --big-font: 1.5em;
+    --thin-border-grey: solid 1.5px #5f636f;
 }
 
 *{
@@ -20,7 +27,11 @@
 
 body {
     background-color: var(--bg-blue);
-    color: var(--txt-white)
+    color: var(--txt-white);
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 h1, h2, h3, h4, h5, h6 {font-family: 'Pixelify Sans', sans-serif;}

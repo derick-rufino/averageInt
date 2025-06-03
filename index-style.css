@@ -132,6 +132,34 @@ button#tutorial-btn {
     right: 50px;
 }
 
+section.rankingCard{
+    grid-column: 1/4;
+    grid-row: 1/6;
+    justify-self: center;
+    align-self: center;
+
+    width: 60%;
+    height: 70%;
+
+    border: var(--thin-border-grey);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+section.gameMode-card{
+    grid-column: 8/-1;
+    grid-row: 1/6;
+    justify-self: center;
+    align-self: center;
+
+    width: 60%;
+    height: 70%;
+
+    border: var(--thin-border-grey);
+    border-radius: 5px;
+    padding: 10px;
+}
+
 section.extra-features {
     grid-column: 4/8;
     grid-row: 6/7;

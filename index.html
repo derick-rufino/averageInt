@@ -13,9 +13,6 @@
 <body>
     <header>
         <h1>AverageInt</h1>
-        <!-- <button disabled="disabled"><span class="material-symbols-outlined">
-wb_sunny
-</span></button> -->
     </header>
     <main>
         <section class="game">
@@ -38,11 +35,32 @@ wb_sunny
             <p id="currentPoints">0</p>
             <p id="timer">00:00</p>
         </section>
+
+        <section class="rankingCard" id="rankingCard">
+            <div class="cardInfo">
+                <p><i class="fa-solid fa-trophy"></i> Melhor Pontuação</p>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <!-- conteúdo será adicionado abaixo -->
+            <div class="pointsCard" id="rank1">
+               1 - X "Pontos" 00m00s
+            </div>
+        </section>
+        <section class="gameMode-card">
+            <div class="cardInfo">
+                <p><i class="fa-solid fa-star"></i> Modo de Jogo</p>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <button class="gameModeOption" id="modeOption1"><i class="fa"></i>Aprendiz</button>
+            <button class="gameModeOption" id="modeOption2"><i class="fa"></i>Normal</button>
+            <button class="gameModeOption" id="modeOption3"><i class="fa"></i>Médio</button>
+            <button class="gameModeOption" id="modeOption3"><i class="fa"></i>Difícil</button>
+        </section>
     </main>
     <footer>
 
     </footer>
     <script src="app.js"></script>
-    <script src="dinamicStyle.js"></script>
+    <script src="dynamicStyle.js"></script>
 </body>
 </html>

@@ -47,3 +47,5 @@ button {
     color: var(--txt-white);
 }
 
+button:active{scale: 0.9;}
+

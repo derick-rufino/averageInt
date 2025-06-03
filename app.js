@@ -38,5 +38,7 @@ guessForm.addEventListener('submit', (e) => {
         console.log("User Input: " + userGuessValue);
 
         document.getElementById('userGuess').value = "";
+
+        // let res = 
     }
 });

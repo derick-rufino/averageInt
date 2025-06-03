@@ -77,6 +77,14 @@ button#randomize-btn {
     }
 }
 
+p#message {
+    grid-column: 1/7;
+    grid-row: 5/6;
+
+    font-size: .7em;
+    text-align: center;
+    transform: translate(0,10px);
+}
 
 form#guessForm {
     grid-column: 2/6;
@@ -114,8 +122,6 @@ form > button[type="submit"] {
     }
 }
 
-
-
 button#tutorial-btn {
     border: unset;
     background-color: unset;
@@ -133,7 +139,7 @@ section.extra-features {
     border: var(--thin-border-grey);
     border-radius: 5px;
 
-    display: none;
+    display: flex;
     justify-content: space-around;
     align-items: center;
 

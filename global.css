@@ -49,3 +49,4 @@ button {
 
 button:active{scale: 0.9;}
 
+input{accent-color: var(--blue);}

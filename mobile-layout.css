@@ -1,0 +1,102 @@
+@media (orientation: portrait) and (max-width: 425px) {
+  button,
+  a {
+    cursor: default;
+  } /* evita que apareca um overlay azul ao clicar em botões e links no modo mobile */
+
+button#randomize-btn:hover{background-color: var(--blue);}
+
+  body {
+    padding: 0 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100dvh;
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  section.game {
+    width: 100%;
+    height: 50%;
+
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  section.display-container,
+  button#randomize-btn,
+  p#message,
+  form#guessForm {
+    grid-column: span 5;
+  }
+
+  section.display-container {
+    padding: 5px;
+  }
+
+  section.rankingCard,
+  section.gameMode-card {
+    display: none;
+    position: absolute;
+    z-index: 1;
+
+    width: 200px;
+    height: 250px;
+    scale: 1.4;
+    /* transform: translateY(-10px); */
+    justify-self: center;
+    align-self: center;
+    background-color: var(--bg-blue);
+  }
+
+  div.coverAll {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -0;
+
+    background-color: var(--bg-blue);
+    opacity: 90%;
+    display: none;
+  }
+
+  section.extra-features {
+    width: 100%;
+    height: 12%;
+
+    transform: translateY(-35px)
+;    *{scale: 1.2;}
+  }
+  div.button-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  button.openModalBtn {
+    border: var(--thin-border-grey);
+    border-radius: 5px;
+    width: calc(50% - 10px);
+    height: 80px;
+    padding: 20px 0;
+    font-family: 'Pixelify Sans', 'WDXL Lubrifont TC', sans-serif;
+
+    span#currentMode-display{
+        font-family: inherit;
+        text-decoration: underline var(--muted-blue) 1px;
+    }
+  }
+
+  footer{
+    position: relative;
+  }
+}

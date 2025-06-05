@@ -13,8 +13,9 @@
       src="https://kit.fontawesome.com/0e84a49741.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="index-style.css" />
     <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="index-style.css" />
+    <link rel="stylesheet" href="mobile-layout.css">
   </head>
   <body>
     <header>
@@ -28,7 +29,7 @@
           <div class="number-display" id="number3">0</div>
           <div class="number-display" id="number4">0</div>
         </section>
-        <p id="message"></p>
+        <p id="message">Digite sua resposta</p>
         <button id="randomize-btn">
           Randomize <i class="fa-solid fa-dice-three"></i>
         </button>
@@ -88,8 +89,15 @@
           <i class="fa-solid fa-star"></i>Difícil
         </button>
       </section>
+      <div class="button-wrapper">
+        <button class="openModalBtn" id="rankingCard-btn">Pontuação</button>
+        <button class="openModalBtn" id="gameMode-btn">Modo de jogo<br><span id="currentMode-display">Normal</span></button>
+      </div>
+      <div class="coverAll"></div>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="https://linktr.ee/derico_dev" target="_blank" rel="noopener noreferrer">derico_dev</a>
+    </footer>
     <script src="app.js"></script>
     <script src="dynamicStyle.js"></script>
   </body>

@@ -16,21 +16,20 @@ let mediaAtual = null;
 
 // Aciona a função de aleatorizar
 let randomizeBtn = document.getElementById("randomize-btn");
-randomizeBtn.addEventListener("click", function generateRandom() {
+function generateRandom() {
   console.clear(); //limpa a tentativa anterior
   uMessage.innerText = ""; //limpa o texto exibido para o usuário (acerto, erro ou dica)
   let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada na linha 37, se o teste "mediaAtual é int" retornar true
 
   // ajusta a faixa de números conforme o modo
   let max;
-  if (currentMode === "1") max = 10; // Aprendiz
-  else if (currentMode === "2") max = 20; // Normal
-  else if (currentMode === "3") max = 50; // Médio
-  else if (currentMode === "4") max = 50; // Difícil
-  else max = 20; // padrão
+  if (currentMode === "1") max = 10; //fácil
+  else if (currentMode === "2") max = 20; //normal
+  else if (currentMode === "3") max = 50; //médio
+  else if (currentMode === "4") max = 50; //difícil
+  else max = 20;
 
-  while (!isInteger) {
-    // Gera números aleatórios conforme a dificuldade
+  while (!isInteger) { //gera números aleatórios enquanto o teste isInteger for falso
     num1.innerText = parseInt(Math.random() * max);
     num2.innerText = parseInt(Math.random() * max);
     num3.innerText = parseInt(Math.random() * max);
@@ -53,7 +52,8 @@ randomizeBtn.addEventListener("click", function generateRandom() {
   // Reabilita o campo e o botão de envio para nova tentativa
   document.getElementById("userGuess").disabled = false;
   guessForm.querySelector('button[type="submit"]').disabled = false;
-});
+}
+randomizeBtn.addEventListener("click", generateRandom);
 
 // Armazenando a entrada do usuário
 const guessForm = document.getElementById("guessForm");
@@ -78,6 +78,7 @@ guessForm.addEventListener("submit", (e) => {
 
         // Desabilita o campo e o botão de envio após acerto
         document.getElementById("userGuess").disabled = true;
+        guessForm.querySelector('button[type="submit"]').disabled = true;
       } else {
         uMessage.innerText =
           "Tente novamente! A média correta é: " + mediaAtual;
@@ -92,7 +93,6 @@ guessForm.addEventListener("submit", (e) => {
   }
 });
 
-//código gerado por Copilot
 // Função para trocar o modo de jogo
 function trocarModo(novoModo, botaoClicado) {
   currentMode = novoModo;
@@ -105,6 +105,19 @@ function trocarModo(novoModo, botaoClicado) {
 
   // Destaca o botão selecionado
   botaoClicado.style.backgroundColor = "#23243a";
+  atualizarDisplayModo();
+
+  // Gera nova sequência ao trocar o modo
+  generateRandom();
+
+  // Fecha o modal do modo de jogo, se estiver aberto
+  const gameModeCard = document.querySelector(".gameMode-card");
+  if (gameModeCard) {
+    gameModeCard.style.display = "none";
+  }
+  if (typeof coverAll !== "undefined" && coverAll) {
+    coverAll.style.display = "none";
+  }
 }
 
 // Adiciona o event listener para todos os botões de modo

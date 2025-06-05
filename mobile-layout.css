@@ -95,4 +95,8 @@ button#randomize-btn:hover{background-color: var(--blue);}
         text-decoration: underline var(--muted-blue) 1px;
     }
   }
+
+  footer{
+    position: relative;
+  }
 }

@@ -263,8 +263,14 @@ button#hint {
   }
 }
 
+ div.button-wrapper, i.fa-xmark {display: none;}
+
 footer {
+  position: fixed;
+  bottom: 0;
   width: 100%;
   height: fit-content;
-  padding: 5px;
+  padding: 10px;
+
+  *{color: var(--txt-white)}
 }

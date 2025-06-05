@@ -99,6 +99,9 @@
       text-decoration: underline var(--muted-blue) 1px;
     }
   }
+  i.fa-xmark {
+    display: inline-block;
+  }
 
   footer {
     position: relative;

@@ -1,160 +1,264 @@
-header{
-    width: 100%;
-    height: fit-content;
-    padding: 20px;
+header {
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main {
-    width: 100%;
-    height: 70vh;
+  width: 100%;
+  height: 70vh;
 
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    column-gap: 10px;
-    row-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  column-gap: 10px;
+  row-gap: 10px;
 }
 
 section.game {
-    grid-column: 4/8; /* Posição do elemento */
-    grid-row: 1/6;
+  grid-column: 4/8; /* Posição do elemento */
+  grid-row: 1/6;
 
-    border: var(--thin-border-grey); /* box-sizing */
-    border-radius: 5px;
-    background-color: var(--bg-blue);
+  border: var(--thin-border-grey); /* box-sizing */
+  border-radius: 5px;
+  background-color: var(--bg-blue);
 
-    display: grid; /* design interior */
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    column-gap: 10px;
-    row-gap: 20px;
+  display: grid; /* design interior */
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  column-gap: 10px;
+  row-gap: 20px;
 }
 
 section.display-container {
-    grid-column: 2/6;
-    grid-row: 2/4;
+  grid-column: 2/6;
+  grid-row: 2/4;
 
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 div.number-display {
-    background-color: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--big-font);
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--big-font);
 
-    border: var(--thin-border-grey);
-    border-radius: 5px;
-    width: 20%;
-    aspect-ratio: 1;
+  border: var(--thin-border-grey);
+  border-radius: 5px;
+  width: 20%;
+  aspect-ratio: 1;
 }
 
 button#randomize-btn {
-    grid-column: 2/6;
-    grid-row: 4/5;
+  grid-column: 2/6;
+  grid-row: 4/5;
 
-    width: 90%;
-    justify-self: center;
-    padding: 10px;
+  width: 90%;
+  justify-self: center;
+  padding: 10px;
 
-    background-color: var(--blue);
-    border: solid 2px;
-    border-color: var(--muted-blue);
-    border-radius: 5px;
+  background-color: var(--blue);
+  border: solid 2px;
+  border-color: var(--muted-blue);
+  border-radius: 5px;
 
-    font-family: 'Pixelify Sans', sans-serif;
-    color: var(--txt-white);
+  font-family: "Pixelify Sans", sans-serif;
+  color: var(--txt-white);
 
-    &:hover{
-        background-color: var(--muted-blue);
-    }
+  &:hover {
+    background-color: var(--muted-blue);
+  }
 }
 
 p#message {
-    grid-column: 1/7;
-    grid-row: 5/6;
+  grid-column: 1/7;
+  grid-row: 5/6;
 
-    font-size: .7em;
-    text-align: center;
-    transform: translate(0,10px);
+  font-size: 1em;
+  text-align: center;
+  transform: translate(0, 10px);
 }
 
 form#guessForm {
-    grid-column: 2/6;
-    grid-row: 6/8;
+  grid-column: 2/6;
+  grid-row: 6/8;
 
-    display: flex;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 }
 
 input#userGuess {
-    margin-left: 5px;
-    border: var(--thin-border-grey);
-    border-radius: 5px;
-    background-color: var(--dark-blue);
-    color: var(--txt-white);
-    height: 80%;
-    width: 70%;
-    padding: 10px;
+  margin-left: 5px;
+  border: var(--thin-border-grey);
+  border-radius: 5px;
+  background-color: var(--dark-blue);
+  color: var(--txt-white);
+  height: 80%;
+  width: 70%;
+  padding: 10px;
 
-    font-size: var(--big-font);
+  font-size: var(--big-font);
 }
 
 form > button[type="submit"] {
-    background-color: var(--green);
-    border: solid 2px;
-    border-color: var(--muted-green);
-    border-radius: 5px;
-    /* width: 20%; */
-    height: 80%;
-    aspect-ratio: 1;
+  background-color: var(--green);
+  border: solid 2px;
+  border-color: var(--muted-green);
+  border-radius: 5px;
+  /* width: 20%; */
+  height: 80%;
+  aspect-ratio: 1;
 
-    &:hover{
-        background-color: var(--muted-green);
-    }
+  &:hover {
+    background-color: var(--muted-green);
+  }
 }
 
 button#tutorial-btn {
-    border: unset;
-    background-color: unset;
-    color: var(--txt-white);
+  border: unset;
+  background-color: unset;
+  color: var(--txt-white);
 
-    position: fixed;
-    bottom: 20px;
-    right: 50px;
+  position: fixed;
+  bottom: 20px;
+  right: 50px;
 }
 
+section.rankingCard,
+section.gameMode-card {
+  p {
+    font-family: "Pixelify Sans", "WDXL Lubrifont TC";
+  }
+
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  row-gap: 10px;
+
+  justify-self: center;
+  align-self: center;
+
+  width: 60%;
+  height: 70%;
+  border: var(--thin-border-grey);
+  border-radius: 5px;
+  padding: 10px;
+
+  div.white-space {
+    grid-row: span 1;
+  }
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+section.rankingCard {
+  grid-template-rows: 2fr, 1fr, repeat(5, 2fr);
+  grid-column: 1/4;
+  grid-row: 1/6;
+
+  border-color: var(--muted-yellow);
+}
+
+section.gameMode-card {
+  grid-column: 8/-1;
+  grid-row: 1/6;
+
+  border-color: var(--muted-green);
+}
+
+div.cardInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+
+  grid-row: span 1;
+
+  * {
+    grid-row: 1;
+    align-self: center;
+  }
+}
+
+section i.fa-xmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+div.pointsCard {
+  grid-row: span 1;
+  border-radius: 3px;
+  background-color: var(--muted-yellow);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: .9em;
+}
+
+button.gameModeOption {
+  width: 100%;
+  font-size: 1em;
+  font-family: 'Pixelify Sans', 'WDXL Lubrifont TC', sans-serif;
+
+  background-color: var(--dark-blue);
+  border-radius: 3px;
+  padding: 5px 10px;
+
+
+  grid-row: span 1;
+
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+
+  i{font-size: .7em;}
+}
+
+  button#mode2 i{color: var(--light-blue)}
+  button#mode3 i{color: var(--gold)}
+  button#mode4 i{color: var(--red)}
+
 section.extra-features {
-    grid-column: 4/8;
-    grid-row: 6/7;
+  grid-column: 4/8;
+  grid-row: 6/7;
 
-    border: var(--thin-border-grey);
-    border-radius: 5px;
+  border: var(--thin-border-grey);
+  border-radius: 5px;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 button#hint {
-    color: var(--gold);
-    &:hover{
-        color: var(--light-yellow);
-        filter: drop-shadow(var(--gold) 0 0 5px);
-    }
+  color: var(--gold);
+  &:hover {
+    color: var(--light-yellow);
+    filter: drop-shadow(var(--gold) 0 0 5px);
+  }
 }
 
 footer {
-    width: 100%;
-    height: fit-content;
-    padding: 5px;
+  width: 100%;
+  height: fit-content;
+  padding: 5px;
 }

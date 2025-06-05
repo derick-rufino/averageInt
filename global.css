@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=WDXL+Lubrifont+TC&display=swap');
 
 :root{
-    /* Colir Variables */
+    /* Color Variables */
     --bg-blue: #0A0B0D;
     --txt-white: #e6f1fd;
     --dark-blue: #141c22;
     --muted-blue: #09263d;
     --blue: #0f4d7d;
-    --red: ;
+    --light-blue: #308dd4;
+    --red: #e43225;
+    --muted-yellow: #9E7D2C;
     --gold: #F5C345;
     --light-yellow: #f7ca58;
     --muted-green: #225f18;

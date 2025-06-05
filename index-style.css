@@ -144,7 +144,6 @@ section.gameMode-card {
   p {
     font-family: "Pixelify Sans", "WDXL Lubrifont TC";
   }
-
   position: relative;
   display: grid;
   grid-template-rows: repeat(5, 1fr);

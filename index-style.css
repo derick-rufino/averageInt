@@ -120,6 +120,13 @@ form > button[type="submit"] {
   &:hover {
     background-color: var(--muted-green);
   }
+
+  &:disabled{
+    border-color: var(--dark-blue);
+    background-color: var(--dark-blue);
+    cursor: default;
+    transition: all 500ms;
+  }
 }
 
 button#tutorial-btn {

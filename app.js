@@ -21,13 +21,13 @@ randomizeBtn.addEventListener("click", function generateRandom() {
   uMessage.innerText = ""; //limpa o texto exibido para o usuário (acerto, erro ou dica)
   let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada na linha 37, se o teste "mediaAtual é int" retornar true
 
-  // Exemplo de ajuste de faixa de números conforme o modo
+  // ajusta a faixa de números conforme o modo
   let max;
   if (currentMode === "1") max = 10; // Aprendiz
-  else if (currentMode === "2") max = 30; // Normal
+  else if (currentMode === "2") max = 20; // Normal
   else if (currentMode === "3") max = 50; // Médio
-  else if (currentMode === "4") max = 100; // Difícil
-  else max = 30; // padrão
+  else if (currentMode === "4") max = 50; // Difícil
+  else max = 20; // padrão
 
   while (!isInteger) {
     // Gera números aleatórios conforme a dificuldade
@@ -49,6 +49,10 @@ randomizeBtn.addEventListener("click", function generateRandom() {
       console.log("A média é um número float. Gerando nova sequência...");
     }
   }
+
+  // Reabilita o campo e o botão de envio para nova tentativa
+  document.getElementById("userGuess").disabled = false;
+  guessForm.querySelector('button[type="submit"]').disabled = false;
 });
 
 // Armazenando a entrada do usuário
@@ -71,9 +75,16 @@ guessForm.addEventListener("submit", (e) => {
         pontos += pontosPorAcerto(); // soma os pontos conforme o modo
         currentPoints.innerText = pontos;
         uMessage.innerText = "Parabéns! Você acertou a média!";
+
+        // Desabilita o campo e o botão de envio após acerto
+        document.getElementById("userGuess").disabled = true;
       } else {
         uMessage.innerText =
           "Tente novamente! A média correta é: " + mediaAtual;
+
+        // Desabilita o campo e o botão de envio após erro
+        document.getElementById("userGuess").disabled = true;
+        guessForm.querySelector('button[type="submit"]').disabled = true;
       }
     }
     // Limpa o campo de entrada do usuário após a tentativa

@@ -1,4 +1,4 @@
-@media (orientation: portrait) and (max-width: 425px) {
+@media (orientation: portrait) and (max-width: 500px) {
   button,
   a {
     cursor: default;

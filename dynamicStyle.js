@@ -4,6 +4,8 @@ let num2 = document.getElementById("number2");
 let num3 = document.getElementById("number3");
 let num4 = document.getElementById("number4");
 let uMessage = document.getElementById("message");
+let timer = document.getElementById("timer");
+let currentTimerValue = null;
 
 const rankingCard = document.getElementById("rankingCard");
 

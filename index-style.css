@@ -210,18 +210,17 @@ div.pointsCard {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
 button.gameModeOption {
   width: 100%;
   font-size: 1em;
-  font-family: 'Pixelify Sans', 'WDXL Lubrifont TC', sans-serif;
+  font-family: "Pixelify Sans", "WDXL Lubrifont TC", sans-serif;
 
   background-color: var(--dark-blue);
   border-radius: 3px;
   padding: 5px 10px;
-
 
   grid-row: span 1;
 
@@ -230,12 +229,20 @@ button.gameModeOption {
   justify-content: space-between;
   align-items: center;
 
-  i{font-size: .7em;}
+  i {
+    font-size: 0.7em;
+  }
 }
 
-  button#mode2 i{color: var(--light-blue)}
-  button#mode3 i{color: var(--gold)}
-  button#mode4 i{color: var(--red)}
+button#mode2 i {
+  color: var(--light-blue);
+}
+button#mode3 i {
+  color: var(--gold);
+}
+button#mode4 i {
+  color: var(--red);
+}
 
 section.extra-features {
   grid-column: 4/8;
@@ -244,17 +251,45 @@ section.extra-features {
   border: var(--thin-border-grey);
   border-radius: 5px;
 
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:  repeat(2, 1fr);
+
+  * {
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+  }
+  .onTop {
+    grid-row: 1/2;
+    font-size: 1.2em;
+    align-self: end;
+  }
+  .label {
+    grid-row: 2/-1;
+    font-size: large;
+    align-self: flex-start;
+  }
 }
 
 button#hint {
   color: var(--gold);
+  grid-column: 1/2;
   &:hover {
     color: var(--light-yellow);
     filter: drop-shadow(var(--gold) 0 0 5px);
   }
+}
+
+p#currentPoints,
+p#points-label {
+  grid-column: 2/3;
+}
+
+p#timerP,
+button#timer-label {
+  grid-column: 3/-1;
 }
 
 footer {

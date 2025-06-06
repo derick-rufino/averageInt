@@ -1,5 +1,6 @@
 let currentMode = "normal";
 let pontos = 0; // Inicializa a variável de pontos
+let countdownInterval = null; // variável global para o intervalo
 
 function getNumberValue(element) {
   //declara que cada elemento recebido no parâmetro
@@ -17,6 +18,8 @@ let mediaAtual = null;
 // Aciona a função de aleatorizar
 let randomizeBtn = document.getElementById("randomize-btn");
 randomizeBtn.addEventListener("click", function generateRandom() {
+  stopTimer.removeAttribute("disabled"); //habilita o botão de parar
+  stopTimer.innerText = "Parar"; //muda o texto para indicar que ele pode ser clicado
   console.clear(); //limpa a tentativa anterior
   uMessage.innerText = ""; //limpa o texto exibido para o usuário (acerto, erro ou dica)
   let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada, se o teste "mediaAtual é int" retornar true
@@ -48,6 +51,32 @@ randomizeBtn.addEventListener("click", function generateRandom() {
     } else {
       console.log("A média é um número float. Gerando nova sequência...");
     }
+  }
+  //Timer feito pelo Copilot
+  if (countdownInterval) clearInterval(countdownInterval); //limpa a contagem anterior caso ele seja true
+
+  if (currentMode === "4") {
+    let secondsLeft = 60; // contador de segundos
+    timer.innerText = secondsLeft;
+
+    countdownInterval = setInterval(() => {
+      secondsLeft--;
+      timer.innerText = secondsLeft;
+      if (secondsLeft <= 0) {
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+
+    // Gera uma nova sequência depois de 1 minuto (60 segundos)
+    if (typeof currentTimerValue !== "undefined" && currentTimerValue)
+      clearTimeout(currentTimerValue);
+    currentTimerValue = setTimeout(() => {
+      generateRandom();
+    }, 60 * 1000);
+  } else {
+    timer.innerText = "00"; // Limpa o timer nos outros modos
+    if (typeof currentTimerValue !== "undefined" && currentTimerValue)
+      clearTimeout(currentTimerValue);
   }
 });
 
@@ -88,7 +117,7 @@ function trocarModo(novoModo, botaoClicado) {
 
   // Remove o destaque de todos os botões
   document.querySelectorAll(".gameModeOption").forEach((btn) => {
-    btn.style.backgroundColor = ""; 
+    btn.style.backgroundColor = "";
   });
 
   // Destaca o botão selecionado
@@ -111,3 +140,20 @@ function pontosPorAcerto() {
   if (currentMode === "4") return 50; // Difícil
   return 10; // padrão
 }
+
+const stopTimer = document.getElementById("timer-label");
+stopTimer.addEventListener("click", function () {
+  // Para o contador
+  if (countdownInterval) clearInterval(countdownInterval);
+  if (typeof currentTimerValue !== "undefined" && currentTimerValue)
+    clearTimeout(currentTimerValue);
+
+  // Reseta os números
+  num1.innerText = "0";
+  num2.innerText = "0";
+  num3.innerText = "0";
+  num4.innerText = "0";
+
+  // Reseta o timer
+  timer.innerText = "00";
+});

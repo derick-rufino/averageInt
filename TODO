@@ -11,3 +11,5 @@ Funcionalidades
 Problemas
   [x] Botão Randomizar continua desbilitado depois de parar o timer
   [x] Mudar de modo não para o timer
+  [] Após errar o generateRandom() não está sendo habilitado automaticamente
+  [] Pontos ainda são atribuídos após acertar 

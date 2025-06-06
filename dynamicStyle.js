@@ -11,3 +11,16 @@ const rankingCard = document.getElementById("rankingCard");
 
 let currentPoints = document.getElementById("currentPoints");
 
+function setTimerBtnInitialState() {
+  stopTimer.innerText = "Timer";
+  stopTimer.style.backgroundColor = "inherit";
+}
+
+function setTimerBtnActiveState() {
+  stopTimer.innerText = "Parar"; //muda o texto para indicar que ele pode ser clicado
+  stopTimer.style.backgroundColor = "#7b1a1a"; // muda a cor, indicando que é um botão
+}
+
+function rowDice(){
+    
+}

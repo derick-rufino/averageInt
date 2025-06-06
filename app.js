@@ -19,7 +19,9 @@ let mediaAtual = null;
 let randomizeBtn = document.getElementById("randomize-btn");
 randomizeBtn.addEventListener("click", function generateRandom() {
   stopTimer.removeAttribute("disabled"); //habilita o botão de parar
-  stopTimer.innerText = "Parar"; //muda o texto para indicar que ele pode ser clicado
+  if (currentMode == "4") {
+    setTimerBtnActiveState();
+  }
   console.clear(); //limpa a tentativa anterior
   uMessage.innerText = ""; //limpa o texto exibido para o usuário (acerto, erro ou dica)
   let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada, se o teste "mediaAtual é int" retornar true
@@ -58,6 +60,7 @@ randomizeBtn.addEventListener("click", function generateRandom() {
   if (currentMode === "4") {
     let secondsLeft = 60; // contador de segundos
     timer.innerText = secondsLeft;
+    randomizeBtn.disabled = true;
 
     countdownInterval = setInterval(() => {
       secondsLeft--;
@@ -100,6 +103,18 @@ guessForm.addEventListener("submit", (e) => {
         pontos += pontosPorAcerto(); // soma os pontos conforme o modo
         currentPoints.innerText = pontos;
         uMessage.innerText = "Parabéns! Você acertou a média!";
+
+        setTimerBtnInitialState();
+
+        // Reabilita o botão para nova rodada no modo difícil
+        if (currentMode === "4") {
+          randomizeBtn.disabled = false;
+          // Também pode zerar o timer se quiser:
+          timer.innerText = "00";
+          if (countdownInterval) clearInterval(countdownInterval);
+          if (typeof currentTimerValue !== "undefined" && currentTimerValue)
+            clearTimeout(currentTimerValue);
+        }
       } else {
         uMessage.innerText =
           "Tente novamente! A média correta é: " + mediaAtual;
@@ -122,6 +137,16 @@ function trocarModo(novoModo, botaoClicado) {
 
   // Destaca o botão selecionado
   botaoClicado.style.backgroundColor = "#23243a";
+  randomizeBtn.disabled = false;
+  clearTimeout(countdownInterval);
+  // Reseta os números
+  num1.innerText = "0";
+  num2.innerText = "0";
+  num3.innerText = "0";
+  num4.innerText = "0";
+
+  // Reseta o timer
+  timer.innerText = "00";
 }
 
 // Adiciona o event listener para todos os botões de modo
@@ -156,4 +181,6 @@ stopTimer.addEventListener("click", function () {
 
   // Reseta o timer
   timer.innerText = "00";
+  randomizeBtn.disabled = false;
+  setTimerBtnInitialState();
 });

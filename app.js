@@ -19,9 +19,9 @@ let randomizeBtn = document.getElementById("randomize-btn");
 randomizeBtn.addEventListener("click", function generateRandom() {
   console.clear(); //limpa a tentativa anterior
   uMessage.innerText = ""; //limpa o texto exibido para o usuário (acerto, erro ou dica)
-  let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada na linha 37, se o teste "mediaAtual é int" retornar true
+  let isInteger = false; //define uma nova variável que por padrão é false, até ser atualizada, se o teste "mediaAtual é int" retornar true
 
-  // Exemplo de ajuste de faixa de números conforme o modo
+  // Ajuste na faixa de números conforme o modo
   let max;
   if (currentMode === "1") max = 10; // Aprendiz
   else if (currentMode === "2") max = 30; // Normal
@@ -88,8 +88,7 @@ function trocarModo(novoModo, botaoClicado) {
 
   // Remove o destaque de todos os botões
   document.querySelectorAll(".gameModeOption").forEach((btn) => {
-    btn.style.borderLeft = "none";
-    btn.style.backgroundColor = ""; // ou cor padrão
+    btn.style.backgroundColor = ""; 
   });
 
   // Destaca o botão selecionado
@@ -100,8 +99,8 @@ function trocarModo(novoModo, botaoClicado) {
 document.querySelectorAll(".gameModeOption").forEach((btn) => {
   btn.addEventListener("click", function () {
     // O id do botão indica o modo (ex: mode1, mode2...)
-    let modo = this.id.replace("mode", ""); // pega só o número
-    trocarModo(modo, this);
+    let modo = this.id.replace("mode", ""); // pega só o número, removendo o mode com um espço vazio
+    trocarModo(modo, this); //chama o trocar modo lá em cima, passando o número do botão como indicador e deixa a váriavel currentMode dentro dele receber esse indicado, o que também possibilita a troca da faixa de números e pontos por modo
   });
 });
 

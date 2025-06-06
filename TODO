@@ -1,0 +1,9 @@
+Estilo
+  [] Mobile: Mudar cor dos botões que chamam modais
+  [] Criar estilo para Tablets
+
+Funcionalidades 
+  [] Criar timer para modo difícil
+    [] Roda a partir do momento em que clica randomize
+  [] Armazenar Pontos em localCache
+  [] Criar novos blocos dentro do card Pontuação para cada novo record

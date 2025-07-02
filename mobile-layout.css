@@ -1,109 +1,291 @@
 @media (max-width: 720px) {
+  /* ========== MOBILE GAMING LAYOUT ========== */
+
   button,
   a {
     cursor: default;
-  } /* evita que apareca um overlay azul ao clicar em botões e links no modo mobile */
-
-  button#randomize-btn:hover {
-    background-color: var(--blue);
   }
 
   body {
-    padding: 0 5vw;
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     height: 100dvh;
+    overflow-x: hidden;
   }
 
+  /* Header responsivo */
+  header {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  /* Main layout mobile */
   main {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    min-height: auto;
+    height: auto;
+    padding: 10px;
   }
+
+  /* Seção do jogo adaptada */
   section.game {
     width: 100%;
-    height: 50%;
-
+    height: auto;
+    min-height: 400px;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    padding: 15px;
   }
 
-  section.display-container,
-  button#randomize-btn,
-  p#message,
-  form#guessForm {
-    grid-column: span 5;
-  }
-
+  /* Container dos números mobile */
   section.display-container {
-    padding: 5px;
+    grid-column: 1/6;
+    grid-row: 1/3;
+    padding: 10px;
+    gap: 8px;
   }
 
-  section.rankingCard,
-  section.gameMode-card {
-    display: none;
-    position: absolute;
-    z-index: 1;
-
-    width: 200px;
-    height: 250px;
-    scale: 1.4;
-    /* transform: translateY(-10px); */
-    justify-self: center;
-    align-self: center;
-    background-color: var(--bg-blue);
+  div.number-display {
+    width: 20%;
+    font-size: var(--font-size-xl);
+    aspect-ratio: 1;
   }
 
-  div.coverAll {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -0;
-
-    background-color: var(--bg-blue);
-    opacity: 90%;
-    display: none;
+  /* Botão randomize mobile */
+  button#randomize-btn {
+    grid-column: 1/6;
+    grid-row: 3/4;
+    padding: 12px;
+    font-size: var(--font-size-base);
   }
 
+  /* Mensagem mobile */
+  p#message {
+    grid-column: 1/6;
+    grid-row: 4/5;
+    font-size: var(--font-size-base);
+    padding: 8px;
+  }
+
+  /* Form mobile */
+  form#guessForm {
+    grid-column: 1/6;
+    grid-row: 5/7;
+    gap: 8px;
+    padding: 0 5px;
+  }
+
+  input#userGuess {
+    height: 45px;
+    font-size: var(--font-size-lg);
+    max-width: none;
+    min-width: 100px;
+    flex: 1;
+  }
+
+  form > button[type="submit"] {
+    width: 45px;
+    height: 45px;
+    font-size: var(--font-size-base);
+  }
+
+  /* Extra features - Cards em linha */
   section.extra-features {
     width: 100%;
-    height: 12%;
+    height: auto;
+    min-height: 120px;
 
-    transform: translateY(-35px);
-    * {
-      scale: 1.2;
-    }
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+
+    grid-template-columns: none;
+    grid-template-rows: none;
   }
+
+  /* Cards mobile - menores */
+  .feature-card {
+    flex: 1;
+    min-height: 100px;
+    padding: 10px;
+  }
+
+  .hint-card,
+  .points-card,
+  .timer-card {
+    grid-column: unset;
+    grid-row: unset;
+  }
+
+  button#hint {
+    font-size: var(--font-size-xl);
+    margin-bottom: 8px;
+  }
+
+  .card-value {
+    font-size: var(--font-size-lg);
+    margin-bottom: 4px;
+  }
+
+  .card-label {
+    font-size: 0.7rem;
+  }
+
+  button#timer-label {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    margin-top: 4px;
+  }
+
+  /* Modais mobile */
+  section.rankingCard,
+  section.gameMode-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    max-height: 80vh;
+
+    padding: 20px;
+    border-radius: var(--radius-lg);
+
+    /* Remove grid mobile */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+  }
+
+  /* Overlay para modais */
+  div.coverAll {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+
+    background: rgba(10, 15, 26, 0.8);
+    backdrop-filter: blur(5px);
+
+    display: none;
+  }
+
+  div.coverAll.active {
+    display: block;
+  }
+
+  /* Info dos cards mobile */
+  div.cardInfo {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-primary);
+  }
+
+  /* Botões de modo mobile */
+  button.gameModeOption {
+    padding: 12px 15px;
+    font-size: var(--font-size-base);
+    border-radius: var(--radius-base);
+  }
+
+  /* Pontos card mobile */
+  div.pointsCard {
+    padding: 12px;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-base);
+  }
+
+  /* Wrapper de botões mobile */
   div.button-wrapper {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-
-    align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    padding: 10px 0;
   }
 
   button.openModalBtn {
-    border: var(--thin-border-grey);
-    border-radius: 5px;
-    width: calc(50% - 10px);
-    height: 80px;
-    padding: 20px 0;
-    font-family: "Pixelify Sans", "WDXL Lubrifont TC", sans-serif;
+    flex: 1;
+    max-width: 150px;
+    height: 60px;
 
-    span#currentMode-display {
-      font-family: inherit;
-      text-decoration: underline var(--muted-blue) 1px;
-    }
-  }
-  i.fa-xmark {
-    display: inline-block;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-base);
+
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+
+    transition: var(--transition-base);
   }
 
+  button.openModalBtn:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-tertiary);
+    box-shadow: var(--glow-primary);
+  }
+
+  span#currentMode-display {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    margin-top: 4px;
+  }
+
+  /* Ícone X mobile */
+  section i.fa-xmark {
+    display: flex;
+    width: 35px;
+    height: 35px;
+    font-size: var(--font-size-lg);
+  }
+
+  /* Footer mobile */
   footer {
     position: relative;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  /* Animações otimizadas para mobile */
+  @keyframes confetti-fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Reduzir efeitos de glow em mobile para performance */
+  .glow-effect {
+    animation: none;
+  }
+
+  /* Hover effects desabilitados para touch */
+  section.game:hover,
+  div.number-display:hover,
+  .feature-card:hover {
+    border-color: inherit;
+    box-shadow: inherit;
+    background: inherit;
   }
 }

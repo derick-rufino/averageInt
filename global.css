@@ -1,54 +1,168 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=WDXL+Lubrifont+TC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&display=swap");
+:root {
+  /* ========== 60-30-10 COLOR SYSTEM ========== */
 
-:root{
-    /* Color Variables */
-    --bg-blue: #0A0B0D;
-    --txt-white: #e6f1fd;
-    --dark-blue: #141c22;
-    --muted-blue: #09263d;
-    --blue: #0f4d7d;
-    --light-blue: #308dd4;
-    --red: #e43225;
-    --muted-yellow: #9E7D2C;
-    --gold: #F5C345;
-    --light-yellow: #f7ca58;
-    --muted-green: #225f18;
-    --green: #4a9f3c;
+  /* 60% - Base Colors (Azul Escuro e Variações) */
+  --color-base-50: #f8fafc;
+  --color-base-100: #f1f5f9;
+  --color-base-200: #e2e8f0;
+  --color-base-300: #cbd5e1;
+  --color-base-400: #94a3b8;
+  --color-base-500: #64748b;
+  --color-base-600: #475569;
+  --color-base-700: #334155;
+  --color-base-800: #1e293b;
+  --color-base-900: #0f172a;
+  --color-base-950: #020617;
 
-    /* Element Properties */
-    --big-font: 1.5em;
-    --thin-border-grey: solid 1.5px #5f636f;
+  /* Azul Principal (60% do design) */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* 30% - Accent Colors (Sutis para informação) */
+  --color-accent-blue: #60a5fa;
+  --color-accent-teal: #5eead4;
+
+  /* 10% - Accent Colors (Feedback e Ações) */
+  --color-success-light: #dcfce7;
+  --color-success-base: #22c55e;
+  --color-success-dark: #16a34a;
+
+  --color-warning-light: #fef3c7;
+  --color-warning-base: #f59e0b;
+  --color-warning-dark: #d97706;
+
+  --color-danger-light: #fee2e2;
+  --color-danger-base: #ef4444;
+  --color-danger-dark: #dc2626;
+
+  /* ========== SEMANTIC TOKENS ========== */
+
+  /* Backgrounds (60% - Azul Escuro Dominante) */
+  --bg-primary: #0a0e1a; /* Fundo principal */
+  --bg-secondary: #1a1f2e; /* Cards e seções */
+  --bg-tertiary: #252a3a; /* Elementos elevados */
+  --bg-subtle: #2a2f3f; /* Hover states suaves */
+
+  /* Text Colors */
+  --text-primary: #f8fafc; /* Texto principal */
+  --text-secondary: #cbd5e1; /* Texto secundário */
+  --text-muted: #64748b; /* Texto menos importante */
+  --text-accent: var(--color-accent-teal); /* Destaques suaves */
+
+  /* Interactive Elements (Minimalista) */
+  --interactive-primary: var(--color-primary-600);
+  --interactive-primary-hover: var(--color-primary-500);
+  --interactive-subtle: var(--color-accent-blue);
+
+  /* Feedback Colors (10% - Apenas quando necessário) */
+  --feedback-success: var(--color-success-base);
+  --feedback-success-bg: var(--color-success-light);
+  --feedback-warning: var(--color-warning-base);
+  --feedback-warning-bg: var(--color-warning-light);
+  --feedback-danger: var(--color-danger-base);
+  --feedback-danger-bg: var(--color-danger-light);
+
+  /* Borders - Sutis */
+  --border-primary: rgba(148, 163, 184, 0.2);
+  --border-secondary: rgba(203, 213, 225, 0.1);
+  --border-accent: var(--color-accent-teal);
+
+  /* ========== MINIMAL VISUAL EFFECTS ========== */
+
+  /* Apenas uma sombra sutil para elevação quando necessário */
+  --shadow-subtle: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+  /* ========== TYPOGRAPHY ========== */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xxl: 1.5rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+
+  /* ========== SPACING & BORDERS ========== */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --border-width: 1px;
+  --border-width-thick: 2px;
+
+  /* Transições apenas quando necessário */
+  --transition-base: 150ms ease-out;
+
+  /* ========== LEGACY SUPPORT ========== */
+  --bg-blue: var(--bg-primary);
+  --txt-white: var(--text-primary);
+  --dark-blue: var(--bg-secondary);
+  --muted-blue: var(--bg-tertiary);
+  --blue: var(--interactive-primary);
+  --light-blue: var(--color-primary-300);
+  --red: var(--feedback-danger);
+  --gold: var(--color-warning-base);
+  --green: var(--feedback-success);
+  --light-yellow: var(--color-warning-light);
+  --muted-yellow: var(--color-warning-dark);
+  --muted-green: var(--color-success-dark);
+  --thin-border: solid var(--border-width) var(--border-primary);
+  --thin-border-grey: solid var(--border-width) var(--border-secondary);
+  --big-font: var(--font-size-2xl);
 }
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-    font-family: 'WDXL Lubrifont TC', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-    background-color: var(--bg-blue);
-    color: var(--txt-white);
+  background-color: var(--bg-blue);
+  color: var(--txt-white);
 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100vh;
+  overflow: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {font-family: 'Pixelify Sans', sans-serif;}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Pixelify Sans", sans-serif;
+}
 
 button {
-    cursor: pointer;
-    transition: all 200ms;
-    user-select: none;
-
-    border: unset;
-    background-color: unset;
-    color: var(--txt-white);
+  cursor: pointer;
+  user-select: none;
+  border: unset;
+  background-color: unset;
+  color: var(--txt-white);
+  transition: transform 0.1s ease-out;
 }
 
-button:active{scale: 0.9;}
+button:active {
+  transform: scale(0.95);
+}
 
-input{accent-color: var(--blue);}
+input {
+  accent-color: var(--blue);
+}

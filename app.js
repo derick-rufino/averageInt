@@ -1,3 +1,28 @@
+// ========== BASIC FEEDBACK ==========
+
+// Função para mensagem de sucesso
+function showSuccessMessage(message) {
+  userMessage.textContent = `✅ ${message}`;
+  userMessage.className = "success";
+
+  setTimeout(() => (userMessage.className = ""), 2500);
+}
+
+// Função para mensagem de erro
+function showErrorMessage(message) {
+  userMessage.textContent = `❌ ${message}`;
+  userMessage.className = "error";
+
+  setTimeout(() => (userMessage.className = ""), 2500);
+}
+
+// Função para mensagem de dica
+function showHintMessage(message) {
+  userMessage.textContent = `💡 ${message}`;
+  userMessage.className = "warning";
+
+  setTimeout(() => (userMessage.className = ""), 2500);
+}
 
 // Váriaveis globais de estado
 //Estado do Jogo
@@ -235,17 +260,18 @@ function clearPreviousTimer() {
 function stopTimer() {
   // Limpa o timer
   clearPreviousTimer();
-  
+
   // ✅ DESABILITAR o botão de parar timer novamente
   botaoPararTimer.disabled = true;
 
   // ✅ FUNCIONALIDADE: Desabilitar controles quando timer é parado MANUALMENTE
- campoTentativaUsuario.disabled = true;
+  campoTentativaUsuario.disabled = true;
   botaoEnviarTentativa.disabled = true;
   botaoDica.disabled = true;
   randomizeBtn.disabled = false; // ✅ PERMITE gerar nova sequência
-  userMessage.innerText = "⏸️ Timer parado pelo usuário - Gere uma nova sequência";
-  
+  userMessage.innerText =
+    "⏸️ Timer parado pelo usuário - Gere uma nova sequência";
+
   displayTimer.innerText = "00";
 }
 
@@ -253,7 +279,7 @@ function stopTimer() {
 function handleTimeoutDifficultMode() {
   userMessage.innerText = `⏰ Tempo esgotado! A resposta era ${mediaAtual}`;
   disableGameControls(); // Desabilita tudo
-  
+
   // ✅ DESABILITAR o botão de parar timer pois não há mais timer rodando
   botaoPararTimer.disabled = true;
 
@@ -272,15 +298,17 @@ function handleCorrectAnswer() {
   }
 
   pontos += pontosPorAcerto();
-  userMessage.innerText = `✅ Correto! +${pontosPorAcerto()} pontos`;
+
+  // ✅ NOVA ANIMAÇÃO: Usar função de sucesso
+  showSuccessMessage(`Correto! +${pontosPorAcerto()} pontos`);
+
   tentativaFeita = true;
 
   // ✅ CORREÇÃO: Comportamento específico por modo
   if (currentMode === "4") {
     // Modo difícil: desabilita tudo e aguarda 3s para regenerar
     disableGameControls();
-    userMessage.innerText = `✅ Correto! +${pontosPorAcerto()} pontos - Nova sequência em 3s...`;
-    
+
     setTimeout(() => {
       generateRandom();
     }, 3000);
@@ -301,14 +329,16 @@ function handleWrongAnswer() {
     botaoPararTimer.disabled = true; // Desabilita o botão de parar
   }
 
-  userMessage.innerText = `❌ Errado! A resposta era ${mediaAtual}`;
+  // ✅ NOVA ANIMAÇÃO: Usar função de erro
+  showErrorMessage(`Errado! A resposta era ${mediaAtual}`);
+
   tentativaFeita = true;
 
   if (currentMode === "4") {
     // Modo difícil: aguarda 3s e regenera automaticamente
     disableGameControls(); // Desabilita tudo temporariamente
     userMessage.innerText = `❌ Errado! A resposta era ${mediaAtual} - Nova sequência em 3s...`;
-    
+
     setTimeout(() => {
       generateRandom();
     }, 3000);
@@ -358,11 +388,24 @@ function handleSubmit(event) {
 
 // ===== EVENT LISTENERS =====
 // Conectar botões às funções
-randomizeBtn.addEventListener("click", generateRandom);
-formTentativa.addEventListener("submit", handleSubmit);
-botaoPararTimer.addEventListener("click", stopTimer);
+randomizeBtn.addEventListener("click", () => {
+  generateRandom();
+});
 
-// Botões de modo (se existirem no HTML)
+formTentativa.addEventListener("submit", (e) => {
+  handleSubmit(e);
+});
+
+botaoPararTimer.addEventListener("click", () => {
+  stopTimer();
+});
+
+// Botão de dica
+botaoDica.addEventListener("click", () => {
+  showHintMessage("Dica: A média é a soma dividida por 4!");
+});
+
+// Botões de modo
 document.getElementById("mode1")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 1");
   currentMode = "1";

@@ -257,19 +257,56 @@ section.extra-features {
   border: var(--thin-border-grey);
   border-radius: 5px;
 
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows:  repeat(2, 1fr);
+
+  * {
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+  }
+  .onTop {
+    grid-row: 1/2;
+    font-size: 1.2em;
+    align-self: end;
+  }
+  .label {
+    grid-row: 2/-1;
+    font-size: large;
+    align-self: flex-start;
+  }
 }
 
 button#hint {
   color: var(--gold);
+  grid-column: 1/2;
   &:hover {
     color: var(--light-yellow);
     filter: drop-shadow(var(--gold) 0 0 5px);
   }
 }
 
+p#currentPoints,
+p#points-label {
+  grid-column: 2/3;
+}
+
+p#timerP,
+button#timer-label {
+  grid-column: 3/-1;
+}
+
+button#timer-label {
+  width: fit-content;
+  padding: 2px 10px;
+  /* border: var(--thin-border-grey);
+  border-color: var(--red); */
+  border-radius: 5px;
+  background-color: inherit;
+}
+=======
  div.button-wrapper, i.fa-xmark {display: none;}
 
 footer {

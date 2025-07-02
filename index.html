@@ -40,6 +40,8 @@
             id="userGuess"
             required
             min="0"
+            autofocus
+            autocomplete="off"
           />
           <button type="submit" id="submit">
             <i class="fa-solid fa-check"></i>
@@ -50,9 +52,14 @@
         <i class="fa-solid fa-question"></i> tutorial
       </button>
       <section class="extra-features">
-        <button id="hint"><i class="fa-solid fa-lightbulb"></i></button>
-        <p id="currentPoints">0</p>
-        <p id="timer">00:00</p>
+        <button class="onTop" id="hint">
+          <i class="fa-solid fa-lightbulb"></i>
+        </button>
+        <label class="label" id="hint-label" for="hint">Dicas</label>
+        <p class="onTop" id="currentPoints">0</p>
+        <p class="label" id="points-label">Pontos</p>
+        <p class="onTop" id="timerP"><span id="timer">00</span>s</p>
+        <button class="label" id="timer-label" disabled>Timer</button>
       </section>
 
       <section class="rankingCard wip" id="rankingCard">
@@ -99,6 +106,5 @@
       <a href="https://linktr.ee/derico_dev" target="_blank" rel="noopener noreferrer">derico_dev</a>
     </footer>
     <script src="app.js"></script>
-    <script src="dynamicStyle.js"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+
 // Váriaveis globais de estado
 //Estado do Jogo
 let currentMode = "2"; // modo Normal por padrão

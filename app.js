@@ -239,7 +239,10 @@ function stopTimer() {
   botaoPararTimer.disabled = true;
 
   // ✅ FUNCIONALIDADE: Desabilitar controles quando timer é parado MANUALMENTE
-  disableGameControls();
+ campoTentativaUsuario.disabled = true;
+  botaoEnviarTentativa.disabled = true;
+  botaoDica.disabled = true;
+  randomizeBtn.disabled = false; // ✅ PERMITE gerar nova sequência
   userMessage.innerText = "⏸️ Timer parado pelo usuário - Gere uma nova sequência";
   
   displayTimer.innerText = "00";

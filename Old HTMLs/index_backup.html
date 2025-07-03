@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" / E Em níveis com di            Em níveis com dicas habilitadas, clique no botão <strong>Dica</strong> para
+            receber uma pista (ex.: "A média é a soma dividida por 4!").           Em níveis com dicas habilitadas, clique no botão <strong>Dica</strong> para
+            receber uma pista (ex.: "A média é a soma dividida por 4!"). habilitadas, clique no botão
+    <strong>Dica</strong>
+    para receber uma pista (ex.: "A média é a soma dividida por 4!").
+    <strong>Modo Difícil</strong>
+    , há um timer de 60 s:
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Average Numbers</title>
 
@@ -52,6 +58,50 @@
       <section class="extra-features">
         <div class="hint-card feature-card">
           <button class="onTop" id="hint">
+            Clique em <strong>"Gerar"</strong> para criar 4 números aleatórios.
+          </li>
+          <li>
+            Seu objetivo é adivinhar a <strong>média inteira</strong> desses 4
+            números.
+          </li>
+          <li>
+            Digite seu palpite no campo e clique em <strong>Enviar</strong>.
+          </li>
+          <li>
+            Se você acertar:
+            <ul>
+              <li>✅ Recebe pontos (diferentes por nível).</li>
+              <li>No modo difícil, uma nova rodada começa em 3 s.</li>
+              <li>Nos outros modos, gere manualmente a próxima sequência.</li>
+            </ul>
+          </li>
+          <li>
+            Se errar:
+            <ul>
+              <li>❌ Mostra a média correta.</li>
+              <li>No modo difícil, aguarda 3 s para nova sequência.</li>
+            </ul>
+          </li>
+          <li>
+            Em **Modo Difícil**, há um timer de 60 s:
+            <ul>
+              <li>⏱️ Você pode pausar manualmente.</li>
+              <li>
+                Se o tempo esgotar, mostra a resposta e inicia uma nova rodada.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Em níveis com dicas habilitadas, clique no botão **Dica** para
+            receber uma pista (ex.: “A média é a soma dividida por 4!”).
+          </li>
+        </ol>
+        <p><strong>Bons palpites e divirta-se!</strong></p>
+      </div>
+
+      <section class="extra-features">
+        <div class="hint-card feature-card">
+          <button class="onTop" id="hint">
             <i class="fa-solid fa-lightbulb"></i>
           </button>
           <span class="card-label">Dicas</span>
@@ -71,11 +121,13 @@
       </section>
 
       <section class="rankingCard wip" id="rankingCard">
+        <!-- <div class="wip">Em breve</div> -->
         <i class="fa-solid fa-xmark"></i>
         <div class="cardInfo">
           <i class="fa-solid fa-trophy"></i>
           <p>Pontuação</p>
         </div>
+        <!-- conteúdo será adicionado abaixo -->
         <div class="pointsCard" id="rank1">
           <p id="cardNumber">1</p>
           <p><span id="scoreNumber"></span> pontos</p>
@@ -114,57 +166,6 @@
       </div>
       <div class="coverAll"></div>
     </main>
-
-    <!-- Tutorial Button and Card - Outside main for correct positioning -->
-    <button id="tutorial-btn" popovertarget="tutorial-card">
-      <i class="fa-solid fa-question"></i> tutorial
-    </button>
-    <div class="tutorial-card" id="tutorial-card" popover>
-      <h3>👉 Como jogar</h3>
-      <ol>
-        <li>
-          Clique em <strong>"Gerar"</strong> para criar 4 números aleatórios.
-        </li>
-        <li>
-          Seu objetivo é adivinhar a <strong>média inteira</strong> desses 4
-          números.
-        </li>
-        <li>
-          Digite seu palpite no campo e clique em <strong>Enviar</strong>.
-        </li>
-        <li>
-          Se você acertar:
-          <ul>
-            <li>✅ Recebe pontos (diferentes por nível).</li>
-            <li>No modo difícil, uma nova rodada começa em 3 s.</li>
-            <li>Nos outros modos, gere manualmente a próxima sequência.</li>
-          </ul>
-        </li>
-        <li>
-          Se errar:
-          <ul>
-            <li>❌ Mostra a média correta.</li>
-            <li>No modo difícil, aguarda 3 s para nova sequência.</li>
-          </ul>
-        </li>
-        <li>
-          Em <strong>Modo Difícil</strong>, há um timer de 60 s:
-          <ul>
-            <li>⏱️ Você pode pausar manualmente.</li>
-            <li>
-              Se o tempo esgotar, mostra a resposta e inicia uma nova rodada.
-            </li>
-          </ul>
-        </li>
-        <li>
-          Em níveis com dicas habilitadas, clique no botão
-          <strong>Dica</strong> para receber uma pista (ex.: "A média é a soma
-          dividida por 4!").
-        </li>
-      </ol>
-      <p><strong>Bons palpites e divirta-se!</strong></p>
-    </div>
-
     <footer>
       <a
         href="https://linktr.ee/derico_dev"

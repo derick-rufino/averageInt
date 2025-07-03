@@ -307,7 +307,6 @@ section.gameMode-card {
   border-color: var(--feedback-success);
 }
 
-/* Ícone de fechar - mais visível */
 section i.fa-xmark {
   position: absolute;
   top: 8px;
@@ -343,7 +342,7 @@ button.gameModeOption {
   justify-content: space-between;
 
   font-family: "Pixelify Sans", sans-serif;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   color: var(--text-primary);
 
   min-height: 32px;
@@ -387,16 +386,17 @@ footer a {
 
 /* Botão tutorial */
 button#tutorial-btn {
-  grid-column: 1/3;
-  grid-row: 1/2;
-
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: var(--bg-secondary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 8px 12px;
+  z-index: 999;
 
   font-family: "Pixelify Sans", sans-serif;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   color: var(--text-primary);
 
   display: flex;
@@ -405,6 +405,135 @@ button#tutorial-btn {
   gap: 6px;
 
   height: auto;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+button#tutorial-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Tutorial Popover */
+div#tutorial-card {
+  /* Popover positioning */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+
+  /* Popover container */
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* Size constraints */
+  max-width: min(90vw, 600px);
+  max-height: 90vh;
+  width: 100%;
+  padding: 2rem;
+
+  /* Content styling */
+  color: var(--text-primary);
+  font-family: "Montserrat", sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+
+  /* Scrollable if needed */
+  overflow-y: auto;
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: var(--radius-sm);
+  }
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Default hidden state */
+  display: none;
+
+  /* Smooth transition */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Show popover when :popover-open */
+div#tutorial-card:popover-open {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Tutorial content styling */
+div#tutorial-card h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: 0.75rem;
+}
+
+div#tutorial-card ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  counter-reset: tutorial-counter;
+}
+
+div#tutorial-card li {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+div#tutorial-card ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+div#tutorial-card ul li {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+div#tutorial-card p {
+  margin: 1.5rem 0 0 0;
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-accent);
+  font-size: var(--font-size-lg);
+}
+
+div#tutorial-card strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Popover backdrop */
+div#tutorial-card::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  div#tutorial-card {
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: 1.5rem;
+  }
+
+  div#tutorial-card h3 {
+    font-size: var(--font-size-xl);
+  }
+
+  div#tutorial-card {
+    font-size: var(--font-size-sm);
+  }
 }
 
 /* Wrapper de botões */

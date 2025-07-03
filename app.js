@@ -1,34 +1,5 @@
 // ========== BASIC FEEDBACK ==========
 
-// ========== VERCEL ANALYTICS ==========
-// Inicializar Vercel Analytics
-function initAnalytics() {
-  if (typeof va !== 'undefined') {
-    // Analytics está disponível
-    console.log('Vercel Analytics inicializado');
-  }
-}
-
-// Função para rastrear eventos customizados
-function trackEvent(eventName, properties = {}) {
-  if (typeof va !== 'undefined' && va.track) {
-    va.track(eventName, properties);
-  }
-}
-
-// Inicializar analytics quando a página carregar
-document.addEventListener('DOMContentLoaded', () => {
-  initAnalytics();
-  
-  // 📊 Analytics: Rastrear visit da página
-  trackEvent('page_visit', {
-    initial_mode: currentMode,
-    timestamp: new Date().toISOString()
-  });
-});
-
-// ========== BASIC FEEDBACK ==========
-
 // Função para mensagem de sucesso
 function showSuccessMessage(message) {
   userMessage.textContent = `✅ ${message}`;
@@ -296,19 +267,6 @@ function generateRandom() {
   // ✅ GARANTIR que controles sejam habilitados após gerar números
   enableGameControls();
 
-  // 📊 Analytics: Rastrear geração de números
-  trackEvent('numbers_generated', {
-    mode: currentMode,
-    range_max: max,
-    numbers: [
-      parseInt(num1.innerText),
-      parseInt(num2.innerText), 
-      parseInt(num3.innerText),
-      parseInt(num4.innerText)
-    ],
-    average: mediaAtual
-  });
-
   // ✅ ATUALIZAR estado das dicas baseado no modo
   updateHintButtonState();
 
@@ -400,15 +358,6 @@ function handleCorrectAnswer() {
   // ✅ NOVA ANIMAÇÃO: Usar função de sucesso
   showSuccessMessage(`Correto! +${pontosPorAcerto()} pontos`);
 
-  // 📊 Analytics: Rastrear resposta correta
-  trackEvent('correct_answer', {
-    mode: currentMode,
-    points_earned: pontosPorAcerto(),
-    total_points: pontos,
-    attempt_value: parseInt(campoTentativaUsuario.value),
-    correct_value: Math.floor(mediaAtual)
-  });
-
   tentativaFeita = true;
 
   // ✅ CORREÇÃO: Comportamento específico por modo
@@ -438,15 +387,6 @@ function handleWrongAnswer() {
 
   // ✅ NOVA ANIMAÇÃO: Usar função de erro
   showErrorMessage(`Errado! A resposta era ${mediaAtual}`);
-
-  // 📊 Analytics: Rastrear resposta errada
-  trackEvent('wrong_answer', {
-    mode: currentMode,
-    total_points: pontos,
-    attempt_value: parseInt(campoTentativaUsuario.value),
-    correct_value: Math.floor(mediaAtual),
-    difference: Math.abs(parseInt(campoTentativaUsuario.value) - Math.floor(mediaAtual))
-  });
 
   tentativaFeita = true;
 
@@ -519,13 +459,6 @@ botaoPararTimer.addEventListener("click", () => {
 // Botão de dica
 botaoDica.addEventListener("click", () => {
   showHintMessage("Dica: A média é a soma dividida por 4!");
-  
-  // 📊 Analytics: Rastrear uso de dica
-  trackEvent('hint_used', {
-    mode: currentMode,
-    current_points: pontos,
-    average_value: mediaAtual
-  });
 });
 
 // Botões de modo
@@ -533,14 +466,6 @@ document.getElementById("mode1")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 1");
   currentMode = "1";
   dicasEstaoDisponíveis = false;
-  
-  // 📊 Analytics: Rastrear mudança de modo
-  trackEvent('mode_changed', {
-    new_mode: 'aprendiz',
-    mode_number: 1,
-    hints_available: false
-  });
-  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -552,14 +477,6 @@ document.getElementById("mode2")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 2");
   currentMode = "2";
   dicasEstaoDisponíveis = false;
-  
-  // 📊 Analytics: Rastrear mudança de modo
-  trackEvent('mode_changed', {
-    new_mode: 'normal',
-    mode_number: 2,
-    hints_available: false
-  });
-  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -571,14 +488,6 @@ document.getElementById("mode3")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 3");
   currentMode = "3";
   dicasEstaoDisponíveis = true;
-  
-  // 📊 Analytics: Rastrear mudança de modo
-  trackEvent('mode_changed', {
-    new_mode: 'medio',
-    mode_number: 3,
-    hints_available: true
-  });
-  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -590,15 +499,6 @@ document.getElementById("mode4")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 4");
   currentMode = "4";
   dicasEstaoDisponíveis = true;
-  
-  // 📊 Analytics: Rastrear mudança de modo
-  trackEvent('mode_changed', {
-    new_mode: 'dificil',
-    mode_number: 4,
-    hints_available: true,
-    timer_enabled: true
-  });
-  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();

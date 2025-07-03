@@ -523,37 +523,52 @@ const closeGameModeBtn = gameModeModal?.querySelector(".fa-xmark");
 
 // Função para verificar se está no mobile
 function isMobileView() {
-  return window.innerWidth <= 720;
+  return (
+    window.innerWidth <= 720 || window.matchMedia("(max-width: 720px)").matches
+  );
 }
 
 // Função para abrir modal (apenas mobile)
 function openModal(modal) {
-  if (isMobileView()) {
+  if (isMobileView() && modal) {
     modal.classList.add("active");
     modal.style.display = "flex";
-    coverAllOverlay.classList.add("active");
-    // Prevenir scroll do body
+    modal.style.opacity = "1";
+
+    if (coverAllOverlay) {
+      coverAllOverlay.classList.add("active");
+    }
+
+    // Prevenir scroll do body sem afetar o layout
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
   }
 }
 
 // Função para fechar modal (apenas mobile)
 function closeModal(modal) {
-  if (isMobileView()) {
+  if (isMobileView() && modal) {
     modal.classList.remove("active");
     modal.style.display = "none";
-    coverAllOverlay.classList.remove("active");
+    if (coverAllOverlay) {
+      coverAllOverlay.classList.remove("active");
+    }
     // Restaurar scroll do body
     document.body.style.overflow = "auto";
+    document.body.style.position = "";
+    document.body.style.width = "";
   }
 }
 
 // Event listeners para abrir modais
-rankingBtn?.addEventListener("click", () => {
+rankingBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
   openModal(rankingModal);
 });
 
-gameModeBtn?.addEventListener("click", () => {
+gameModeBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
   openModal(gameModeModal);
 });
 
@@ -584,8 +599,13 @@ window.addEventListener("resize", () => {
       gameModeModal.classList.remove("active");
       gameModeModal.style.display = "";
     }
-    coverAllOverlay.classList.remove("active");
+    if (coverAllOverlay) {
+      coverAllOverlay.classList.remove("active");
+    }
+    // Resetar estilos do body
     document.body.style.overflow = "auto";
+    document.body.style.position = "";
+    document.body.style.width = "";
   } else {
     // Mobile - garantir que modais iniciem fechados
     if (rankingModal && !rankingModal.classList.contains("active")) {
@@ -597,8 +617,22 @@ window.addEventListener("resize", () => {
   }
 });
 
-// Inicializar estado dos modais baseado na tela
-if (isMobileView()) {
-  if (rankingModal) rankingModal.style.display = "none";
-  if (gameModeModal) gameModeModal.style.display = "none";
+// Função para inicializar o layout mobile
+function initializeMobileLayout() {
+  if (isMobileView()) {
+    if (rankingModal) rankingModal.style.display = "none";
+    if (gameModeModal) gameModeModal.style.display = "none";
+    if (coverAllOverlay) coverAllOverlay.classList.remove("active");
+
+    // Garantir que o body tenha o estilo correto
+    document.body.style.overflow = "auto";
+    document.body.style.position = "";
+    document.body.style.width = "";
+  }
 }
+
+// Inicializar estado dos modais baseado na tela
+initializeMobileLayout();
+
+// Executar também após o carregamento completo
+document.addEventListener("DOMContentLoaded", initializeMobileLayout);

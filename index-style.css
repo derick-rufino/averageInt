@@ -782,11 +782,16 @@ div#tutorial-card::backdrop {
   body {
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    min-height: auto;
   }
 
   header {
     height: 12vh;
     min-height: 80px;
+    flex-shrink: 0;
   }
 
   main {
@@ -795,11 +800,14 @@ div#tutorial-card::backdrop {
     grid-template-columns: 4vw 2fr 1fr 3fr 1fr 2fr 4vw;
     padding: 16px;
     gap: 16px;
+    display: grid;
+    flex: none;
   }
 
   footer {
     height: 4vh;
     min-height: 30px;
+    flex-shrink: 0;
   }
 
   /* Ajustar containers principais */

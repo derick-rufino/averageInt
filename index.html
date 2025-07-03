@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="global.css" />
     <link rel="stylesheet" href="index-style.css" />
     <link rel="stylesheet" href="mobile-layout.css" />
+    
+    <!-- Vercel Analytics -->
+    <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
   </head>
   <body>
     <header>
@@ -69,16 +72,83 @@
         </div>
       </section>
 
-      <section class="rankingCard wip" id="rankingCard">
+      <section class="rankingCard" id="rankingCard">
         <i class="fa-solid fa-xmark"></i>
         <div class="cardInfo">
           <i class="fa-solid fa-trophy"></i>
           <p>Pontuação</p>
         </div>
-        <div class="pointsCard" id="rank1">
-          <p id="cardNumber">1</p>
-          <p><span id="scoreNumber"></span> pontos</p>
-          <p id="timerScore">00:00</p>
+
+        <!-- Abas de navegação -->
+        <div class="ranking-tabs">
+          <button class="tab-btn active" data-tab="general">
+            <i class="fa-solid fa-star"></i>
+            Geral
+          </button>
+          <button class="tab-btn" data-tab="timed">
+            <i class="fa-solid fa-clock"></i>
+            Cronometrado
+          </button>
+        </div>
+
+        <!-- Conteúdo das abas -->
+        <div class="tab-content">
+          <!-- Aba Geral -->
+          <div class="tab-panel active" id="general-tab">
+            <div class="ranking-list">
+              <div class="rank-item">
+                <span class="rank-position">1º</span>
+                <span class="rank-points">0 pts</span>
+              </div>
+              <div class="rank-item">
+                <span class="rank-position">2º</span>
+                <span class="rank-points">0 pts</span>
+              </div>
+              <div class="rank-item">
+                <span class="rank-position">3º</span>
+                <span class="rank-points">0 pts</span>
+              </div>
+              <div class="rank-item">
+                <span class="rank-position">4º</span>
+                <span class="rank-points">0 pts</span>
+              </div>
+              <div class="rank-item">
+                <span class="rank-position">5º</span>
+                <span class="rank-points">0 pts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aba Cronometrado -->
+          <div class="tab-panel" id="timed-tab">
+            <div class="ranking-list">
+              <div class="rank-item timed">
+                <span class="rank-position">1º</span>
+                <span class="rank-points">0 pts</span>
+                <span class="rank-time">00:00</span>
+              </div>
+              <div class="rank-item timed">
+                <span class="rank-position">2º</span>
+                <span class="rank-points">0 pts</span>
+                <span class="rank-time">00:00</span>
+              </div>
+              <div class="rank-item timed">
+                <span class="rank-position">3º</span>
+                <span class="rank-points">0 pts</span>
+                <span class="rank-time">00:00</span>
+              </div>
+              <div class="rank-item timed">
+                <span class="rank-position">4º</span>
+                <span class="rank-points">0 pts</span>
+                <span class="rank-time">00:00</span>
+              </div>
+              <div class="rank-item timed">
+                <span class="rank-position">5º</span>
+                <span class="rank-points">0 pts</span>
+                <span class="rank-time">00:00</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section class="gameMode-card">

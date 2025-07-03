@@ -282,6 +282,43 @@ button#timer-label {
   color: var(--feedback-danger);
   font-size: 11px;
   margin-top: 2px;
+
+  /* Estados do botão timer */
+  transition: all 0.2s ease-out;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estado hover padrão */
+button#timer-label:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+/* Estado ativo/parar timer - discreto mas funcional */
+button#timer-label.timer-active {
+  background: #dc262690; /* Fundo vermelho translúcido */
+  border-color: #dc262680; /* Border vermelha translúcida */
+  color: #fdfdfd; /* Texto branco para contraste */
+  font-weight: 500; /* Menos bold */
+  /* Removido box-shadow para menor destaque */
+}
+
+/* Hover no estado ativo - aumento sutil */
+button#timer-label.timer-active:hover {
+  background: #dc2626; /* Fundo vermelho mais sólido no hover */
+  border-color: #b91c1c; /* Border um pouco mais escura */
+  color: #ffffff; /* Texto branco puro */
+  /* Removido transform e box-shadow chamativo */
+}
+
+/* Estado pressionado - feedback mínimo */
+button#timer-label.timer-active:active {
+  background: #b91c1c; /* Vermelho mais escuro quando pressionado */
+  border-color: #991b1b; /* Border ainda mais escura */
+  color: #ffffff; /* Texto branco */
 }
 
 /* Modais minimalistas */
@@ -831,6 +868,36 @@ div#tutorial-card::backdrop {
     grid-column: 2/3;
     grid-row: 1/5;
     padding: 1rem 0.75rem;
+    min-height: 0; /* Permite que o conteúdo defina a altura */
+  }
+
+  /* Ajustar abas para desktop */
+  .ranking-tabs {
+    margin-bottom: 12px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .rank-item {
+    padding: 12px 14px;
+    font-size: 15px;
+    min-height: 44px;
+  }
+
+  .rank-time {
+    font-size: 14px;
+  }
+
+  .rank-position {
+    font-size: 16px;
+    min-width: 36px;
+  }
+
+  .rank-points {
+    font-size: 15px;
   }
 
   section.gameMode-card {
@@ -894,3 +961,152 @@ div#tutorial-card::backdrop {
     display: none !important;
   }
 }
+
+/* ========== RANKING SYSTEM STYLES ========== */
+
+/* Abas de navegação do ranking */
+.ranking-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  border-bottom: var(--border-width) solid var(--border-primary);
+  padding-bottom: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 11px;
+  color: var(--text-muted);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  transition: var(--transition-base);
+}
+
+.tab-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+}
+
+.tab-btn.active {
+  background: var(--interactive-primary);
+  border-color: var(--interactive-primary);
+  color: var(--text-primary);
+}
+
+.tab-btn i {
+  font-size: 10px;
+}
+
+/* Conteúdo das abas */
+.tab-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-panel {
+  display: none;
+  flex: 1;
+}
+
+.tab-panel.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Lista de ranking */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Item de ranking */
+.rank-item {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 14px;
+  color: var(--text-primary);
+  min-height: 40px;
+}
+
+/* Versão para modo cronometrado com 3 colunas */
+.rank-item.timed {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Posição no ranking */
+.rank-position {
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 32px;
+  font-size: 15px;
+}
+
+/* Pontos */
+.rank-points {
+  font-weight: 500;
+  color: var(--feedback-success);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Tempo (apenas modo cronometrado) */
+.rank-time {
+  font-weight: 500;
+  color: var(--feedback-warning);
+  font-size: 13px;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Destaque para as primeiras posições */
+.rank-item:nth-child(1) .rank-position {
+  color: #ffd700; /* Ouro vibrante */
+  font-weight: 700;
+}
+
+.rank-item:nth-child(2) .rank-position {
+  color: #c0c0c0; /* Prata clássica */
+  font-weight: 700;
+}
+
+.rank-item:nth-child(3) .rank-position {
+  color: #cd7f32; /* Bronze clássico */
+  font-weight: 700;
+}
+
+/* Ajuste do card de ranking principal */
+section.rankingCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Remove a classe wip */
+section.rankingCard.wip {
+  display: flex;
+}
+
+/* ========== END RANKING SYSTEM STYLES ========== */

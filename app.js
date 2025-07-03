@@ -1,5 +1,31 @@
-import { inject } from "@vercel/analytics"
-inject();
+// ========== BASIC FEEDBACK ==========
+
+// ========== VERCEL ANALYTICS ==========
+// Inicializar Vercel Analytics
+function initAnalytics() {
+  if (typeof va !== 'undefined') {
+    // Analytics está disponível
+    console.log('Vercel Analytics inicializado');
+  }
+}
+
+// Função para rastrear eventos customizados
+function trackEvent(eventName, properties = {}) {
+  if (typeof va !== 'undefined' && va.track) {
+    va.track(eventName, properties);
+  }
+}
+
+// Inicializar analytics quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+  initAnalytics();
+  
+  // 📊 Analytics: Rastrear visit da página
+  trackEvent('page_visit', {
+    initial_mode: currentMode,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // ========== BASIC FEEDBACK ==========
 
@@ -84,13 +110,17 @@ function pontosPorAcerto() {
 //Funções de Interface
 //Controle Visual
 function setTimerBtnInitialState() {
-  botaoPararTimer.innerText = "Timer"; // ✅ Usar variável correta
-  botaoPararTimer.style.backgroundColor = "inherit";
+  botaoPararTimer.innerText = "Timer";
+  botaoPararTimer.classList.remove("timer-active");
+  // Remove estilos inline antigos
+  botaoPararTimer.style.backgroundColor = "";
 }
 
 function setTimerBtnActiveState() {
   botaoPararTimer.innerText = "Parar";
-  botaoPararTimer.style.backgroundColor = "#7b1a1a";
+  botaoPararTimer.classList.add("timer-active");
+  // Remove estilos inline antigos para usar CSS
+  botaoPararTimer.style.backgroundColor = "";
 }
 
 function disableGameControls() {
@@ -266,6 +296,19 @@ function generateRandom() {
   // ✅ GARANTIR que controles sejam habilitados após gerar números
   enableGameControls();
 
+  // 📊 Analytics: Rastrear geração de números
+  trackEvent('numbers_generated', {
+    mode: currentMode,
+    range_max: max,
+    numbers: [
+      parseInt(num1.innerText),
+      parseInt(num2.innerText), 
+      parseInt(num3.innerText),
+      parseInt(num4.innerText)
+    ],
+    average: mediaAtual
+  });
+
   // ✅ ATUALIZAR estado das dicas baseado no modo
   updateHintButtonState();
 
@@ -357,6 +400,15 @@ function handleCorrectAnswer() {
   // ✅ NOVA ANIMAÇÃO: Usar função de sucesso
   showSuccessMessage(`Correto! +${pontosPorAcerto()} pontos`);
 
+  // 📊 Analytics: Rastrear resposta correta
+  trackEvent('correct_answer', {
+    mode: currentMode,
+    points_earned: pontosPorAcerto(),
+    total_points: pontos,
+    attempt_value: parseInt(campoTentativaUsuario.value),
+    correct_value: Math.floor(mediaAtual)
+  });
+
   tentativaFeita = true;
 
   // ✅ CORREÇÃO: Comportamento específico por modo
@@ -386,6 +438,15 @@ function handleWrongAnswer() {
 
   // ✅ NOVA ANIMAÇÃO: Usar função de erro
   showErrorMessage(`Errado! A resposta era ${mediaAtual}`);
+
+  // 📊 Analytics: Rastrear resposta errada
+  trackEvent('wrong_answer', {
+    mode: currentMode,
+    total_points: pontos,
+    attempt_value: parseInt(campoTentativaUsuario.value),
+    correct_value: Math.floor(mediaAtual),
+    difference: Math.abs(parseInt(campoTentativaUsuario.value) - Math.floor(mediaAtual))
+  });
 
   tentativaFeita = true;
 
@@ -458,6 +519,13 @@ botaoPararTimer.addEventListener("click", () => {
 // Botão de dica
 botaoDica.addEventListener("click", () => {
   showHintMessage("Dica: A média é a soma dividida por 4!");
+  
+  // 📊 Analytics: Rastrear uso de dica
+  trackEvent('hint_used', {
+    mode: currentMode,
+    current_points: pontos,
+    average_value: mediaAtual
+  });
 });
 
 // Botões de modo
@@ -465,6 +533,14 @@ document.getElementById("mode1")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 1");
   currentMode = "1";
   dicasEstaoDisponíveis = false;
+  
+  // 📊 Analytics: Rastrear mudança de modo
+  trackEvent('mode_changed', {
+    new_mode: 'aprendiz',
+    mode_number: 1,
+    hints_available: false
+  });
+  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -476,6 +552,14 @@ document.getElementById("mode2")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 2");
   currentMode = "2";
   dicasEstaoDisponíveis = false;
+  
+  // 📊 Analytics: Rastrear mudança de modo
+  trackEvent('mode_changed', {
+    new_mode: 'normal',
+    mode_number: 2,
+    hints_available: false
+  });
+  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -487,6 +571,14 @@ document.getElementById("mode3")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 3");
   currentMode = "3";
   dicasEstaoDisponíveis = true;
+  
+  // 📊 Analytics: Rastrear mudança de modo
+  trackEvent('mode_changed', {
+    new_mode: 'medio',
+    mode_number: 3,
+    hints_available: true
+  });
+  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -498,6 +590,15 @@ document.getElementById("mode4")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 4");
   currentMode = "4";
   dicasEstaoDisponíveis = true;
+  
+  // 📊 Analytics: Rastrear mudança de modo
+  trackEvent('mode_changed', {
+    new_mode: 'dificil',
+    mode_number: 4,
+    hints_available: true,
+    timer_enabled: true
+  });
+  
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
@@ -637,5 +738,33 @@ function initializeMobileLayout() {
 // Inicializar estado dos modais baseado na tela
 initializeMobileLayout();
 
+// ========== RANKING TAB SYSTEM ==========
+
+// Função para trocar entre abas do ranking
+function switchRankingTab(tabName) {
+  // Remove active de todas as abas e painéis
+  document
+    .querySelectorAll(".tab-btn")
+    .forEach((btn) => btn.classList.remove("active"));
+  document
+    .querySelectorAll(".tab-panel")
+    .forEach((panel) => panel.classList.remove("active"));
+
+  // Ativa a aba clicada
+  document.querySelector(`[data-tab="${tabName}"]`).classList.add("active");
+  document.getElementById(`${tabName}-tab`).classList.add("active");
+}
+
 // Executar também após o carregamento completo
-document.addEventListener("DOMContentLoaded", initializeMobileLayout);
+document.addEventListener("DOMContentLoaded", () => {
+  // Inicializar layout mobile
+  initializeMobileLayout();
+
+  // Abas do ranking
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tabName = btn.getAttribute("data-tab");
+      switchRankingTab(tabName);
+    });
+  });
+});

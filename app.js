@@ -1,3 +1,6 @@
+import { inject } from "@vercel/analytics"
+inject();
+
 // ========== BASIC FEEDBACK ==========
 
 // Função para mensagem de sucesso

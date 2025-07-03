@@ -95,6 +95,8 @@ button#randomize-btn {
   color: var(--text-primary);
 
   height: 40px;
+  width: 85%;
+  justify-self: center;
 }
 
 button#randomize-btn:hover {
@@ -803,6 +805,7 @@ div#tutorial-card::backdrop {
   .button-wrapper {
     grid-column: 4/5;
     grid-row: 5/6;
+    display: none; /* Ocultar botões em desktop onde os cards já estão visíveis */
   }
 
   section.rankingCard {
@@ -815,6 +818,12 @@ div#tutorial-card::backdrop {
     grid-column: 6/7;
     grid-row: 1/5;
     padding: 1rem 0.75rem;
+  }
+
+  /* Ocultar botões de fechar em desktop onde os cards são permanentes */
+  section.rankingCard i.fa-xmark,
+  section.gameMode-card i.fa-xmark {
+    display: none;
   }
 
   /* Ajustar tamanhos para caber melhor */

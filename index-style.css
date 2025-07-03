@@ -466,51 +466,192 @@ div#tutorial-card:popover-open {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Tutorial content styling */
-div#tutorial-card h3 {
-  margin: 0 0 1.5rem 0;
-  font-size: var(--font-size-xxl);
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-  border-bottom: 1px solid var(--border-primary);
+/* Tutorial header with close button */
+div#tutorial-card .tutorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-primary);
 }
 
-div#tutorial-card ol {
+div#tutorial-card .tutorial-header h3 {
   margin: 0;
-  padding-left: 1.5rem;
-  counter-reset: tutorial-counter;
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-div#tutorial-card li {
-  margin-bottom: 1rem;
+div#tutorial-card .tutorial-header .close-btn {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 0.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: var(--transition-base);
+}
+
+div#tutorial-card .tutorial-header .close-btn:hover {
+  color: var(--feedback-danger);
+  background: var(--bg-primary);
+  border-color: var(--feedback-danger);
+}
+
+/* Tutorial content sections */
+div#tutorial-card .tutorial-section {
+  margin-bottom: 1.5rem;
+}
+
+div#tutorial-card .tutorial-section h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--interactive-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Seção de Dicas - cores amarelas */
+div#tutorial-card .hints-section h4 {
+  color: var(--feedback-warning);
+}
+
+div#tutorial-card .hints-section .step-icon {
+  background: var(
+    --color-base-800
+  ) !important; /* Fundo escuro para contraste com emojis amarelos */
+  color: var(--feedback-warning) !important;
+  border: 2px solid var(--feedback-warning) !important;
+}
+
+/* Seção do Modo Difícil - cores vermelhas */
+div#tutorial-card .difficulty-section h4 {
+  color: var(--feedback-danger);
+}
+
+div#tutorial-card .difficulty-section .step-icon {
+  background: var(--feedback-danger) !important;
+  color: var(--text-primary) !important;
+}
+
+div#tutorial-card .tutorial-section ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+div#tutorial-card .tutorial-section li {
+  margin-bottom: 0.75rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  font-size: var(--font-size-base);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
-div#tutorial-card ul {
-  margin: 0.5rem 0;
-  padding-left: 1.5rem;
+/* Destaque vermelho apenas para "removem pontos" na seção de dicas */
+div#tutorial-card .hints-section li span em {
+  color: var(--feedback-danger);
+  font-weight: 600;
 }
 
-div#tutorial-card ul li {
+div#tutorial-card .tutorial-section li .step-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--interactive-primary);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+div#tutorial-card .tutorial-section .sub-steps {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border-primary);
+}
+
+div#tutorial-card .tutorial-section .sub-steps li {
   margin-bottom: 0.5rem;
-  color: var(--text-muted);
   font-size: var(--font-size-sm);
+  color: var(--text-muted);
 }
 
-div#tutorial-card p {
-  margin: 1.5rem 0 0 0;
+div#tutorial-card .game-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+div#tutorial-card .mode-badge {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 0.5rem;
   text-align: center;
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--text-accent);
-  font-size: var(--font-size-lg);
+}
+
+div#tutorial-card .mode-badge.easy {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+div#tutorial-card .mode-badge.normal {
+  border-color: var(--interactive-primary);
+  color: var(--interactive-primary);
+}
+div#tutorial-card .mode-badge.medium {
+  border-color: var(--feedback-warning);
+  color: var(--feedback-warning);
+}
+div#tutorial-card .mode-badge.hard {
+  border-color: var(--feedback-danger);
+  color: var(--feedback-danger);
+}
+
+div#tutorial-card .highlight {
+  background: var(--bg-tertiary);
+  padding: 0.75rem;
+  border-radius: var(--radius-base);
+  border-left: 4px solid var(--interactive-primary);
+  margin: 1rem 0;
+}
+
+div#tutorial-card .highlight p {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-align: center;
 }
 
 div#tutorial-card strong {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+div#tutorial-card em {
+  color: var(--text-accent);
+  font-style: normal;
+  font-weight: 500;
 }
 
 /* Popover backdrop */

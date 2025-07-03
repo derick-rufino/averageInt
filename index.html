@@ -120,49 +120,94 @@
       <i class="fa-solid fa-question"></i> tutorial
     </button>
     <div class="tutorial-card" id="tutorial-card" popover>
-      <h3>👉 Como jogar</h3>
-      <ol>
-        <li>
-          Clique em <strong>"Gerar"</strong> para criar 4 números aleatórios.
-        </li>
-        <li>
-          Seu objetivo é adivinhar a <strong>média inteira</strong> desses 4
-          números.
-        </li>
-        <li>
-          Digite seu palpite no campo e clique em <strong>Enviar</strong>.
-        </li>
-        <li>
-          Se você acertar:
-          <ul>
-            <li>✅ Recebe pontos (diferentes por nível).</li>
-            <li>No modo difícil, uma nova rodada começa em 3 s.</li>
-            <li>Nos outros modos, gere manualmente a próxima sequência.</li>
-          </ul>
-        </li>
-        <li>
-          Se errar:
-          <ul>
-            <li>❌ Mostra a média correta.</li>
-            <li>No modo difícil, aguarda 3 s para nova sequência.</li>
-          </ul>
-        </li>
-        <li>
-          Em <strong>Modo Difícil</strong>, há um timer de 60 s:
-          <ul>
-            <li>⏱️ Você pode pausar manualmente.</li>
-            <li>
-              Se o tempo esgotar, mostra a resposta e inicia uma nova rodada.
-            </li>
-          </ul>
-        </li>
-        <li>
-          Em níveis com dicas habilitadas, clique no botão
-          <strong>Dica</strong> para receber uma pista (ex.: "A média é a soma
-          dividida por 4!").
-        </li>
-      </ol>
-      <p><strong>Bons palpites e divirta-se!</strong></p>
+      <div class="tutorial-header">
+        <h3><i class="fa-solid fa-gamepad"></i> Como Jogar</h3>
+        <button
+          class="close-btn"
+          onclick="document.getElementById('tutorial-card').hidePopover()"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="highlight">
+        <p>
+          <strong>🎯 Dica Principal:</strong> Some os 4 números e divida por 4.
+          Só números inteiros são aceitos!
+        </p>
+      </div>
+      <div class="tutorial-section">
+        <h4><i class="fa-solid fa-play"></i> Objetivo</h4>
+        <ul>
+          <li>
+            <span class="step-icon">1</span>
+            <span
+              >Clique em <strong>"Randomize"</strong> para gerar 4 números
+              aleatórios</span
+            >
+          </li>
+          <li>
+            <span class="step-icon">2</span>
+            <span>Calcule a <em>média inteira</em> dos 4 números</span>
+          </li>
+          <li>
+            <span class="step-icon">3</span>
+            <span>Digite seu palpite e clique em <strong>✓</strong></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tutorial-section">
+        <h4><i class="fa-solid fa-trophy"></i> Pontuação por Modo</h4>
+        <div class="game-modes">
+          <div class="mode-badge easy">
+            Aprendiz<br /><strong>5 pts</strong>
+          </div>
+          <div class="mode-badge normal">
+            Normal<br /><strong>10 pts</strong>
+          </div>
+          <div class="mode-badge medium">
+            Médio<br /><strong>20 pts</strong>
+          </div>
+          <div class="mode-badge hard">
+            Difícil<br /><strong>50 pts</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tutorial-section difficulty-section">
+        <h4><i class="fa-solid fa-clock"></i> Modo Difícil</h4>
+        <ul>
+          <li>
+            <span class="step-icon">⏱</span>
+            <span>Timer de <strong>60 segundos</strong> para responder</span>
+          </li>
+          <li>
+            <span class="step-icon">⏸</span>
+            <span>Botão <strong>"Parar"</strong> para pausar manualmente</span>
+          </li>
+          <li>
+            <span class="step-icon">🔄</span>
+            <span>Nova rodada automática a cada 3 segundos</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tutorial-section hints-section">
+        <h4><i class="fa-solid fa-lightbulb"></i> Dicas</h4>
+        <ul>
+          <li>
+            <span class="step-icon">💡</span>
+            <span
+              >Disponível nos modos <strong>Médio</strong> e
+              <strong>Difícil</strong></span
+            >
+          </li>
+          <li>
+            <span class="step-icon">📝</span>
+            <span>Dicas <em>removem pontos</em></span>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <footer>

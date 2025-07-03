@@ -48,6 +48,7 @@ const num4 = document.getElementById("number4");
 const userMessage = document.getElementById("message");
 const displayTimer = document.getElementById("timer");
 const displayPontos = document.getElementById("currentPoints");
+const currentModeDisplay = document.getElementById("currentMode-display");
 
 //Controles do Jogo (botões, inputs)
 const randomizeBtn = document.getElementById("randomize-btn");
@@ -151,6 +152,57 @@ function updateHintButtonState() {
     botaoDica.disabled = false; // Habilita o botão de dica
   } else {
     botaoDica.disabled = true; // Desabilita o botão de dica
+  }
+}
+
+// Função para atualizar o display do modo atual
+function updateModeDisplay() {
+  const modeNames = {
+    1: "Aprendiz",
+    2: "Normal",
+    3: "Médio",
+    4: "Difícil",
+  };
+
+  const modeColors = {
+    1: "#f8fafc", // --text-primary (branco)
+    2: "#3b82f6", // --interactive-primary (azul)
+    3: "#f59e0b", // --feedback-warning (amarelo)
+    4: "#ef4444", // --feedback-danger (vermelho)
+  };
+
+  const modeName = modeNames[currentMode] || "Normal";
+  const modeColor = modeColors[currentMode] || "#3b82f6";
+
+  if (currentModeDisplay) {
+    currentModeDisplay.textContent = modeName;
+    currentModeDisplay.style.color = modeColor;
+  }
+}
+
+// Função para destacar o modo selecionado
+function highlightSelectedMode() {
+  // Remover destaque de todos os modos
+  document.querySelectorAll(".gameModeOption").forEach((btn) => {
+    btn.classList.remove("selected");
+    btn.style.backgroundColor = "";
+  });
+
+  // Destacar o modo atual
+  const selectedModeBtn = document.getElementById(`mode${currentMode}`);
+  if (selectedModeBtn) {
+    selectedModeBtn.classList.add("selected");
+
+    // Cores específicas para cada modo
+    const modeBackgrounds = {
+      1: "rgba(248, 250, 252, 0.1)", // Aprendiz - branco transparente
+      2: "rgba(59, 130, 246, 0.2)", // Normal - azul transparente
+      3: "rgba(245, 158, 11, 0.2)", // Médio - amarelo transparente
+      4: "rgba(239, 68, 68, 0.2)", // Difícil - vermelho transparente
+    };
+
+    selectedModeBtn.style.backgroundColor =
+      modeBackgrounds[currentMode] || modeBackgrounds["2"];
   }
 }
 
@@ -410,26 +462,143 @@ document.getElementById("mode1")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 1");
   currentMode = "1";
   dicasEstaoDisponíveis = false;
+  updateModeDisplay();
+  highlightSelectedMode();
   resetGame();
+  // Fechar modal após seleção (apenas mobile)
+  closeModal(gameModeModal);
 });
 
 document.getElementById("mode2")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 2");
   currentMode = "2";
   dicasEstaoDisponíveis = false;
+  updateModeDisplay();
+  highlightSelectedMode();
   resetGame();
+  // Fechar modal após seleção (apenas mobile)
+  closeModal(gameModeModal);
 });
 
 document.getElementById("mode3")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 3");
   currentMode = "3";
   dicasEstaoDisponíveis = true;
+  updateModeDisplay();
+  highlightSelectedMode();
   resetGame();
+  // Fechar modal após seleção (apenas mobile)
+  closeModal(gameModeModal);
 });
 
 document.getElementById("mode4")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 4");
   currentMode = "4";
   dicasEstaoDisponíveis = true;
+  updateModeDisplay();
+  highlightSelectedMode();
   resetGame();
+  // Fechar modal após seleção (apenas mobile)
+  closeModal(gameModeModal);
 });
+
+// Inicializar o display do modo atual
+updateModeDisplay();
+highlightSelectedMode();
+
+// ========== MODAL SYSTEM FOR MOBILE ==========
+
+// Elementos dos modais
+const rankingModal = document.getElementById("rankingCard");
+const gameModeModal = document.querySelector(".gameMode-card");
+const coverAllOverlay = document.querySelector(".coverAll");
+
+// Botões para abrir modais
+const rankingBtn = document.getElementById("rankingCard-btn");
+const gameModeBtn = document.getElementById("gameMode-btn");
+
+// Botões para fechar modais (X)
+const closeRankingBtn = rankingModal?.querySelector(".fa-xmark");
+const closeGameModeBtn = gameModeModal?.querySelector(".fa-xmark");
+
+// Função para verificar se está no mobile
+function isMobileView() {
+  return window.innerWidth <= 720;
+}
+
+// Função para abrir modal (apenas mobile)
+function openModal(modal) {
+  if (isMobileView()) {
+    modal.classList.add("active");
+    modal.style.display = "flex";
+    coverAllOverlay.classList.add("active");
+    // Prevenir scroll do body
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// Função para fechar modal (apenas mobile)
+function closeModal(modal) {
+  if (isMobileView()) {
+    modal.classList.remove("active");
+    modal.style.display = "none";
+    coverAllOverlay.classList.remove("active");
+    // Restaurar scroll do body
+    document.body.style.overflow = "auto";
+  }
+}
+
+// Event listeners para abrir modais
+rankingBtn?.addEventListener("click", () => {
+  openModal(rankingModal);
+});
+
+gameModeBtn?.addEventListener("click", () => {
+  openModal(gameModeModal);
+});
+
+// Event listeners para fechar modais (botões X)
+closeRankingBtn?.addEventListener("click", () => {
+  closeModal(rankingModal);
+});
+
+closeGameModeBtn?.addEventListener("click", () => {
+  closeModal(gameModeModal);
+});
+
+// Fechar modal ao clicar no overlay
+coverAllOverlay?.addEventListener("click", () => {
+  closeModal(rankingModal);
+  closeModal(gameModeModal);
+});
+
+// Gerenciar redimensionamento da tela
+window.addEventListener("resize", () => {
+  if (!isMobileView()) {
+    // No desktop, sempre mostrar os modais e remover classes/estilos mobile
+    if (rankingModal) {
+      rankingModal.classList.remove("active");
+      rankingModal.style.display = "";
+    }
+    if (gameModeModal) {
+      gameModeModal.classList.remove("active");
+      gameModeModal.style.display = "";
+    }
+    coverAllOverlay.classList.remove("active");
+    document.body.style.overflow = "auto";
+  } else {
+    // Mobile - garantir que modais iniciem fechados
+    if (rankingModal && !rankingModal.classList.contains("active")) {
+      rankingModal.style.display = "none";
+    }
+    if (gameModeModal && !gameModeModal.classList.contains("active")) {
+      gameModeModal.style.display = "none";
+    }
+  }
+});
+
+// Inicializar estado dos modais baseado na tela
+if (isMobileView()) {
+  if (rankingModal) rankingModal.style.display = "none";
+  if (gameModeModal) gameModeModal.style.display = "none";
+}

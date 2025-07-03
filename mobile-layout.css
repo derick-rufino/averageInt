@@ -17,7 +17,8 @@
 
   /* Header responsivo */
   header {
-    padding: 15px;
+    padding: 15px 5px;
+    max-height: 7vh;
   }
 
   header h1 {
@@ -161,14 +162,27 @@
 
     padding: 20px;
     border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
 
     /* Remove grid mobile */
-    display: flex;
+    display: none; /* Inicialmente oculto */
     flex-direction: column;
     gap: 15px;
 
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(20px);
+
+    /* Smooth transition */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Quando o modal está ativo */
+  section.rankingCard.active,
+  section.gameMode-card.active {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 
   /* Overlay para modais */
@@ -184,10 +198,13 @@
     backdrop-filter: blur(5px);
 
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   div.coverAll.active {
     display: block;
+    opacity: 1;
   }
 
   /* Info dos cards mobile */
@@ -204,6 +221,18 @@
     padding: 12px 15px;
     font-size: var(--font-size-base);
     border-radius: var(--radius-base);
+    transition: all 0.3s ease;
+  }
+
+  /* Destaque do modo selecionado mobile */
+  button.gameModeOption.selected {
+    border-color: var(--border-accent);
+    transform: scale(1.02);
+    box-shadow: 0 0 0 1px var(--border-accent);
+  }
+
+  button.gameModeOption.selected:active {
+    transform: scale(0.98);
   }
 
   /* Pontos card mobile */
@@ -245,8 +274,9 @@
   }
 
   span#currentMode-display {
+    font-family: inherit;
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     text-decoration: underline;
     margin-top: 4px;
@@ -278,14 +308,5 @@
   /* Reduzir efeitos de glow em mobile para performance */
   .glow-effect {
     animation: none;
-  }
-
-  /* Hover effects desabilitados para touch */
-  section.game:hover,
-  div.number-display:hover,
-  .feature-card:hover {
-    border-color: inherit;
-    box-shadow: inherit;
-    background: inherit;
   }
 }

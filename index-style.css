@@ -368,6 +368,17 @@ button#mode4 i {
   color: var(--feedback-danger);
 }
 
+/* Estilo do modo selecionado */
+button.gameModeOption.selected {
+  border-color: var(--border-accent);
+  transform: scale(1.02);
+  box-shadow: 0 0 0 1px var(--border-accent);
+}
+
+button.gameModeOption.selected:hover {
+  transform: scale(1.02);
+}
+
 /* Footer minimalista */
 footer {
   height: 4vh;
@@ -851,5 +862,27 @@ div#tutorial-card::backdrop {
 
   input#userGuess {
     font-size: var(--font-size-xxl);
+  }
+
+  /* Desktop - Modais sempre visíveis */
+  section.rankingCard,
+  section.gameMode-card {
+    display: grid !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Desktop - Overlay nunca visível */
+  div.coverAll {
+    display: none !important;
   }
 }

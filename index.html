@@ -25,169 +25,182 @@
       <h1>AverageInt</h1>
     </header>
     <main>
-      <section class="game">
-        <section class="display-container">
-          <div class="number-display" id="number1">0</div>
-          <div class="number-display" id="number2">0</div>
-          <div class="number-display" id="number3">0</div>
-          <div class="number-display" id="number4">0</div>
+      <div class="main-content">
+        <section class="game">
+          <section class="display-container">
+            <div class="number-display" id="number1">0</div>
+            <div class="number-display" id="number2">0</div>
+            <div class="number-display" id="number3">0</div>
+            <div class="number-display" id="number4">0</div>
+          </section>
+          <button id="randomize-btn">
+            Randomize <i class="fa-solid fa-dice-three"></i>
+          </button>
+          <p id="message">Digite sua resposta</p>
+          <form name="guessForm" id="guessForm">
+            <input
+              type="number"
+              name="userGuess"
+              id="userGuess"
+              required
+              min="0"
+              autocomplete="off"
+            />
+            <button type="submit" id="submit">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </form>
         </section>
-        <p id="message">Digite sua resposta</p>
-        <button id="randomize-btn">
-          Randomize <i class="fa-solid fa-dice-three"></i>
-        </button>
-        <form name="guessForm" id="guessForm">
-          <input
-            type="number"
-            name="userGuess"
-            id="userGuess"
-            required
-            min="0"
-            autocomplete="off"
-          />
-          <button type="submit" id="submit">
-            <i class="fa-solid fa-check"></i>
-          </button>
-        </form>
-      </section>
 
-      <section class="extra-features">
-        <div class="hint-card feature-card">
-          <button class="onTop" id="hint">
-            <i class="fa-solid fa-lightbulb"></i>
-          </button>
-          <span class="card-label">Dicas</span>
-        </div>
+        <section class="extra-features">
+          <div class="hint-card feature-card">
+            <button class="onTop" id="hint">
+              <i class="fa-solid fa-lightbulb"></i>
+            </button>
+            <span class="card-label">Dicas</span>
+          </div>
 
-        <div class="points-card feature-card">
-          <p class="card-value onTop" id="currentPoints">0</p>
-          <span class="card-label">Pontos</span>
-        </div>
+          <div class="points-card feature-card">
+            <p class="card-value onTop" id="currentPoints">0</p>
+            <span class="card-label">Pontos</span>
+          </div>
 
-        <div class="timer-card feature-card">
-          <p class="card-value onTop" id="timerP">
-            <span id="timer">00</span>s
-          </p>
-          <button class="card-label" id="timer-label" disabled>Timer</button>
-        </div>
-      </section>
+          <div class="timer-card feature-card">
+            <p class="card-value onTop" id="timerP">
+              <span id="timer">00</span>s
+            </p>
+            <button class="card-label" id="timer-label" disabled>Timer</button>
+          </div>
+        </section>
 
-      <section class="rankingCard" id="rankingCard">
-        <i class="fa-solid fa-xmark"></i>
-        <div class="cardInfo">
-          <i class="fa-solid fa-trophy"></i>
-          <p>Pontuação</p>
-        </div>
+        <section class="rankingCard" id="rankingCard">
+          <i class="fa-solid fa-xmark"></i>
+          <div class="cardInfo">
+            <i class="fa-solid fa-trophy"></i>
+            <p>Pontuação</p>
+          </div>
 
-        <!-- Abas de navegação -->
-        <div class="ranking-tabs">
-          <button class="tab-btn active" data-tab="general">
+          <!-- Abas de navegação -->
+          <div class="ranking-tabs">
+            <button class="tab-btn active" data-tab="general">
+              <i class="fa-solid fa-star"></i>
+              Geral
+            </button>
+            <button class="tab-btn" data-tab="timed">
+              <i class="fa-solid fa-clock"></i>
+              Cronometrado
+            </button>
+          </div>
+
+          <!-- Conteúdo das abas -->
+          <div class="tab-content">
+            <!-- Aba Geral -->
+            <div class="tab-panel active" id="general-tab">
+              <div class="ranking-list">
+                <div class="rank-item">
+                  <span class="rank-position">1º</span>
+                  <span class="rank-points">0 pts</span>
+                </div>
+                <div class="rank-item">
+                  <span class="rank-position">2º</span>
+                  <span class="rank-points">0 pts</span>
+                </div>
+                <div class="rank-item">
+                  <span class="rank-position">3º</span>
+                  <span class="rank-points">0 pts</span>
+                </div>
+                <div class="rank-item">
+                  <span class="rank-position">4º</span>
+                  <span class="rank-points">0 pts</span>
+                </div>
+                <div class="rank-item">
+                  <span class="rank-position">5º</span>
+                  <span class="rank-points">0 pts</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aba Cronometrado -->
+            <div class="tab-panel" id="timed-tab">
+              <div class="ranking-list">
+                <div class="rank-item timed">
+                  <span class="rank-position">1º</span>
+                  <span class="rank-points">0 pts</span>
+                  <span class="rank-time">00:00</span>
+                </div>
+                <div class="rank-item timed">
+                  <span class="rank-position">2º</span>
+                  <span class="rank-points">0 pts</span>
+                  <span class="rank-time">00:00</span>
+                </div>
+                <div class="rank-item timed">
+                  <span class="rank-position">3º</span>
+                  <span class="rank-points">0 pts</span>
+                  <span class="rank-time">00:00</span>
+                </div>
+                <div class="rank-item timed">
+                  <span class="rank-position">4º</span>
+                  <span class="rank-points">0 pts</span>
+                  <span class="rank-time">00:00</span>
+                </div>
+                <div class="rank-item timed">
+                  <span class="rank-position">5º</span>
+                  <span class="rank-points">0 pts</span>
+                  <span class="rank-time">00:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="gameMode-card">
+          <i class="fa-solid fa-xmark"></i>
+          <div class="cardInfo">
             <i class="fa-solid fa-star"></i>
-            Geral
-          </button>
-          <button class="tab-btn" data-tab="timed">
-            <i class="fa-solid fa-clock"></i>
-            Cronometrado
-          </button>
-        </div>
-
-        <!-- Conteúdo das abas -->
-        <div class="tab-content">
-          <!-- Aba Geral -->
-          <div class="tab-panel active" id="general-tab">
-            <div class="ranking-list">
-              <div class="rank-item">
-                <span class="rank-position">1º</span>
-                <span class="rank-points">0 pts</span>
-              </div>
-              <div class="rank-item">
-                <span class="rank-position">2º</span>
-                <span class="rank-points">0 pts</span>
-              </div>
-              <div class="rank-item">
-                <span class="rank-position">3º</span>
-                <span class="rank-points">0 pts</span>
-              </div>
-              <div class="rank-item">
-                <span class="rank-position">4º</span>
-                <span class="rank-points">0 pts</span>
-              </div>
-              <div class="rank-item">
-                <span class="rank-position">5º</span>
-                <span class="rank-points">0 pts</span>
-              </div>
-            </div>
+            <p>Modo de Jogo</p>
           </div>
 
-          <!-- Aba Cronometrado -->
-          <div class="tab-panel" id="timed-tab">
-            <div class="ranking-list">
-              <div class="rank-item timed">
-                <span class="rank-position">1º</span>
-                <span class="rank-points">0 pts</span>
-                <span class="rank-time">00:00</span>
-              </div>
-              <div class="rank-item timed">
-                <span class="rank-position">2º</span>
-                <span class="rank-points">0 pts</span>
-                <span class="rank-time">00:00</span>
-              </div>
-              <div class="rank-item timed">
-                <span class="rank-position">3º</span>
-                <span class="rank-points">0 pts</span>
-                <span class="rank-time">00:00</span>
-              </div>
-              <div class="rank-item timed">
-                <span class="rank-position">4º</span>
-                <span class="rank-points">0 pts</span>
-                <span class="rank-time">00:00</span>
-              </div>
-              <div class="rank-item timed">
-                <span class="rank-position">5º</span>
-                <span class="rank-points">0 pts</span>
-                <span class="rank-time">00:00</span>
-              </div>
-            </div>
-          </div>
+          <button class="gameModeOption" id="mode1">
+            <i class="fa-solid fa-star"></i>Aprendiz
+          </button>
+          <button
+            class="gameModeOption"
+            id="mode2"
+            style="background-color: #23243a"
+          >
+            <i class="fa-solid fa-star"></i>Normal
+          </button>
+          <button class="gameModeOption" id="mode3">
+            <i class="fa-solid fa-star"></i>Médio
+          </button>
+          <button class="gameModeOption" id="mode4">
+            <i class="fa-solid fa-star"></i>Difícil
+          </button>
+        </section>
+        <div class="button-wrapper">
+          <button class="openModalBtn" id="rankingCard-btn">Pontuação</button>
+          <button class="openModalBtn" id="gameMode-btn">
+            Modo de jogo<br /><span id="currentMode-display">Normal</span>
+          </button>
         </div>
-      </section>
-      <section class="gameMode-card">
-        <i class="fa-solid fa-xmark"></i>
-        <div class="cardInfo">
-          <i class="fa-solid fa-star"></i>
-          <p>Modo de Jogo</p>
-        </div>
-
-        <button class="gameModeOption" id="mode1">
-          <i class="fa-solid fa-star"></i>Aprendiz
-        </button>
-        <button
-          class="gameModeOption"
-          id="mode2"
-          style="background-color: #23243a"
-        >
-          <i class="fa-solid fa-star"></i>Normal
-        </button>
-        <button class="gameModeOption" id="mode3">
-          <i class="fa-solid fa-star"></i>Médio
-        </button>
-        <button class="gameModeOption" id="mode4">
-          <i class="fa-solid fa-star"></i>Difícil
-        </button>
-      </section>
-      <div class="button-wrapper">
-        <button class="openModalBtn" id="rankingCard-btn">Pontuação</button>
-        <button class="openModalBtn" id="gameMode-btn">
-          Modo de jogo<br /><span id="currentMode-display">Normal</span>
-        </button>
+        <div class="coverAll"></div>
       </div>
-      <div class="coverAll"></div>
     </main>
 
     <!-- Tutorial Button and Card - Outside main for correct positioning -->
     <button id="tutorial-btn" popovertarget="tutorial-card">
       <i class="fa-solid fa-question"></i> tutorial
     </button>
+
+    <!-- Developer Card - Fixed bottom left -->
+    <a
+      id="developer-card"
+      href="https://linktr.ee/derico_dev"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fa-solid fa-code"></i> derico_dev
+    </a>
+
     <div class="tutorial-card" id="tutorial-card" popover>
       <div class="tutorial-header">
         <h3><i class="fa-solid fa-gamepad"></i> Como Jogar</h3>
@@ -279,14 +292,9 @@
       </div>
     </div>
 
-    <footer>
-      <a
-        href="https://linktr.ee/derico_dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        >derico_dev</a
-      >
-    </footer>
+    <!-- Container de confetti -->
+    <div class="confetti-container" id="confetti-container"></div>
+
     <script src="app.js"></script>
   </body>
 </html>

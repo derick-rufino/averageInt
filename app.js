@@ -355,8 +355,8 @@ function handleCorrectAnswer() {
 
   pontos += pontosPorAcerto();
 
-  // ✅ NOVA ANIMAÇÃO: Usar função de sucesso
-  showSuccessMessage(`Correto! +${pontosPorAcerto()} pontos`);
+  // ✅ ANIMAÇÃO DE CONFETTI: Usar função de sucesso COM confetti
+  showSuccessMessageWithConfetti(`Correto! +${pontosPorAcerto()} pontos`);
 
   tentativaFeita = true;
 
@@ -668,3 +668,85 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// ========== CONFETTI SYSTEM ==========
+
+// Função para criar confetti
+function createConfetti() {
+  const container = document.getElementById("confetti-container");
+  if (!container) return;
+
+  // Limpar confetti anterior se existir
+  container.innerHTML = "";
+
+  // Configurações do confetti
+  const colors = ["primary", "success", "warning", "accent", "secondary"];
+  const shapes = ["square", "circle", "triangle"];
+  const sizes = ["small", "medium", "large"];
+  const movements = ["", "drift-left", "drift-right"];
+
+  // Criar 25-40 peças de confetti
+  const pieceCount = Math.floor(Math.random() * 16) + 25;
+
+  for (let i = 0; i < pieceCount; i++) {
+    createConfettiPiece(container, colors, shapes, sizes, movements);
+  }
+
+  // Limpar o container após a animação terminar
+  setTimeout(() => {
+    if (container) {
+      container.innerHTML = "";
+    }
+  }, 3500);
+}
+
+// Função para criar uma peça individual de confetti
+function createConfettiPiece(container, colors, shapes, sizes, movements) {
+  const piece = document.createElement("div");
+  piece.className = "confetti-piece";
+
+  // Escolher características aleatórias
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const shape = shapes[Math.floor(Math.random() * shapes.length)];
+  const size = sizes[Math.floor(Math.random() * sizes.length)];
+  const movement = movements[Math.floor(Math.random() * movements.length)];
+
+  // Aplicar classes
+  piece.classList.add(color, shape, size);
+  if (movement) piece.classList.add(movement);
+
+  // Posição horizontal aleatória
+  const startX = Math.random() * window.innerWidth;
+  piece.style.left = startX + "px";
+
+  // Posição inicial bem próxima do topo da tela
+  piece.style.top = "-20px";
+
+  // Duração aleatória da animação (2.5s a 3.5s)
+  const duration = 2.5 + Math.random() * 1;
+  piece.style.setProperty("--fall-duration", duration + "s");
+
+  // Rotação aleatória
+  const rotation = Math.random() * 720 - 360; // -360 a 360 graus
+  piece.style.setProperty("--rotation", rotation + "deg");
+
+  // Adicionar delay aleatório pequeno para efeito mais natural
+  const delay = Math.random() * 200; // 0-200ms
+  piece.style.animationDelay = delay + "ms";
+
+  container.appendChild(piece);
+}
+
+// Função modificada para mensagem de sucesso COM confetti
+function showSuccessMessageWithConfetti(message) {
+  // Criar confetti primeiro
+  createConfetti();
+
+  // Depois mostrar a mensagem
+  userMessage.textContent = `✅ ${message}`;
+  userMessage.className = "success";
+
+  setTimeout(() => (userMessage.className = ""), 2500);
+}
+
+// ========== END CONFETTI SYSTEM ==========

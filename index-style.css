@@ -46,7 +46,7 @@ main {
 /* Seção principal do jogo - foco total */
 section.game {
   grid-column: 4/5;
-  grid-row: 1/4;
+  grid-row: 2/4;
 
   background: var(--bg-secondary);
   border: var(--border-width-thick) solid var(--border-primary);
@@ -143,17 +143,14 @@ p#message {
 
 /* Estados de feedback - APENAS quando necessário */
 p#message.success {
-  background: var(--feedback-success-bg);
   color: var(--feedback-success);
 }
 
 p#message.warning {
-  background: var(--feedback-warning-bg);
   color: var(--feedback-warning);
 }
 
 p#message.error {
-  background: var(--feedback-danger-bg);
   color: var(--feedback-danger);
 }
 
@@ -1450,3 +1447,472 @@ section.rankingCard.wip {
 }
 
 /* ========== END CONFETTI SYSTEM ========== */
+
+/* ========== TOAST NOTIFICATION SYSTEM ========== */
+
+/* Container de toast - canto superior direito */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  max-width: 350px;
+}
+
+/* Toast individual */
+.toast {
+  background: var(--bg-secondary);
+  border: var(--border-width-thick) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 12px 16px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow: var(--shadow-subtle);
+  pointer-events: auto;
+
+  /* Animação de entrada */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+/* Toast visível */
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Toast saindo */
+.toast.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Tipos de toast com cores específicas */
+.toast.success {
+  border-color: var(--feedback-success);
+}
+
+.toast.success .toast-icon {
+  color: var(--feedback-success);
+}
+
+.toast.warning {
+  border-color: var(--feedback-warning);
+}
+
+.toast.warning .toast-icon {
+  color: var(--feedback-warning);
+}
+
+.toast.error {
+  border-color: var(--feedback-danger);
+}
+
+.toast.error .toast-icon {
+  color: var(--feedback-danger);
+}
+
+.toast.info {
+  border-color: var(--interactive-primary);
+}
+
+.toast.info .toast-icon {
+  color: var(--interactive-primary);
+}
+
+/* Ícone do toast */
+.toast-icon {
+  flex-shrink: 0;
+  font-size: var(--font-size-base);
+  width: 16px;
+  text-align: center;
+}
+
+/* Texto do toast */
+.toast-text {
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* Botão de fechar toast */
+.toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: 2px;
+  margin-left: 4px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-base);
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+
+/* ========== END TOAST NOTIFICATION SYSTEM ========== */
+
+/* ========== HINT CONFIRMATION CARD ========== */
+
+/* Overlay de fundo */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1200;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.confirmation-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Card principal de confirmação de dica */
+.hint-confirmation-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 1300;
+
+  background: var(--bg-secondary);
+  border: var(--border-width-thick) solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+
+  max-width: min(90vw, 450px);
+  max-height: 90vh;
+  width: 100%;
+
+  display: none;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+}
+
+.hint-confirmation-card.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Header do card */
+.confirmation-header {
+  background: var(--bg-tertiary);
+  border-bottom: var(--border-width) solid var(--border-primary);
+  padding: 16px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.confirmation-header h3 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.confirmation-header h3 i {
+  color: var(--feedback-warning);
+  font-size: var(--font-size-lg);
+}
+
+.confirmation-header .close-btn {
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+
+  transition: var(--transition-base);
+}
+
+.confirmation-header .close-btn:hover {
+  color: var(--feedback-danger);
+  background: var(--bg-primary);
+  border-color: var(--feedback-danger);
+}
+
+/* Conteúdo do card */
+.confirmation-content {
+  padding: 20px;
+  max-height: calc(90vh - 80px);
+  overflow-y: auto;
+}
+
+/* Informações da dica */
+.hint-info {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Aviso específico do modo */
+.mode-warning {
+  background: var(--bg-tertiary);
+  border: var(--border-width) solid var(--feedback-warning);
+  border-radius: var(--radius-base);
+  padding: 16px;
+  margin-bottom: 20px;
+  display: none; /* Mostrado condicionalmente */
+}
+
+.mode-warning.show {
+  display: block;
+}
+
+.mode-warning h4 {
+  margin: 0 0 8px 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--feedback-warning);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mode-warning p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Consequências */
+.hint-consequences h4 {
+  margin: 0 0 12px 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hint-consequences ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.hint-consequences li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.hint-consequences li i {
+  color: var(--feedback-success);
+  font-size: var(--font-size-sm);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.hint-consequences li.negative i {
+  color: var(--feedback-danger);
+}
+
+.hint-consequences li.warning i {
+  color: var(--feedback-warning);
+}
+
+/* Botões de ação */
+.confirmation-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-secondary,
+.btn-primary {
+  padding: 12px 20px;
+  border-radius: var(--radius-base);
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-base);
+
+  min-width: 100px;
+  text-align: center;
+}
+
+.btn-secondary {
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.btn-primary {
+  background: var(--interactive-primary);
+  border: var(--border-width) solid var(--interactive-primary);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--interactive-hover);
+  border-color: var(--interactive-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background: var(--bg-subtle);
+  border-color: var(--border-primary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsividade mobile */
+@media (max-width: 720px) {
+  .hint-confirmation-card {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+
+  .confirmation-header {
+    padding: 12px 16px;
+  }
+
+  .confirmation-header h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  .confirmation-content {
+    padding: 16px;
+  }
+
+  .confirmation-actions {
+    flex-direction: column;
+  }
+
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* ========== END HINT CONFIRMATION CARD ========== */
+
+/* ========== POINTS CARD ENHANCEMENTS ========== */
+
+/* Container dos pontos com botão */
+.points-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Botão de compra de pontos */
+.buy-points-btn {
+  background: var(--feedback-success);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+
+  transition: var(--transition-base);
+  flex-shrink: 0;
+}
+
+.buy-points-btn:hover {
+  background: #16a34a;
+  transform: scale(1.1);
+}
+
+.buy-points-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mobile - botão menor */
+@media (max-width: 720px) {
+  .buy-points-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .points-display {
+    gap: 6px;
+  }
+}
+
+/* ========== END POINTS CARD ENHANCEMENTS ========== */

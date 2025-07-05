@@ -1,1 +1,12 @@
 .vercel
+
+# Backup files - mantidos localmente mas não versionados
+*_backup*.js
+*_backup_*.js
+backup_*.js
+*.backup.*
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+temp_*

@@ -1,4 +1,92 @@
-// ========== BASIC FEEDBACK ==========
+﻿// ========== BASIC FEEDBACK ==========
+
+// ========== TOAST NOTIFICATION SYSTEM ==========
+
+// Função para criar container de toast se não existir
+function ensureToastContainer() {
+  let container = document.getElementById("toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toast-container";
+    container.className = "toast-container";
+    document.body.appendChild(container);
+  }
+  return container;
+}
+
+// Função principal para mostrar toast
+function showToast(message, type = "info", duration = 4000) {
+  const container = ensureToastContainer();
+
+  // Criar elemento toast
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+
+  // Definir ícones por tipo
+  const icons = {
+    success: "fa-check-circle",
+    error: "fa-exclamation-circle",
+    warning: "fa-exclamation-triangle",
+    info: "fa-info-circle",
+  };
+
+  toast.innerHTML = `
+    <i class="fas ${icons[type]} toast-icon"></i>
+    <span class="toast-text">${message}</span>
+    <button class="toast-close" onclick="hideToast(this.parentElement)">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+
+  // Adicionar ao container
+  container.appendChild(toast);
+
+  // Mostrar toast com Animação
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  // Auto-remover Após Duração especificada
+  setTimeout(() => {
+    hideToast(toast);
+  }, duration);
+
+  return toast;
+}
+
+// Função para esconder toast
+function hideToast(toast) {
+  if (!toast || !toast.parentElement) return;
+
+  toast.classList.remove("show");
+  toast.classList.add("hide");
+
+  // Remover do DOM Após Animação
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.parentElement.removeChild(toast);
+    }
+  }, 300);
+}
+
+// Funções Específicas para cada tipo de toast
+function showSuccessToast(message, duration = 3000) {
+  return showToast(message, "success", duration);
+}
+
+function showErrorToast(message, duration = 4000) {
+  return showToast(message, "error", duration);
+}
+
+function showWarningToast(message, duration = 4000) {
+  return showToast(message, "warning", duration);
+}
+
+function showInfoToast(message, duration = 3000) {
+  return showToast(message, "info", duration);
+}
+
+// ========== END TOAST NOTIFICATION SYSTEM ==========
 
 // Função para mensagem de sucesso
 function showSuccessMessage(message) {
@@ -21,10 +109,11 @@ function showHintMessage(message) {
   userMessage.textContent = `💡 ${message}`;
   userMessage.className = "warning";
 
-  setTimeout(() => (userMessage.className = ""), 2500);
+  // Dicas ficam visíveis até o próximo acerto/erro/nova rodada
+  // NÃO resetam automaticamente
 }
 
-// Váriaveis globais de estado
+// Variáveis globais de estado
 //Estado do Jogo
 let currentMode = "2"; // modo Normal por padrão
 let pontos = 0;
@@ -37,10 +126,12 @@ let currentTimerValue = null;
 
 //Sistema de Dicas
 let dicaUsada = false; //indica se é possível usar novas dicas ou não
-let dicasEstaoDisponíveis = false; // indica se as dicas estão disponíveis para uso no modo atual ou não
+let dicasEstaoDisponiveis = false; // indica se as dicas estao disponiveis para uso no modo atual ou nao
+let dicasUsadasNaRodada = []; // Array para guardar dicas já usadas na rodada atual
+let dicasUsadasNoJogo = 0; // Contador total de dicas usadas (para compartilhamento)
 
-//Variáveis DOM (manipulação da interface)
-//Elementos de display (exibem mensagens, números, porntuações e o timer)
+//Variáveis DOM (Manipulação da interface)
+//Elementos de display (exibem mensagens, números, pontuações e o timer)
 const num1 = document.getElementById("number1");
 const num2 = document.getElementById("number2");
 const num3 = document.getElementById("number3");
@@ -60,13 +151,13 @@ const botaoDica = document.getElementById("hint");
 
 //Funções de Utilidade (Obter, calcular e atribuir valores)
 function getNumberValue(element) {
-  //declara que cada elemento recebido no parâmetro será um número inteiro
-  return parseInt(element.innerText); //E então retorna o valor (já parseado) para onde a função foi chamada
+  //declara que cada elemento recebido no Parâmetro será um número inteiro
+  return parseInt(element.innerText); //E Então retorna o valor (já parseado) para onde a Função foi chamada
 }
 
-// o "elem" permite que os parametros usados ao chamar essa função, sejam passados como array
+// o "elem" permite que os parametros usados ao chamar essa Função, sejam passados como array
 function calcularMedia(elem) {
-  const soma = elem.reduce((acc, el) => acc + getNumberValue(el), 0); //soma os valores dos elementos, através da redução do array a um único valor: o reduce tem um acumulador (iniciado em 0) e o valor atual do elemento, que é armazenado na variável "el".
+  const soma = elem.reduce((acc, el) => acc + getNumberValue(el), 0); //soma os valores dos elementos, através da redução do array a um Único valor: o reduce tem um acumulador (iniciado em 0) e o valor atual do elemento, que é armazenado na Variável "el".
   return soma / elem.length; //retorna a média baseada no número de elementos
 }
 
@@ -108,9 +199,117 @@ function enableGameControls() {
   botaoDica.disabled = false; // habilita o botão de dica
 }
 
+// Nova Função para controlar Formulário baseado no estado do jogo
+function updateFormState() {
+  if (!mediaAtual) {
+    // Sem Números gerados - desabilitar Formulário mas manter randomize
+    campoTentativaUsuario.disabled = true;
+    botaoEnviarTentativa.disabled = true;
+    botaoDica.disabled = true;
+    randomizeBtn.disabled = false; // Sempre permitir gerar Números
+
+    // Placeholder explicativo
+    campoTentativaUsuario.placeholder = "Gere Números primeiro";
+  } else {
+    // Com Números gerados - habilitar Formulário normalmente
+    campoTentativaUsuario.disabled = false;
+    botaoEnviarTentativa.disabled = false;
+    campoTentativaUsuario.placeholder = "Sua resposta";
+
+    // Atualizar estado do botão de dica
+    updateHintButtonState();
+  }
+}
+
+// ========== SISTEMA DE DICAS ==========
+
+// Função principal para usar dica
+function usarDica() {
+  // Verificar se há uma média atual válida
+  if (!mediaAtual) {
+    showErrorToast("Gere Números primeiro para usar dicas!");
+    return;
+  }
+
+  // Verificar se pode usar dica (agora passando a média atual e números da sequência)
+  const numerosSequencia = [
+    getNumberValue(num1),
+    getNumberValue(num2),
+    getNumberValue(num3),
+    getNumberValue(num4),
+  ];
+
+  const verificacao = DicasSystem.podeUsarDica(
+    currentMode,
+    pontos,
+    dicasUsadasNaRodada,
+    mediaAtual,
+    numerosSequencia
+  );
+
+  if (!verificacao.pode) {
+    showErrorToast(verificacao.motivo);
+    return;
+  }
+
+  const { custo, dicaDisponivel } = verificacao;
+
+  // Deduzir pontos (apenas se for modo difícil OU se tiver pontos)
+  if (currentMode === "4" || pontos >= custo) {
+    pontos = Math.max(0, pontos - custo);
+    displayPontos.innerText = pontos;
+  }
+
+  // Registrar dica como usada
+  dicasUsadasNaRodada.push(dicaDisponivel);
+  dicasUsadasNoJogo++;
+
+  // Mostrar dica no p#message (mantém comportamento atual)
+  showHintMessage(dicaDisponivel);
+
+  // Desabilitar botão de dica temporariamente
+  botaoDica.disabled = true;
+  dicaUsada = true;
+
+  // Reabilitar botão Após 3 segundos se ainda houver dicas disponíveis
+  setTimeout(() => {
+    updateHintButtonState();
+  }, 3000);
+}
+
+// Função para atualizar estado do botão de dica
+function updateHintButtonState() {
+  if (!dicasEstaoDisponiveis || !mediaAtual) {
+    botaoDica.disabled = true;
+    return;
+  }
+
+  const numerosSequencia = [
+    getNumberValue(num1),
+    getNumberValue(num2),
+    getNumberValue(num3),
+    getNumberValue(num4),
+  ];
+
+  const verificacao = DicasSystem.podeUsarDica(
+    currentMode,
+    pontos,
+    dicasUsadasNaRodada,
+    mediaAtual,
+    numerosSequencia
+  );
+
+  if (verificacao.pode && !tentativaFeita) {
+    botaoDica.disabled = false;
+    dicaUsada = false;
+  } else {
+    botaoDica.disabled = true;
+  }
+}
+
 //Reset e Estados
 function resetGame() {
-  // Reseta os números
+  // Reseta os Números
   num1.innerText = "0";
   num2.innerText = "0";
   num3.innerText = "0";
@@ -131,12 +330,14 @@ function resetGame() {
   userMessage.innerText = "";
   campoTentativaUsuario.value = "";
 
-  // Reseta estados da rodada (NÃO pontos)
+  // Reseta estados da rodada (NãO pontos)
   dicaUsada = false;
   tentativaFeita = false;
+  dicasUsadasNaRodada = []; // Reset das dicas da rodada
+  // NãO resetar dicasUsadasNoJogo - isso é estatística do jogo todo
 
-  // Habilita controles
-  enableGameControls();
+  // Atualizar estado do Formulário baseado na Situação atual
+  updateFormState();
 }
 
 function resetForNewRound() {
@@ -147,12 +348,12 @@ function resetForNewRound() {
   // Reseta o estado da dica
   dicaUsada = false;
 
-  // Habilita controles
-  enableGameControls();
+  // Atualizar estado do Formulário
+  updateFormState();
 }
 
 function updateHintButtonState() {
-  if (dicasEstaoDisponíveis && !dicaUsada) {
+  if (dicasEstaoDisponiveis && !dicaUsada) {
     botaoDica.disabled = false; // Habilita o botão de dica
   } else {
     botaoDica.disabled = true; // Desabilita o botão de dica
@@ -197,7 +398,7 @@ function highlightSelectedMode() {
   if (selectedModeBtn) {
     selectedModeBtn.classList.add("selected");
 
-    // Cores específicas para cada modo
+    // Cores Específicas para cada modo
     const modeBackgrounds = {
       1: "rgba(248, 250, 252, 0.1)", // Aprendiz - branco transparente
       2: "rgba(59, 130, 246, 0.2)", // Normal - azul transparente
@@ -211,7 +412,7 @@ function highlightSelectedMode() {
 }
 
 //Lógica Principal do Jogo
-//Geração de números
+//Geração de Números
 function generateRandomNumbers(max) {
   const numbers = [];
   for (let i = 0; i < 4; i++) {
@@ -224,9 +425,10 @@ function generateRandom() {
   console.clear();
   userMessage.innerText = "";
 
-  // ✅ RESETAR estados da rodada
+  // RESETAR estados da rodada
   tentativaFeita = false;
   dicaUsada = false;
+  dicasUsadasNaRodada = []; // Reset das dicas da rodada
 
   let isInteger = false;
   // Configurar range por modo
@@ -240,7 +442,7 @@ function generateRandom() {
   console.log("Modo atual: " + currentMode + " | Range máximo: " + max);
 
   while (!isInteger) {
-    // Gerar números usando sua função auxiliar
+    // Gerar Números usando sua Função auxiliar
     const numbers = generateRandomNumbers(max);
 
     // Colocar no display
@@ -264,8 +466,8 @@ function generateRandom() {
     }
   }
 
-  // ✅ GARANTIR que controles sejam habilitados após gerar números
-  enableGameControls();
+  // ✅ GARANTIR que controles sejam habilitados Após gerar Números
+  updateFormState();
 
   // ✅ ATUALIZAR estado das dicas baseado no modo
   updateHintButtonState();
@@ -277,8 +479,8 @@ function generateRandom() {
 }
 
 function startDifficultModeTimer() {
-  // ✅ CORREÇÃO: Limpar timer anterior SEM desabilitar controles
-  clearPreviousTimer(); // Nova função específica para isso
+  // ✅ CORREã‡ãƒO: Limpar timer anterior SEM desabilitar controles
+  clearPreviousTimer(); // Nova Função Específica para isso
   setTimerBtnActiveState();
 
   // ✅ HABILITAR o botão de parar timer
@@ -297,13 +499,13 @@ function startDifficultModeTimer() {
       console.log(
         "Tempo esgotado no modo difícil! Gerando nova sequência em 3s..."
       );
-      clearPreviousTimer(); // Usar a nova função
+      clearPreviousTimer(); // Usar a nova Função
       handleTimeoutDifficultMode();
     }
   }, 1000);
 }
 
-// ✅ NOVA FUNÇÃO: Apenas limpa timer sem afetar controles
+// ✅ NOVA FUNã‡ãƒO: Apenas limpa timer sem afetar controles
 function clearPreviousTimer() {
   if (countdownInterval) {
     clearInterval(countdownInterval);
@@ -312,7 +514,7 @@ function clearPreviousTimer() {
   setTimerBtnInitialState();
 }
 
-// ✅ CORREÇÃO: stopTimer agora é específica para parada manual
+// ✅ CORREã‡ãƒO: stopTimer agora é Específica para parada manual
 function stopTimer() {
   // Limpa o timer
   clearPreviousTimer();
@@ -339,7 +541,7 @@ function handleTimeoutDifficultMode() {
   // ✅ DESABILITAR o botão de parar timer pois não há mais timer rodando
   botaoPararTimer.disabled = true;
 
-  // ✅ GERAR números finais ANTES da animação
+  // ✅ GERAR Números finais ANTES da Animação
   let isInteger = false;
   let finalNumbers;
   let max;
@@ -350,11 +552,11 @@ function handleTimeoutDifficultMode() {
   else if (currentMode === "4") max = 100;
   else max = 30;
 
-  // Encontrar números que resultem em média inteira
+  // Encontrar Números que resultem em média inteira
   while (!isInteger) {
     finalNumbers = generateRandomNumbers(max);
 
-    // Calcular média dos números finais
+    // Calcular média dos Números finais
     const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
     if (Number.isInteger(testMedia)) {
       isInteger = true;
@@ -365,12 +567,12 @@ function handleTimeoutDifficultMode() {
   // ✅ MOSTRAR mensagem de transição
   userMessage.innerText = `⏰ Tempo esgotado! A resposta era ${mediaAtual} - Nova sequência...`;
 
-  // ✅ INICIAR animação dos displays
+  // ✅ INICIAR Animação dos displays
   animateNumberDisplays(finalNumbers, 3000);
 
   // Aguarda 3 segundos e finaliza a configuração da nova rodada
   setTimeout(() => {
-    // Os números já estão definidos pela animação
+    // Os Números já estão definidos pela Animação
     // Apenas resetar estados e habilitar controles
     tentativaFeita = false;
     dicaUsada = false;
@@ -386,13 +588,13 @@ function handleTimeoutDifficultMode() {
   }, 3000);
 }
 
-// ✅ NOVA FUNÇÃO: Animação dos displays durante o delay
+// ✅ NOVA FUNã‡ãƒO: Animação dos displays durante o delay
 function animateNumberDisplays(finalNumbers, duration = 3000) {
   const displays = [num1, num2, num3, num4];
   const startTime = Date.now();
   const intervals = [];
 
-  // Para cada display, criar uma animação independente
+  // Para cada display, criar uma Animação independente
   displays.forEach((display, index) => {
     let animationSpeed = 50; // Velocidade inicial (50ms entre mudanças)
 
@@ -406,7 +608,7 @@ function animateNumberDisplays(finalNumbers, duration = 3000) {
         return;
       }
 
-      // Desacelerar gradualmente a animação
+      // Desacelerar gradualmente a Animação
       const slowdownFactor = Math.max(0.3, 1 - progress); // De 1 a 0.3
       animationSpeed = 50 + 150 * (1 - slowdownFactor); // De 50ms a 200ms
 
@@ -425,34 +627,34 @@ function animateNumberDisplays(finalNumbers, duration = 3000) {
       setTimeout(animateDisplay, animationSpeed);
     };
 
-    // Começar animação com delay escalonado para efeito visual
+    // Começar Animação com delay escalonado para efeito visual
     setTimeout(() => {
       animateDisplay();
     }, index * 100); // 0ms, 100ms, 200ms, 300ms
   });
 }
 
-// ✅ CORREÇÃO: handleCorrectAnswer no modo difícil com animação
+// ✅ CORREã‡ãƒO: handleCorrectAnswer no modo difícil com Animação
 function handleCorrectAnswer() {
   // Para o timer se estiver rodando
   if (currentMode === "4" && countdownInterval) {
-    clearPreviousTimer(); // Usa a nova função
+    clearPreviousTimer(); // Usa a nova Função
     botaoPararTimer.disabled = true; // Desabilita o botão de parar
   }
 
   pontos += pontosPorAcerto();
 
-  // ✅ ANIMAÇÃO DE CONFETTI: Usar função de sucesso COM confetti
+  // ✅ ANIMAã‡ãƒO DE CONFETTI: Usar Função de sucesso COM confetti
   showSuccessMessageWithConfetti(`Correto! +${pontosPorAcerto()} pontos`);
 
   tentativaFeita = true;
 
-  // ✅ CORREÇÃO: Comportamento específico por modo
+  // ✅ CORREã‡ãƒO: Comportamento específico por modo
   if (currentMode === "4") {
-    // Modo difícil: desabilita tudo e aguarda 3s para regenerar COM ANIMAÇÃO
+    // Modo difícil: desabilita tudo e aguarda 3s para regenerar COM ANIMAã‡ãƒO
     disableGameControls();
 
-    // ✅ GERAR números finais ANTES da animação
+    // ✅ GERAR Números finais ANTES da Animação
     let isInteger = false;
     let finalNumbers;
     let max;
@@ -463,11 +665,11 @@ function handleCorrectAnswer() {
     else if (currentMode === "4") max = 100;
     else max = 30;
 
-    // Encontrar números que resultem em média inteira
+    // Encontrar Números que resultem em média inteira
     while (!isInteger) {
       finalNumbers = generateRandomNumbers(max);
 
-      // Calcular média dos números finais
+      // Calcular média dos Números finais
       const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
       if (Number.isInteger(testMedia)) {
         isInteger = true;
@@ -475,16 +677,17 @@ function handleCorrectAnswer() {
       }
     }
 
-    // ✅ INICIAR animação dos displays após 1 segundo
+    // ✅ INICIAR Animação dos displays Após 1 segundo
     setTimeout(() => {
       animateNumberDisplays(finalNumbers, 3000);
     }, 1000);
 
     setTimeout(() => {
-      // Os números já estão definidos pela animação
+      // Os Números já estão definidos pela Animação
       // Apenas resetar estados e habilitar controles
       tentativaFeita = false;
       dicaUsada = false;
+      dicasUsadasNaRodada = []; // Reset das dicas da rodada
 
       enableGameControls();
       updateHintButtonState();
@@ -493,7 +696,7 @@ function handleCorrectAnswer() {
       if (currentMode === "4") {
         startDifficultModeTimer();
       }
-    }, 4000); // 1s delay + 3s animação
+    }, 4000); // 1s delay + 3s Animação
   } else {
     // Outros modos: desabilita apenas input/envio, mantém randomize habilitado
     campoTentativaUsuario.disabled = true;
@@ -503,24 +706,24 @@ function handleCorrectAnswer() {
   }
 }
 
-// ✅ CORREÇÃO: handleWrongAnswer no modo difícil com animação
+// ✅ CORREã‡ãƒO: handleWrongAnswer no modo difícil com Animação
 function handleWrongAnswer() {
   // Para o timer se estiver rodando
   if (currentMode === "4" && countdownInterval) {
-    clearPreviousTimer(); // Usa a nova função
+    clearPreviousTimer(); // Usa a nova Função
     botaoPararTimer.disabled = true; // Desabilita o botão de parar
   }
 
-  // ✅ NOVA ANIMAÇÃO: Usar função de erro
+  // ✅ NOVA ANIMAã‡ãƒO: Usar Função de erro
   showErrorMessage(`Errado! A resposta era ${mediaAtual}`);
 
   tentativaFeita = true;
 
   if (currentMode === "4") {
-    // Modo difícil: aguarda 3s e regenera automaticamente COM ANIMAÇÃO
+    // Modo difícil: aguarda 3s e regenera automaticamente COM ANIMAã‡ãƒO
     disableGameControls(); // Desabilita tudo temporariamente
 
-    // ✅ GERAR números finais ANTES da animação
+    // ✅ GERAR Números finais ANTES da Animação
     let isInteger = false;
     let finalNumbers;
     let max;
@@ -531,11 +734,11 @@ function handleWrongAnswer() {
     else if (currentMode === "4") max = 100;
     else max = 30;
 
-    // Encontrar números que resultem em média inteira
+    // Encontrar Números que resultem em média inteira
     while (!isInteger) {
       finalNumbers = generateRandomNumbers(max);
 
-      // Calcular média dos números finais
+      // Calcular média dos Números finais
       const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
       if (Number.isInteger(testMedia)) {
         isInteger = true;
@@ -545,16 +748,17 @@ function handleWrongAnswer() {
 
     userMessage.innerText = `❌ Errado! A resposta era ${mediaAtual} - Nova sequência...`;
 
-    // ✅ INICIAR animação dos displays após 1 segundo
+    // ✅ INICIAR Animação dos displays Após 1 segundo
     setTimeout(() => {
       animateNumberDisplays(finalNumbers, 3000);
     }, 1000);
 
     setTimeout(() => {
-      // Os números já estão definidos pela animação
+      // Os Números já estão definidos pela Animação
       // Apenas resetar estados e habilitar controles
       tentativaFeita = false;
       dicaUsada = false;
+      dicasUsadasNaRodada = []; // Reset das dicas da rodada
       userMessage.innerText = "";
 
       enableGameControls();
@@ -564,9 +768,9 @@ function handleWrongAnswer() {
       if (currentMode === "4") {
         startDifficultModeTimer();
       }
-    }, 4000); // 1s delay + 3s animação
+    }, 4000); // 1s delay + 3s Animação
   } else {
-    // ✅ CORREÇÃO: Outros modos deixam só o randomize habilitado
+    // ✅ CORREã‡ãƒO: Outros modos deixam só o randomize habilitado
     campoTentativaUsuario.disabled = true;
     botaoEnviarTentativa.disabled = true;
     botaoDica.disabled = true;
@@ -575,10 +779,16 @@ function handleWrongAnswer() {
 }
 
 function handleSubmit(event) {
-  event.preventDefault(); // Previne o comportamento padrão do formulário de recarregar a página
+  event.preventDefault(); // Previne o comportamento padrão do Formulário de recarregar a página
+
+  // Verificar se Números foram gerados
+  if (!mediaAtual) {
+    showWarningToast("Gere Números primeiro para fazer uma tentativa!");
+    return;
+  }
 
   if (tentativaFeita) {
-    userMessage.innerText = "Você já fez uma tentativa nesta rodada!";
+    showWarningToast("Você já fez uma tentativa nesta rodada!");
     return;
   }
 
@@ -588,7 +798,7 @@ function handleSubmit(event) {
 
   if (isNaN(userGuess)) {
     //caso não seja um número
-    userMessage.innerText = "Por favor, insira um número válido.";
+    showErrorToast("Por favor, insira um número válido");
     return;
   }
 
@@ -596,13 +806,13 @@ function handleSubmit(event) {
   if (userGuess === mediaAtual) {
     console.log("Usuário acertou! Pontos antes: " + pontos);
     handleCorrectAnswer();
-    console.log("Pontos após acerto: " + pontos);
+    console.log("Pontos Após acerto: " + pontos);
   } else {
     console.log("Usuário errou. Resposta correta era: " + mediaAtual);
     handleWrongAnswer();
   }
 
-  // Limpar o campo de entrada após a tentativa
+  // Limpar o campo de entrada Após a tentativa
   campoTentativaUsuario.value = "";
 
   //Atualizar o display de pontos
@@ -610,7 +820,7 @@ function handleSubmit(event) {
 }
 
 // ===== EVENT LISTENERS =====
-// Conectar botões às funções
+// Conectar botões ã s Funções
 randomizeBtn.addEventListener("click", () => {
   generateRandom();
 });
@@ -623,53 +833,67 @@ botaoPararTimer.addEventListener("click", () => {
   stopTimer();
 });
 
-// Botão de dica
+// botão de dica
 botaoDica.addEventListener("click", () => {
-  showHintMessage("Dica: A média é a soma dividida por 4!");
+  showHintConfirmation();
 });
 
-// Botões de modo
+// botões de modo
 document.getElementById("mode1")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 1");
   currentMode = "1";
-  dicasEstaoDisponíveis = false;
+  dicasEstaoDisponiveis = true; // Dicas habilitadas para modo Aprendiz
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
-  // Fechar modal após seleção (apenas mobile)
+
+  // Toast de confirmação
+  showSuccessToast("Modo alterado para Aprendiz");
+
+  // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);
 });
 
 document.getElementById("mode2")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 2");
   currentMode = "2";
-  dicasEstaoDisponíveis = false;
+  dicasEstaoDisponiveis = true; // Dicas habilitadas para modo Normal
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
-  // Fechar modal após seleção (apenas mobile)
+
+  // Toast de confirmação
+  showSuccessToast("Modo alterado para Normal");
+
+  // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);
 });
 
 document.getElementById("mode3")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 3");
-  currentMode = "3";
-  dicasEstaoDisponíveis = true;
+  dicasEstaoDisponiveis = true;
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
-  // Fechar modal após seleção (apenas mobile)
+
+  // Toast de confirmação
+  showSuccessToast("Modo alterado para Medio");
+
+  // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);
 });
 
 document.getElementById("mode4")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 4");
-  currentMode = "4";
-  dicasEstaoDisponíveis = true;
+  dicasEstaoDisponiveis = true;
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
-  // Fechar modal após seleção (apenas mobile)
+
+  // Toast de confirmação
+  showSuccessToast("Modo alterado para Dificil");
+
+  // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);
 });
 
@@ -684,11 +908,11 @@ const rankingModal = document.getElementById("rankingCard");
 const gameModeModal = document.querySelector(".gameMode-card");
 const coverAllOverlay = document.querySelector(".coverAll");
 
-// Botões para abrir modais
+// botões para abrir modais
 const rankingBtn = document.getElementById("rankingCard-btn");
 const gameModeBtn = document.getElementById("gameMode-btn");
 
-// Botões para fechar modais (X)
+// botões para fechar modais (X)
 const closeRankingBtn = rankingModal?.querySelector(".fa-xmark");
 const closeGameModeBtn = gameModeModal?.querySelector(".fa-xmark");
 
@@ -822,10 +1046,13 @@ function switchRankingTab(tabName) {
   document.getElementById(`${tabName}-tab`).classList.add("active");
 }
 
-// Executar também após o carregamento completo
+// Executar também Após o carregamento completo
 document.addEventListener("DOMContentLoaded", () => {
   // Inicializar layout mobile
   initializeMobileLayout();
+
+  // Inicializar estado do Formulário (desabilitado até gerar Números)
+  updateFormState();
 
   // Abas do ranking
   document.querySelectorAll(".tab-btn").forEach((btn) => {
@@ -846,7 +1073,7 @@ function createConfetti() {
   // Limpar confetti anterior se existir
   container.innerHTML = "";
 
-  // Configurações do confetti
+  // Configuraçãµes do confetti
   const colors = ["primary", "success", "warning", "accent", "secondary"];
   const shapes = ["square", "circle", "triangle"];
   const sizes = ["small", "medium", "large"];
@@ -859,7 +1086,7 @@ function createConfetti() {
     createConfettiPiece(container, colors, shapes, sizes, movements);
   }
 
-  // Limpar o container após a animação terminar
+  // Limpar o container Após a Animação terminar
   setTimeout(() => {
     if (container) {
       container.innerHTML = "";
@@ -889,7 +1116,7 @@ function createConfettiPiece(container, colors, shapes, sizes, movements) {
   // Posição inicial bem próxima do topo da tela
   piece.style.top = "-20px";
 
-  // Duração aleatória da animação (2.5s a 3.5s)
+  // Duração aleatória da Animação (2.5s a 3.5s)
   const duration = 2.5 + Math.random() * 1;
   piece.style.setProperty("--fall-duration", duration + "s");
 
@@ -917,3 +1144,139 @@ function showSuccessMessageWithConfetti(message) {
 }
 
 // ========== END CONFETTI SYSTEM ==========
+
+// ========== HINT CONFIRMATION SYSTEM ==========
+
+// Função para mostrar o card de confirmação de dica
+function showHintConfirmation() {
+  // Verificar se dica pode ser usada
+  const verificacao = DicasSystem.podeUsarDica(
+    currentMode,
+    pontos,
+    dicasUsadasNaRodada,
+    mediaAtual,
+    [
+      getNumberValue(num1),
+      getNumberValue(num2),
+      getNumberValue(num3),
+      getNumberValue(num4),
+    ]
+  );
+
+  if (!verificacao.pode) {
+    showWarningToast(verificacao.motivo);
+    return;
+  }
+
+  // Atualizar informaçãµes no card
+  updateHintConfirmationCard(verificacao);
+
+  // Mostrar card
+  const overlay = document.getElementById("confirmationOverlay");
+  const card = document.getElementById("hintConfirmationCard");
+
+  overlay.classList.add("show");
+  card.classList.add("show");
+}
+
+// Função para fechar o card de confirmação
+function closeHintConfirmation() {
+  const overlay = document.getElementById("confirmationOverlay");
+  const card = document.getElementById("hintConfirmationCard");
+
+  overlay.classList.remove("show");
+  card.classList.remove("show");
+}
+
+// Função para atualizar informaçãµes no card
+function updateHintConfirmationCard(verificacao) {
+  // Mapeamento de modos
+  const modeNames = {
+    1: "Aprendiz",
+    2: "Normal",
+    3: "Médio",
+    4: "Difícil",
+  };
+
+  // Atualizar informaçãµes básicas
+  document.getElementById("confirmModeDisplay").textContent =
+    modeNames[currentMode];
+  document.getElementById("confirmCurrentPoints").textContent = pontos;
+  document.getElementById(
+    "confirmHintCost"
+  ).textContent = `${verificacao.custo} pts`;
+  document.getElementById("confirmHintsUsed").textContent = `${
+    dicasUsadasNaRodada.length
+  }/${DicasSystem.limites[modeNames[currentMode].toLowerCase()] || 2}`;
+
+  // Aviso específico do modo
+  const modeWarning = document.getElementById("modeWarning");
+  if (currentMode === "4") {
+    modeWarning.innerHTML = `
+      <h4><i class="fa-solid fa-exclamation-triangle"></i> Modo Difícil</h4>
+      <p>No modo difícil, usar dicas remove pontos permanentemente. Esta ação não pode ser desfeita.</p>
+    `;
+    modeWarning.classList.add("show");
+  } else {
+    modeWarning.classList.remove("show");
+  }
+
+  // Lista de consequências
+  const consequencesList = document.getElementById("consequencesList");
+  consequencesList.innerHTML = "";
+
+  // Consequência: mostrar dica
+  const showHintLi = document.createElement("li");
+  showHintLi.innerHTML = `
+    <i class="fa-solid fa-lightbulb"></i>
+    <span>Uma dica será exibida para ajudar você</span>
+  `;
+  consequencesList.appendChild(showHintLi);
+
+  // Consequência: pontos
+  if (currentMode === "4") {
+    const pointsLi = document.createElement("li");
+    pointsLi.className = "negative";
+    pointsLi.innerHTML = `
+      <i class="fa-solid fa-minus-circle"></i>
+      <span>Você perderá <strong>${verificacao.custo} pontos</strong> permanentemente</span>
+    `;
+    consequencesList.appendChild(pointsLi);
+  } else {
+    const pointsLi = document.createElement("li");
+    pointsLi.className = "warning";
+    pointsLi.innerHTML = `
+      <i class="fa-solid fa-info-circle"></i>
+      <span>Pontos serão removidos apenas se você errar a resposta</span>
+    `;
+    consequencesList.appendChild(pointsLi);
+  }
+
+  // Consequência: limite
+  const limitLi = document.createElement("li");
+  limitLi.className = "warning";
+  const remaining =
+    (DicasSystem.limites[modeNames[currentMode].toLowerCase()] || 2) -
+    dicasUsadasNaRodada.length -
+    1;
+  limitLi.innerHTML = `
+    <i class="fa-solid fa-clock"></i>
+    <span>Restará${
+      remaining > 0
+        ? `m ${remaining} dica${remaining > 1 ? "s" : ""}`
+        : "m 0 dicas"
+    } para esta rodada</span>
+  `;
+  consequencesList.appendChild(limitLi);
+}
+
+// Função para confirmar o uso da dica
+function confirmHintUsage() {
+  // Fechar card primeiro
+  closeHintConfirmation();
+
+  // Usar a dica (funcao ja existente)
+  usarDica();
+}
+
+// ========== END HINT CONFIRMATION SYSTEM ==========

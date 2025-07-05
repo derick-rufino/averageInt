@@ -339,13 +339,100 @@ function handleTimeoutDifficultMode() {
   // ✅ DESABILITAR o botão de parar timer pois não há mais timer rodando
   botaoPararTimer.disabled = true;
 
-  // Aguarda 3 segundos e gera nova sequência
+  // ✅ GERAR números finais ANTES da animação
+  let isInteger = false;
+  let finalNumbers;
+  let max;
+
+  if (currentMode === "1") max = 10;
+  else if (currentMode === "2") max = 30;
+  else if (currentMode === "3") max = 50;
+  else if (currentMode === "4") max = 100;
+  else max = 30;
+
+  // Encontrar números que resultem em média inteira
+  while (!isInteger) {
+    finalNumbers = generateRandomNumbers(max);
+
+    // Calcular média dos números finais
+    const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
+    if (Number.isInteger(testMedia)) {
+      isInteger = true;
+      mediaAtual = testMedia; // Atualizar para próxima rodada
+    }
+  }
+
+  // ✅ MOSTRAR mensagem de transição
+  userMessage.innerText = `⏰ Tempo esgotado! A resposta era ${mediaAtual} - Nova sequência...`;
+
+  // ✅ INICIAR animação dos displays
+  animateNumberDisplays(finalNumbers, 3000);
+
+  // Aguarda 3 segundos e finaliza a configuração da nova rodada
   setTimeout(() => {
-    generateRandom();
+    // Os números já estão definidos pela animação
+    // Apenas resetar estados e habilitar controles
+    tentativaFeita = false;
+    dicaUsada = false;
+    userMessage.innerText = "";
+
+    enableGameControls();
+    updateHintButtonState();
+
+    // Timer só no modo difícil
+    if (currentMode === "4") {
+      startDifficultModeTimer();
+    }
   }, 3000);
 }
 
-// ✅ CORREÇÃO: handleCorrectAnswer no modo difícil
+// ✅ NOVA FUNÇÃO: Animação dos displays durante o delay
+function animateNumberDisplays(finalNumbers, duration = 3000) {
+  const displays = [num1, num2, num3, num4];
+  const startTime = Date.now();
+  const intervals = [];
+
+  // Para cada display, criar uma animação independente
+  displays.forEach((display, index) => {
+    let animationSpeed = 50; // Velocidade inicial (50ms entre mudanças)
+
+    const animateDisplay = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = elapsed / duration;
+
+      if (progress >= 1) {
+        // Animação terminou - mostrar número final
+        display.innerText = finalNumbers[index];
+        return;
+      }
+
+      // Desacelerar gradualmente a animação
+      const slowdownFactor = Math.max(0.3, 1 - progress); // De 1 a 0.3
+      animationSpeed = 50 + 150 * (1 - slowdownFactor); // De 50ms a 200ms
+
+      // Gerar número aleatório baseado no modo atual
+      let max;
+      if (currentMode === "1") max = 10;
+      else if (currentMode === "2") max = 30;
+      else if (currentMode === "3") max = 50;
+      else if (currentMode === "4") max = 100;
+      else max = 30;
+
+      const randomNum = Math.floor(Math.random() * max) + 1;
+      display.innerText = randomNum;
+
+      // Agendar próxima mudança
+      setTimeout(animateDisplay, animationSpeed);
+    };
+
+    // Começar animação com delay escalonado para efeito visual
+    setTimeout(() => {
+      animateDisplay();
+    }, index * 100); // 0ms, 100ms, 200ms, 300ms
+  });
+}
+
+// ✅ CORREÇÃO: handleCorrectAnswer no modo difícil com animação
 function handleCorrectAnswer() {
   // Para o timer se estiver rodando
   if (currentMode === "4" && countdownInterval) {
@@ -362,12 +449,51 @@ function handleCorrectAnswer() {
 
   // ✅ CORREÇÃO: Comportamento específico por modo
   if (currentMode === "4") {
-    // Modo difícil: desabilita tudo e aguarda 3s para regenerar
+    // Modo difícil: desabilita tudo e aguarda 3s para regenerar COM ANIMAÇÃO
     disableGameControls();
 
+    // ✅ GERAR números finais ANTES da animação
+    let isInteger = false;
+    let finalNumbers;
+    let max;
+
+    if (currentMode === "1") max = 10;
+    else if (currentMode === "2") max = 30;
+    else if (currentMode === "3") max = 50;
+    else if (currentMode === "4") max = 100;
+    else max = 30;
+
+    // Encontrar números que resultem em média inteira
+    while (!isInteger) {
+      finalNumbers = generateRandomNumbers(max);
+
+      // Calcular média dos números finais
+      const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
+      if (Number.isInteger(testMedia)) {
+        isInteger = true;
+        mediaAtual = testMedia; // Atualizar para próxima rodada
+      }
+    }
+
+    // ✅ INICIAR animação dos displays após 1 segundo
     setTimeout(() => {
-      generateRandom();
-    }, 3000);
+      animateNumberDisplays(finalNumbers, 3000);
+    }, 1000);
+
+    setTimeout(() => {
+      // Os números já estão definidos pela animação
+      // Apenas resetar estados e habilitar controles
+      tentativaFeita = false;
+      dicaUsada = false;
+
+      enableGameControls();
+      updateHintButtonState();
+
+      // Timer só no modo difícil
+      if (currentMode === "4") {
+        startDifficultModeTimer();
+      }
+    }, 4000); // 1s delay + 3s animação
   } else {
     // Outros modos: desabilita apenas input/envio, mantém randomize habilitado
     campoTentativaUsuario.disabled = true;
@@ -377,7 +503,7 @@ function handleCorrectAnswer() {
   }
 }
 
-// ✅ CORREÇÃO: handleWrongAnswer no modo difícil
+// ✅ CORREÇÃO: handleWrongAnswer no modo difícil com animação
 function handleWrongAnswer() {
   // Para o timer se estiver rodando
   if (currentMode === "4" && countdownInterval) {
@@ -391,13 +517,54 @@ function handleWrongAnswer() {
   tentativaFeita = true;
 
   if (currentMode === "4") {
-    // Modo difícil: aguarda 3s e regenera automaticamente
+    // Modo difícil: aguarda 3s e regenera automaticamente COM ANIMAÇÃO
     disableGameControls(); // Desabilita tudo temporariamente
-    userMessage.innerText = `❌ Errado! A resposta era ${mediaAtual} - Nova sequência em 3s...`;
+
+    // ✅ GERAR números finais ANTES da animação
+    let isInteger = false;
+    let finalNumbers;
+    let max;
+
+    if (currentMode === "1") max = 10;
+    else if (currentMode === "2") max = 30;
+    else if (currentMode === "3") max = 50;
+    else if (currentMode === "4") max = 100;
+    else max = 30;
+
+    // Encontrar números que resultem em média inteira
+    while (!isInteger) {
+      finalNumbers = generateRandomNumbers(max);
+
+      // Calcular média dos números finais
+      const testMedia = finalNumbers.reduce((acc, num) => acc + num, 0) / 4;
+      if (Number.isInteger(testMedia)) {
+        isInteger = true;
+        mediaAtual = testMedia; // Atualizar para próxima rodada
+      }
+    }
+
+    userMessage.innerText = `❌ Errado! A resposta era ${mediaAtual} - Nova sequência...`;
+
+    // ✅ INICIAR animação dos displays após 1 segundo
+    setTimeout(() => {
+      animateNumberDisplays(finalNumbers, 3000);
+    }, 1000);
 
     setTimeout(() => {
-      generateRandom();
-    }, 3000);
+      // Os números já estão definidos pela animação
+      // Apenas resetar estados e habilitar controles
+      tentativaFeita = false;
+      dicaUsada = false;
+      userMessage.innerText = "";
+
+      enableGameControls();
+      updateHintButtonState();
+
+      // Timer só no modo difícil
+      if (currentMode === "4") {
+        startDifficultModeTimer();
+      }
+    }, 4000); // 1s delay + 3s animação
   } else {
     // ✅ CORREÇÃO: Outros modos deixam só o randomize habilitado
     campoTentativaUsuario.disabled = true;

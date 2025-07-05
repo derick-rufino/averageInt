@@ -1,7 +1,7 @@
 @media (max-width: 720px) {
   /* ========== MOBILE GAMING LAYOUT ========== */
 
-  /* Fix do viewport mobile */
+  /* Ajuste do viewport mobile */
   html {
     height: 100%;
     overflow-x: hidden;
@@ -126,6 +126,12 @@
     max-width: none;
     min-width: 100px;
     flex: 1;
+  }
+
+  /* Placeholder com tamanho reduzido para mobile */
+  input#userGuess::placeholder {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
   }
 
   form > button[type="submit"] {
@@ -344,9 +350,25 @@
   a#developer-card {
     bottom: 15px;
     left: 15px;
-    padding: 10px 14px;
-    font-size: var(--font-size-sm);
+    padding: 8px 10px;
     z-index: 1000;
+
+    /* Ajustes mobile */
+    opacity: 0.8;
+    transform: scale(0.9);
+  }
+
+  /* Ajustes mobile para o conteúdo do card */
+  a#developer-card .dev-name {
+    font-size: 10px;
+  }
+
+  a#developer-card .tech-stack i {
+    font-size: 12px;
+  }
+
+  a#developer-card:hover {
+    transform: scale(0.95) translateY(-1px);
   }
 
   /* Reduzir efeitos de glow em mobile para performance */

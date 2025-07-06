@@ -404,7 +404,7 @@ section i.fa-xmark:hover {
 
 /* Botões de modo - minimalistas */
 button.gameModeOption {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 8px 10px;
@@ -522,7 +522,7 @@ a#developer-card {
 
 /* Hover effect - mais destaque */
 a#developer-card:hover {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border-color: var(--border-primary);
   transform: translateY(-2px);
   opacity: 1;
@@ -557,7 +557,7 @@ button#tutorial-btn {
   justify-content: center;
   gap: 6px;
 
-  height: auto;
+  max-height: fit-content;
   cursor: pointer;
   transition: var(--transition-base);
 }
@@ -640,7 +640,7 @@ div#tutorial-card .tutorial-header h3 {
 }
 
 div#tutorial-card .tutorial-header .close-btn {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 0.5rem;
@@ -680,6 +680,10 @@ div#tutorial-card .hints-section h4 {
   color: var(--feedback-warning);
 }
 
+div#tutorial-card .hints-section h4 i {
+  color: var(--feedback-warning);
+}
+
 div#tutorial-card .hints-section .step-icon {
   background: var(
     --color-base-800
@@ -690,6 +694,10 @@ div#tutorial-card .hints-section .step-icon {
 
 /* Seção do Modo Difícil - cores vermelhas */
 div#tutorial-card .difficulty-section h4 {
+  color: var(--feedback-danger);
+}
+
+div#tutorial-card .difficulty-section h4 i {
   color: var(--feedback-danger);
 }
 
@@ -755,7 +763,7 @@ div#tutorial-card .game-modes {
 }
 
 div#tutorial-card .mode-badge {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 0.5rem;
@@ -782,10 +790,10 @@ div#tutorial-card .mode-badge.hard {
 }
 
 div#tutorial-card .highlight {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   padding: 0.75rem;
   border-radius: var(--radius-base);
-  border-left: 4px solid var(--interactive-primary);
+  border-left: 4px solid var(--feedback-warning);
   margin: 1rem 0;
 }
 
@@ -793,7 +801,6 @@ div#tutorial-card .highlight p {
   margin: 0;
   color: var(--text-primary);
   font-weight: 500;
-  text-align: center;
 }
 
 div#tutorial-card strong {
@@ -805,6 +812,28 @@ div#tutorial-card em {
   color: var(--text-accent);
   font-style: normal;
   font-weight: 500;
+}
+
+/* Destaque especial com ênfase amarela para dica principal */
+.highlight-primary {
+  border-left-color: var(--feedback-warning);
+}
+
+.highlight-primary strong {
+  color: var(--feedback-warning);
+}
+
+/* Destaque secundário com ênfase azul para exemplos */
+.highlight-secondary {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 6px;
+}
+
+.highlight-secondary strong {
+  color: #3b82f6;
 }
 
 /* Popover backdrop */
@@ -870,7 +899,7 @@ div#tutorial-card::backdrop {
 
 /* Cards de pontuação */
 .pointsCard {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 8px;
@@ -1096,7 +1125,7 @@ div#tutorial-card::backdrop {
 
 .tab-btn {
   flex: 1;
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-sm);
   padding: 6px 8px;
@@ -1159,7 +1188,7 @@ div#tutorial-card::backdrop {
 
 /* Item de ranking */
 .rank-item {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-sm);
   padding: 10px 12px;
@@ -1532,352 +1561,239 @@ section.rankingCard.wip {
   color: var(--interactive-primary);
 }
 
-/* Ícone do toast */
-.toast-icon {
-  flex-shrink: 0;
-  font-size: var(--font-size-base);
-  width: 16px;
-  text-align: center;
-}
+/* ========== END TUTORIAL SYSTEM ========== */
 
-/* Texto do toast */
-.toast-text {
-  flex: 1;
-  line-height: 1.3;
-}
+/* ========== TUTORIAL SYSTEM ========== */
 
-/* Botão de fechar toast */
-.toast-close {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  padding: 2px;
-  margin-left: 4px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-base);
-  flex-shrink: 0;
-}
-
-.toast-close:hover {
-  color: var(--text-primary);
-  background: var(--bg-subtle);
-}
-
-/* ========== END TOAST NOTIFICATION SYSTEM ========== */
-
-/* ========== HINT CONFIRMATION CARD ========== */
-
-/* Overlay de fundo */
-.confirmation-overlay {
+/* Botão do tutorial - posicionado no canto superior direito */
+#tutorial-btn {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-  z-index: 1200;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+
+  background: var(--interactive-primary);
+  border: var(--border-width) solid var(--interactive-primary);
+  border-radius: var(--radius-full);
+
+  padding: 12px 16px;
+
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  transition: var(--transition-base);
 }
 
-.confirmation-overlay.show {
-  display: block;
-  opacity: 1;
+#tutorial-btn:hover {
+  background: var(--interactive-hover);
+  border-color: var(--interactive-hover);
+  transform: translateY(-2px);
 }
 
-/* Card principal de confirmação de dica */
-.hint-confirmation-card {
+#tutorial-btn i {
+  font-size: var(--font-size-base);
+}
+
+/* Card do tutorial */
+.tutorial-card {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  z-index: 1300;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-lg);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 
-  max-width: min(90vw, 450px);
-  max-height: 90vh;
-  width: 100%;
+  width: 90vw;
+  max-width: 600px;
+  max-height: 80vh;
 
-  display: none;
-  opacity: 0;
-  transition: all 0.3s ease-out;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: var(--shadow-elevated);
 }
 
-.hint-confirmation-card.show {
-  display: block;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* Header do card */
-.confirmation-header {
-  background: var(--bg-tertiary);
-  border-bottom: var(--border-width) solid var(--border-primary);
-  padding: 16px 20px;
-
+/* Header do tutorial */
+.tutorial-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding: 20px 24px;
+  border-bottom: var(--border-width) solid var(--border-primary);
+
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-.confirmation-header h3 {
-  margin: 0;
+.tutorial-header h3 {
+  color: var(--text-primary);
   font-size: var(--font-size-xl);
   font-weight: 600;
-  color: var(--text-primary);
+  margin: 0;
 
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.confirmation-header h3 i {
-  color: var(--feedback-warning);
-  font-size: var(--font-size-lg);
+.tutorial-header h3 i {
+  color: var(--interactive-primary);
 }
 
-.confirmation-header .close-btn {
-  background: var(--bg-secondary);
-  border: var(--border-width) solid var(--border-primary);
-  border-radius: var(--radius-base);
-  padding: 8px;
+.close-btn {
+  background: transparent;
+  border: none;
   color: var(--text-secondary);
+  font-size: var(--font-size-lg);
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 32px;
   height: 32px;
 
-  transition: var(--transition-base);
-}
-
-.confirmation-header .close-btn:hover {
-  color: var(--feedback-danger);
-  background: var(--bg-primary);
-  border-color: var(--feedback-danger);
-}
-
-/* Conteúdo do card */
-.confirmation-content {
-  padding: 20px;
-  max-height: calc(90vh - 80px);
-  overflow-y: auto;
-}
-
-/* Informações da dica */
-.hint-info {
-  background: var(--bg-tertiary);
-  border: var(--border-width) solid var(--border-primary);
-  border-radius: var(--radius-base);
-  padding: 16px;
-  margin-bottom: 20px;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.info-item:last-child {
-  margin-bottom: 0;
-}
-
-.info-label {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.info-value {
-  font-size: var(--font-size-base);
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Aviso específico do modo */
-.mode-warning {
-  background: var(--bg-tertiary);
-  border: var(--border-width) solid var(--feedback-warning);
-  border-radius: var(--radius-base);
-  padding: 16px;
-  margin-bottom: 20px;
-  display: none; /* Mostrado condicionalmente */
-}
-
-.mode-warning.show {
-  display: block;
-}
-
-.mode-warning h4 {
-  margin: 0 0 8px 0;
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--feedback-warning);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.mode-warning p {
-  margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-/* Consequências */
-.hint-consequences h4 {
-  margin: 0 0 12px 0;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.hint-consequences ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-}
-
-.hint-consequences li {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 8px;
-
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.hint-consequences li i {
-  color: var(--feedback-success);
-  font-size: var(--font-size-sm);
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.hint-consequences li.negative i {
-  color: var(--feedback-danger);
-}
-
-.hint-consequences li.warning i {
-  color: var(--feedback-warning);
-}
-
-/* Botões de ação */
-.confirmation-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-.btn-secondary,
-.btn-primary {
-  padding: 12px 20px;
-  border-radius: var(--radius-base);
-  font-family: "Pixelify Sans", sans-serif;
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition-base);
-
-  min-width: 100px;
-  text-align: center;
-}
-
-.btn-secondary {
-  background: var(--bg-terciary);
-  border: var(--border-width) solid var(--border-primary);
-  color: var(--text-secondary);
-}
-
-.btn-secondary:hover {
-  color: var(--text-primary);
-  background: var(--bg-secondary);
-  border-color: var(--border-primary);
-}
-
-.btn-primary {
-  background: var(--interactive-primary);
-  border: var(--border-width) solid var(--interactive-primary);
-  color: var(--text-primary);
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: var(--interactive-hover);
-  border-color: var(--interactive-hover);
-  transform: translateY(-1px);
-}
-
-.btn-primary:disabled {
-  background: var(--bg-subtle);
-  border-color: var(--border-primary);
-  color: var(--text-muted);
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Responsividade mobile */
-@media (max-width: 720px) {
-  .hint-confirmation-card {
-    max-width: 95vw;
-    max-height: 95vh;
-  }
-
-  .confirmation-header {
-    padding: 12px 16px;
-  }
-
-  .confirmation-header h3 {
-    font-size: var(--font-size-lg);
-  }
-
-  .confirmation-content {
-    padding: 16px;
-  }
-
-  .confirmation-actions {
-    flex-direction: column;
-  }
-
-  .btn-secondary,
-  .btn-primary {
-    width: 100%;
-  }
-}
-
-/* ========== END HINT CONFIRMATION CARD ========== */
-
-/* ========== POINTS CARD ENHANCEMENTS ========== */
-
-/* Container dos pontos com botão */
-.points-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 100%;
+
+  border-radius: var(--radius-base);
+  transition: var(--transition-base);
 }
 
-/* Botão de compra de pontos */
-.buy-points-btn {
-  background: var(--feedback-success);
+.close-btn:hover {
+  background: var(--bg-terciary);
+  color: var(--text-primary);
+}
+
+/* Abas do tutorial */
+.tutorial-tabs {
+  display: flex;
+  background: var(--bg-secondary);
+  border-bottom: var(--border-width) solid var(--border-primary);
+  overflow-x: auto;
+}
+
+.tutorial-tab-btn {
+  background: transparent;
   border: none;
-  border-radius: 50%;
+
+  padding: 12px 20px;
+
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  transition: var(--transition-base);
+
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.tutorial-tab-btn:hover {
+  background: var(--bg-terciary);
+  color: var(--text-primary);
+}
+
+.tutorial-tab-btn.active {
+  color: var(--interactive-primary);
+  border-bottom-color: var(--interactive-primary);
+  background: var(--bg-terciary);
+}
+
+.tutorial-tab-btn i {
+  font-size: var(--font-size-base);
+}
+
+/* Conteúdo do tutorial */
+.tutorial-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.tutorial-panel {
+  display: none;
+  padding: 24px;
+  line-height: 1.6;
+}
+
+.tutorial-panel.active {
+  display: block;
+}
+
+/* Seções do tutorial */
+.tutorial-section {
+  margin-bottom: 24px;
+}
+
+.tutorial-section:last-child {
+  margin-bottom: 0;
+}
+
+.tutorial-section h4 {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 16px 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tutorial-section h4 i {
+  color: var(--interactive-primary);
+}
+
+.tutorial-section h5 {
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.tutorial-section p {
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+}
+
+.tutorial-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tutorial-section li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  color: var(--text-secondary);
+}
+
+.tutorial-section li:last-child {
+  margin-bottom: 0;
+}
+
+/* Ícones dos passos */
+.step-icon {
+  background: var(--interactive-primary);
+  color: var(--text-primary);
+
   width: 24px;
   height: 24px;
 
@@ -1885,34 +1801,303 @@ section.rankingCard.wip {
   align-items: center;
   justify-content: center;
 
-  color: var(--text-primary);
-  font-size: 12px;
-  cursor: pointer;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
 
-  transition: var(--transition-base);
   flex-shrink: 0;
 }
 
-.buy-points-btn:hover {
+/* Destaque especial */
+.highlight {
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-left: 4px solid var(--interactive-primary);
+  border-radius: var(--radius-base);
+
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.highlight p {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* Badges dos modos de jogo */
+.game-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mode-badge {
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+
+  padding: 12px;
+  text-align: center;
+
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+
+  transition: var(--transition-base);
+}
+
+.mode-badge.easy {
+  border-left-color: #22c55e;
+}
+
+.mode-badge.normal {
+  border-left-color: #3b82f6;
+}
+
+.mode-badge.medium {
+  border-left-color: #f59e0b;
+}
+
+.mode-badge.hard {
+  border-left-color: #ef4444;
+}
+
+.mode-badge strong {
+  color: var(--text-primary);
+  display: block;
+  margin: 4px 0;
+}
+
+/* Seção de dicas */
+.hints-section ul li {
+  align-items: center;
+}
+
+.hint-costs {
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.cost-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-base);
+
+  padding: 12px;
+}
+
+.mode-name {
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.mode-name.medium {
+  background: #f59e0b;
+  color: white;
+}
+
+.mode-name.hard {
+  background: #ef4444;
+  color: white;
+}
+
+.cost-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Seção de dificuldade */
+.difficulty-section ul li .step-icon {
+  background: var(--feedback-warning);
+}
+
+/* Responsividade */
+@media (max-width: 720px) {
+  #tutorial-btn {
+    top: 15px;
+    right: 15px;
+    padding: 10px 14px;
+    font-size: var(--font-size-xs);
+  }
+
+  .tutorial-card {
+    width: 95vw;
+    max-height: 90vh;
+  }
+
+  .tutorial-header {
+    padding: 16px 20px;
+  }
+
+  .tutorial-header h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  .tutorial-panel {
+    padding: 20px;
+  }
+
+  .tutorial-tabs {
+    overflow-x: auto;
+  }
+
+  .tutorial-tab-btn {
+    padding: 10px 16px;
+    font-size: var(--font-size-xs);
+  }
+
+  .game-modes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cost-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== END TUTORIAL SYSTEM ========== */
+
+/* ========== HINT CONFIRMATION CARD - COMPACT ========== */
+
+/* Card de confirmação de dica - pequeno e direto */
+.hint-confirm-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+
+  background: var(--bg-secondary);
+  border: var(--border-width-thick) solid var(--feedback-warning);
+  border-radius: var(--radius-base);
+  padding: 12px 16px;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+
+  /* Default hidden state */
+  display: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+
+  /* Smooth transition */
+  transition: all 0.15s ease-out;
+}
+
+/* Show state */
+.hint-confirm-card.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Content layout */
+.hint-confirm-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+/* Text styling */
+.hint-confirm-text {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.hint-confirm-text strong {
+  color: var(--feedback-warning);
+  font-weight: 600;
+}
+
+/* Action buttons */
+.hint-confirm-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-cancel,
+.btn-confirm {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.btn-cancel {
+  background: var(--feedback-danger);
+  color: var(--text-primary);
+}
+
+.btn-cancel:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.btn-confirm {
+  background: var(--feedback-success);
+  color: var(--text-primary);
+}
+
+.btn-confirm:hover {
   background: #16a34a;
   transform: scale(1.1);
 }
 
-.buy-points-btn:active {
-  transform: scale(0.95);
-}
-
-/* Mobile - botão menor */
-@media (max-width: 720px) {
-  .buy-points-btn {
-    width: 20px;
-    height: 20px;
-    font-size: 10px;
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .hint-confirm-card {
+    max-width: 90vw;
+    padding: 10px 14px;
   }
 
-  .points-display {
-    gap: 6px;
+  .hint-confirm-content {
+    min-width: auto;
+    gap: 10px;
+  }
+
+  .hint-confirm-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .btn-cancel,
+  .btn-confirm {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-base);
   }
 }
 
-/* ========== END POINTS CARD ENHANCEMENTS ========== */
+/* ========== END HINT CONFIRMATION CARD ========== */

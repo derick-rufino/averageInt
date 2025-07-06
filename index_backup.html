@@ -356,6 +356,14 @@
                 <span>Acertou? Ganhe pontos! Errou? Gere novos números</span>
               </li>
             </ul>
+
+            <div class="highlight highlight-secondary">
+              <p>
+                <strong>💡 Exemplo:</strong> Números 2, 6, 10, 14<br />
+                Soma: 2+6+10+14 = 32<br />
+                Média: 32 ÷ 4 = <strong>8</strong> ← Digite este valor
+              </p>
+            </div>
           </div>
         </div>
 
@@ -520,20 +528,71 @@
     <!-- Container de confetti -->
     <div class="confetti-container" id="confetti-container"></div>
 
-    <!-- Card de confirmação de dica - Compacto -->
-    <div class="hint-confirm-card" id="hintConfirmCard">
-      <div class="hint-confirm-content">
-        <span class="hint-confirm-text"
-          >Usar dica? <strong id="hintCostText">-2 pts</strong></span
-        >
-        <div class="hint-confirm-actions">
-          <button class="btn-cancel" onclick="closeHintConfirmation()">
-            ✕
+    <!-- Card de confirmação de dica -->
+    <div class="hint-confirmation-card" id="hintConfirmationCard">
+      <div class="confirmation-header">
+        <h3><i class="fa-solid fa-lightbulb"></i> Usar Dica?</h3>
+        <button class="close-btn" onclick="closeHintConfirmation()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="confirmation-content">
+        <!-- Informações da dica -->
+        <div class="hint-info">
+          <div class="info-item">
+            <span class="info-label">Modo Atual:</span>
+            <span class="info-value" id="confirmModeDisplay">Normal</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Pontos Atuais:</span>
+            <span class="info-value" id="confirmCurrentPoints">0</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Custo da Dica:</span>
+            <span class="info-value" id="confirmHintCost">2 pts</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Dicas Usadas:</span>
+            <span class="info-value" id="confirmHintsUsed">0/2</span>
+          </div>
+        </div>
+
+        <!-- Aviso específico do modo -->
+        <div class="mode-warning" id="modeWarning">
+          <!-- Conteúdo gerado dinamicamente -->
+        </div>
+
+        <!-- Consequências -->
+        <div class="hint-consequences">
+          <h4>O que acontecerá:</h4>
+          <ul id="consequencesList">
+            <!-- Consequências geradas dinamicamente -->
+          </ul>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="confirmation-actions">
+          <button class="btn-secondary" onclick="closeHintConfirmation()">
+            Cancelar
           </button>
-          <button class="btn-confirm" onclick="confirmHintUsage()">✓</button>
+          <button
+            class="btn-primary"
+            id="confirmHintBtn"
+            onclick="confirmHintUsage()"
+          >
+            Usar Dica
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Overlay para o card de confirmação -->
+    <div
+      class="confirmation-overlay"
+      id="confirmationOverlay"
+      onclick="closeHintConfirmation()"
+    ></div>
 
     <!-- Sistema de dicas -->
     <script src="dicas.js"></script>

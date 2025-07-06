@@ -1061,6 +1061,9 @@ document.addEventListener("DOMContentLoaded", () => {
       switchRankingTab(tabName);
     });
   });
+
+  // Inicializar sistema de tutorial
+  initializeTutorial();
 });
 
 // ========== CONFETTI SYSTEM ==========
@@ -1168,106 +1171,19 @@ function showHintConfirmation() {
     return;
   }
 
-  // Atualizar informaçãµes no card
-  updateHintConfirmationCard(verificacao);
+  // Atualizar custo da dica no card
+  const hintCostText = document.getElementById("hintCostText");
+  hintCostText.textContent = `-${verificacao.custo} pts`;
 
   // Mostrar card
-  const overlay = document.getElementById("confirmationOverlay");
-  const card = document.getElementById("hintConfirmationCard");
-
-  overlay.classList.add("show");
+  const card = document.getElementById("hintConfirmCard");
   card.classList.add("show");
 }
 
 // Função para fechar o card de confirmação
 function closeHintConfirmation() {
-  const overlay = document.getElementById("confirmationOverlay");
-  const card = document.getElementById("hintConfirmationCard");
-
-  overlay.classList.remove("show");
+  const card = document.getElementById("hintConfirmCard");
   card.classList.remove("show");
-}
-
-// Função para atualizar informaçãµes no card
-function updateHintConfirmationCard(verificacao) {
-  // Mapeamento de modos
-  const modeNames = {
-    1: "Aprendiz",
-    2: "Normal",
-    3: "Médio",
-    4: "Difícil",
-  };
-
-  // Atualizar informaçãµes básicas
-  document.getElementById("confirmModeDisplay").textContent =
-    modeNames[currentMode];
-  document.getElementById("confirmCurrentPoints").textContent = pontos;
-  document.getElementById(
-    "confirmHintCost"
-  ).textContent = `${verificacao.custo} pts`;
-  document.getElementById("confirmHintsUsed").textContent = `${
-    dicasUsadasNaRodada.length
-  }/${DicasSystem.limites[modeNames[currentMode].toLowerCase()] || 2}`;
-
-  // Aviso específico do modo
-  const modeWarning = document.getElementById("modeWarning");
-  if (currentMode === "4") {
-    modeWarning.innerHTML = `
-      <h4><i class="fa-solid fa-exclamation-triangle"></i> Modo Difícil</h4>
-      <p>No modo difícil, usar dicas remove pontos permanentemente. Esta ação não pode ser desfeita.</p>
-    `;
-    modeWarning.classList.add("show");
-  } else {
-    modeWarning.classList.remove("show");
-  }
-
-  // Lista de consequências
-  const consequencesList = document.getElementById("consequencesList");
-  consequencesList.innerHTML = "";
-
-  // Consequência: mostrar dica
-  const showHintLi = document.createElement("li");
-  showHintLi.innerHTML = `
-    <i class="fa-solid fa-lightbulb"></i>
-    <span>Uma dica será exibida para ajudar você</span>
-  `;
-  consequencesList.appendChild(showHintLi);
-
-  // Consequência: pontos
-  if (currentMode === "4") {
-    const pointsLi = document.createElement("li");
-    pointsLi.className = "negative";
-    pointsLi.innerHTML = `
-      <i class="fa-solid fa-minus-circle"></i>
-      <span>Você perderá <strong>${verificacao.custo} pontos</strong> permanentemente</span>
-    `;
-    consequencesList.appendChild(pointsLi);
-  } else {
-    const pointsLi = document.createElement("li");
-    pointsLi.className = "warning";
-    pointsLi.innerHTML = `
-      <i class="fa-solid fa-info-circle"></i>
-      <span>Pontos serão removidos apenas se você errar a resposta</span>
-    `;
-    consequencesList.appendChild(pointsLi);
-  }
-
-  // Consequência: limite
-  const limitLi = document.createElement("li");
-  limitLi.className = "warning";
-  const remaining =
-    (DicasSystem.limites[modeNames[currentMode].toLowerCase()] || 2) -
-    dicasUsadasNaRodada.length -
-    1;
-  limitLi.innerHTML = `
-    <i class="fa-solid fa-clock"></i>
-    <span>Restará${
-      remaining > 0
-        ? `m ${remaining} dica${remaining > 1 ? "s" : ""}`
-        : "m 0 dicas"
-    } para esta rodada</span>
-  `;
-  consequencesList.appendChild(limitLi);
 }
 
 // Função para confirmar o uso da dica
@@ -1280,3 +1196,40 @@ function confirmHintUsage() {
 }
 
 // ========== END HINT CONFIRMATION SYSTEM ==========
+
+// ========== TUTORIAL SYSTEM ==========
+
+// Função para inicializar o sistema de tutorial
+function initializeTutorial() {
+  const tutorialTabBtns = document.querySelectorAll(".tutorial-tab-btn");
+  const tutorialPanels = document.querySelectorAll(".tutorial-panel");
+
+  // Adicionar event listeners para as abas do tutorial
+  tutorialTabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab");
+      switchTutorialTab(targetTab);
+    });
+  });
+}
+
+// Função para trocar de aba no tutorial
+function switchTutorialTab(targetTab) {
+  const tutorialTabBtns = document.querySelectorAll(".tutorial-tab-btn");
+  const tutorialPanels = document.querySelectorAll(".tutorial-panel");
+
+  // Remover classe active de todas as abas e painéis
+  tutorialTabBtns.forEach((btn) => btn.classList.remove("active"));
+  tutorialPanels.forEach((panel) => panel.classList.remove("active"));
+
+  // Adicionar classe active na aba e painel corretos
+  const activeBtn = document.querySelector(`[data-tab="${targetTab}"]`);
+  const activePanel = document.getElementById(`${targetTab}-tab`);
+
+  if (activeBtn && activePanel) {
+    activeBtn.classList.add("active");
+    activePanel.classList.add("active");
+  }
+}
+
+// ========== END TUTORIAL SYSTEM ==========

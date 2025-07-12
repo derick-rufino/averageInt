@@ -77,7 +77,7 @@ CONCLUÍDO ✅ - Sistema de Dicas Dinâmicas: @done
 MELHORIAS DE UX - AJUSTES FINOS:
 	✔ Adicionar animação sutil ao comprar dicas: -X (escrito pequeno) ao lado dos pontos, por um breve momento @done
 
-LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
+LIMPEZA DE CSS - OTIMIZAÇÃO: @done
 	✔ Remover variáveis CSS legacy (--bg-blue, --txt-white, etc.) e manter apenas as modernas @done
 	✔ Unificar cores dos badges de modo em uma única definição @done
 	✔ Consolidar estilos mobile/desktop mantendo apenas diferenças específicas @done
@@ -89,3 +89,16 @@ LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
 	✔ Adicionar contador visual de dicas restantes na rodada @done
 	✔ Melhorar feedback quando não há pontos suficientes no modo difícil @done
 	✔ Reposicionar card de confirmação de dica (não cobrir input) @done
+
+CORREÇÃO DO SISTEMA DE TUTORIAL: @done
+	✔ Implementar CSS das abas do tutorial (tutorial-tabs, tutorial-tab-btn, tutorial-panel) @done
+	✔ Adicionar animações de transição entre abas @done
+	✔ Corrigir estrutura HTML problemática (remover elementos vazios) @done
+	✔ Implementar responsividade mobile para o card de tutorial @done
+	✔ Ajustar grid de custos das dicas e modos de jogo para mobile @done
+	✔ Corrigir inconsistência nas cores dos labels Médio e Difícil (mode-badge e mode-name) @done
+	✔ Remover fundos coloridos - aplicar apenas cores de texto nos labels dos modos @done
+	✔ Melhorar legibilidade removendo fundos que impediam leitura @done
+	✔ Substituir todos os emojis por ícones Font Awesome para consistência visual @done
+	✔ Ajustar CSS para ícones Font Awesome (tamanho, cores, herança) @done
+	✔ Validar funcionamento completo do sistema de abas @done

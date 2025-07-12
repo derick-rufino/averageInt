@@ -1,31 +1,25 @@
 /* ========== MINIMALIST DESIGN - PURPOSE-DRIVEN COLORS ========== */
 
 /* ========== UNIFIED MODE COLORS ========== */
-/* Cores dos modos de jogo usadas em badges, nomes e ícones */
+/* Cores dos modos de jogo usadas em badges, nomes e ícones - APENAS TEXTO */
 .mode-badge.easy,
 .mode-name.easy {
-  border-left-color: #22c55e;
   color: #22c55e;
 }
 
 .mode-badge.normal,
 .mode-name.normal {
-  border-left-color: #3b82f6;
   color: #3b82f6;
 }
 
 .mode-badge.medium,
 .mode-name.medium {
-  border-left-color: #f59e0b;
-  background: #f59e0b;
-  color: white;
+  color: #f59e0b;
 }
 
 .mode-badge.hard,
 .mode-name.hard {
-  border-left-color: #ef4444;
-  background: #ef4444;
-  color: white;
+  color: #ef4444;
 }
 
 /* ========== END UNIFIED MODE COLORS ========== */
@@ -755,6 +749,82 @@ div#tutorial-card .tutorial-header {
   border-bottom: 2px solid var(--border-primary);
 }
 
+/* Tutorial tabs navigation */
+div#tutorial-card .tutorial-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  border-bottom: var(--border-width) solid var(--border-primary);
+  padding-bottom: 8px;
+}
+
+div#tutorial-card .tutorial-tab-btn {
+  flex: 1;
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  cursor: pointer;
+  transition: var(--transition-base);
+  min-height: 36px;
+}
+
+div#tutorial-card .tutorial-tab-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  border-color: var(--border-secondary);
+}
+
+div#tutorial-card .tutorial-tab-btn.active {
+  background: var(--interactive-primary);
+  border-color: var(--interactive-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+div#tutorial-card .tutorial-tab-btn i {
+  font-size: var(--font-size-sm);
+}
+
+/* Tutorial content container */
+div#tutorial-card .tutorial-content {
+  min-height: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Tutorial panels */
+div#tutorial-card .tutorial-panel {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+div#tutorial-card .tutorial-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 div#tutorial-card .tutorial-header h3 {
   margin: 0;
   font-size: var(--font-size-xxl);
@@ -811,11 +881,13 @@ div#tutorial-card .hints-section h4 i {
 }
 
 div#tutorial-card .hints-section .step-icon {
-  background: var(
-    --color-base-800
-  ) !important; /* Fundo escuro para contraste com emojis amarelos */
-  color: var(--feedback-warning) !important;
+  background: var(--feedback-warning) !important;
+  color: var(--text-primary) !important;
   border: 2px solid var(--feedback-warning) !important;
+}
+
+div#tutorial-card .hints-section .step-icon i {
+  color: var(--text-primary) !important;
 }
 
 /* Seção do Modo Difícil - cores vermelhas */
@@ -829,6 +901,10 @@ div#tutorial-card .difficulty-section h4 i {
 
 div#tutorial-card .difficulty-section .step-icon {
   background: var(--feedback-danger) !important;
+  color: var(--text-primary) !important;
+}
+
+div#tutorial-card .difficulty-section .step-icon i {
   color: var(--text-primary) !important;
 }
 
@@ -864,9 +940,15 @@ div#tutorial-card .tutorial-section li .step-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
   margin-top: 2px;
+}
+
+/* Font Awesome icons inside step-icon */
+div#tutorial-card .tutorial-section li .step-icon i {
+  font-size: 10px;
+  color: inherit;
 }
 
 div#tutorial-card .tutorial-section .sub-steps {
@@ -888,6 +970,89 @@ div#tutorial-card .game-modes {
   margin: 0.75rem 0;
 }
 
+/* Hint costs grid for dicas tab */
+div#tutorial-card .hint-costs {
+  margin-top: 1rem;
+}
+
+div#tutorial-card .hint-costs h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--feedback-warning);
+}
+
+div#tutorial-card .cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+div#tutorial-card .cost-item {
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  text-align: center;
+  font-size: var(--font-size-sm);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+div#tutorial-card .cost-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+/* Cores específicas dos mode-name na seção de custos */
+div#tutorial-card .cost-item .mode-name.easy {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+div#tutorial-card .cost-item .mode-name.normal {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+div#tutorial-card .cost-item .mode-name.medium {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+div#tutorial-card .cost-item .mode-name.hard {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Garantir que os cost-item mantenham fundo padrão */
+div#tutorial-card .cost-item {
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  text-align: center;
+  font-size: var(--font-size-sm);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+div#tutorial-card .mode-description {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg-terciary);
+  border-radius: var(--radius-base);
+  border-left: 4px solid var(--interactive-primary);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 div#tutorial-card .mode-badge {
   background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
@@ -896,6 +1061,31 @@ div#tutorial-card .mode-badge {
   text-align: center;
   font-size: var(--font-size-sm);
   font-weight: 500;
+}
+
+/* Cores específicas dos mode-badge no tutorial */
+div#tutorial-card .mode-badge.easy {
+  color: #22c55e;
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+}
+
+div#tutorial-card .mode-badge.normal {
+  color: #3b82f6;
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+}
+
+div#tutorial-card .mode-badge.medium {
+  color: #f59e0b;
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
+}
+
+div#tutorial-card .mode-badge.hard {
+  color: #ef4444;
+  background: var(--bg-terciary);
+  border: var(--border-width) solid var(--border-primary);
 }
 
 div#tutorial-card .highlight {

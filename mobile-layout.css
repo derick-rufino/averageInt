@@ -178,7 +178,7 @@
   .points-deduction {
     top: 5px;
     right: 5px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-base);
   }
 
   /* Ajustes mobile para estados da dica */
@@ -452,7 +452,7 @@
   /* ========== HINT CARD MOBILE ADJUSTMENTS ========== */
   /* Ajustar card de confirmação de dicas para mobile */
   .hint-confirm-card {
-    top: 15%;
+    top: 80%;
     max-width: 90vw;
     padding: 12px 16px;
   }

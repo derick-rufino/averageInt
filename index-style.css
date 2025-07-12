@@ -307,6 +307,44 @@ section.extra-features {
   color: var(--feedback-danger);
 }
 
+/* Animação de dedução de pontos */
+.points-card {
+  position: relative;
+}
+
+.points-deduction {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--feedback-danger);
+  opacity: 0;
+  transform: translateY(0px);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+}
+
+.points-deduction.show {
+  opacity: 1;
+  animation: pointsDeduction 1.5s ease-out forwards;
+}
+
+@keyframes pointsDeduction {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
 /* Botão de dica - estados visuais claros */
 button#hint {
   background: transparent;

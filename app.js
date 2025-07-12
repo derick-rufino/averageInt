@@ -258,6 +258,9 @@ function usarDica() {
   if (currentMode === "4" || pontos >= custo) {
     pontos = Math.max(0, pontos - custo);
     displayPontos.innerText = pontos;
+
+    // Mostrar animação de dedução de pontos
+    showPointsDeduction(custo);
   }
 
   // Registrar dica como usada
@@ -1270,6 +1273,31 @@ function switchTutorialTab(targetTab) {
     activeBtn.classList.add("active");
     activePanel.classList.add("active");
   }
+}
+
+// ========== POINTS DEDUCTION ANIMATION ==========
+
+function showPointsDeduction(amount) {
+  const pointsDeduction = document.getElementById("pointsDeduction");
+
+  if (!pointsDeduction) return;
+
+  // Definir o texto da dedução
+  pointsDeduction.textContent = `-${amount}`;
+
+  // Remover classe show se já estiver ativa (reset)
+  pointsDeduction.classList.remove("show");
+
+  // Forçar reflow para garantir que a classe foi removida
+  pointsDeduction.offsetHeight;
+
+  // Adicionar classe show para iniciar animação
+  pointsDeduction.classList.add("show");
+
+  // Remover classe show após animação completar
+  setTimeout(() => {
+    pointsDeduction.classList.remove("show");
+  }, 1500);
 }
 
 // ========== END TUTORIAL SYSTEM ==========

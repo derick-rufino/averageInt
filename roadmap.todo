@@ -70,7 +70,7 @@ CONCLUÍDO ✅ - Sistema de Dicas Dinâmicas: @done
 	✔ Reconstruir arquivo index.html limpo com todo o tutorial corrigido @done
 
 MELHORIAS DE UX - AJUSTES FINOS:
-	☐ Adicionar animação sutil ao comprar dicas: -X (escrito pequeno) ao lado dos pontos, por um breve momento
+	✔ Adicionar animação sutil ao comprar dicas: -X (escrito pequeno) ao lado dos pontos, por um breve momento @done
 
 LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
 	✔ Remover variáveis CSS legacy (--bg-blue, --txt-white, etc.) e manter apenas as modernas @done
@@ -81,6 +81,6 @@ LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
 	✔ Criar variável única para transições CSS similares @done
 	✔ Remover duplicação completa do sistema de tutorial @done
 	✔ Implementar feedback visual quando dicas estão esgotadas @done
-	☐ Adicionar contador visual de dicas restantes na rodada
+	✔ Adicionar contador visual de dicas restantes na rodada @done
 	✔ Melhorar feedback quando não há pontos suficientes no modo difícil @done
 	✔ Reposicionar card de confirmação de dica (não cobrir input) @done

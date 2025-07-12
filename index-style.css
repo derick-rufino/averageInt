@@ -1,5 +1,35 @@
 /* ========== MINIMALIST DESIGN - PURPOSE-DRIVEN COLORS ========== */
 
+/* ========== UNIFIED MODE COLORS ========== */
+/* Cores dos modos de jogo usadas em badges, nomes e ícones */
+.mode-badge.easy,
+.mode-name.easy {
+  border-left-color: #22c55e;
+  color: #22c55e;
+}
+
+.mode-badge.normal,
+.mode-name.normal {
+  border-left-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.mode-badge.medium,
+.mode-name.medium {
+  border-left-color: #f59e0b;
+  background: #f59e0b;
+  color: white;
+}
+
+.mode-badge.hard,
+.mode-name.hard {
+  border-left-color: #ef4444;
+  background: #ef4444;
+  color: white;
+}
+
+/* ========== END UNIFIED MODE COLORS ========== */
+
 /* Header limpo */
 header {
   width: 100%;
@@ -46,7 +76,7 @@ main {
 /* Seção principal do jogo - foco total */
 section.game {
   grid-column: 4/5;
-  grid-row: 1/4;
+  grid-row: 2/4;
 
   background: var(--bg-secondary);
   border: var(--border-width-thick) solid var(--border-primary);
@@ -143,17 +173,14 @@ p#message {
 
 /* Estados de feedback - APENAS quando necessário */
 p#message.success {
-  background: var(--feedback-success-bg);
   color: var(--feedback-success);
 }
 
 p#message.warning {
-  background: var(--feedback-warning-bg);
   color: var(--feedback-warning);
 }
 
 p#message.error {
-  background: var(--feedback-danger-bg);
   color: var(--feedback-danger);
 }
 
@@ -184,6 +211,12 @@ input#userGuess {
   font-weight: 500;
   color: var(--text-primary);
   text-align: center;
+}
+
+/* Placeholder com tamanho reduzido */
+input#userGuess::placeholder {
+  font-size: var(--font-size-lg);
+  opacity: 0.7;
 }
 
 /* Remove controles do input number em todos os navegadores */
@@ -274,17 +307,113 @@ section.extra-features {
   color: var(--feedback-danger);
 }
 
-/* Botão de dica - simples */
+/* Animação de dedução de pontos */
+.points-card {
+  position: relative;
+}
+
+.points-deduction {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--feedback-danger);
+  opacity: 0;
+  transform: translateY(0px);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+}
+
+.points-deduction.show {
+  opacity: 1;
+  animation: pointsDeduction 1.5s ease-out forwards;
+}
+
+@keyframes pointsDeduction {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+/* Botão de dica - estados visuais claros */
 button#hint {
   background: transparent;
   border: none;
   color: var(--feedback-warning);
   font-size: var(--font-size-xl);
   margin-bottom: 2px;
+  transition: all var(--transition-base);
+  position: relative;
 }
 
-button#hint:hover {
+/* Estado habilitado - hover */
+button#hint:not(:disabled):hover {
   opacity: 0.8;
+  transform: scale(1.05);
+}
+
+/* Estado desabilitado - muted/cinza */
+button#hint:disabled {
+  color: #64748b; /* Cinza muted que combina com o bg */
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Estado desabilitado - hover não deve ter efeito */
+button#hint:disabled:hover {
+  opacity: 0.5;
+  transform: none;
+}
+
+/* Estado esgotado - ícone riscado */
+button#hint.hints-depleted {
+  color: #64748b;
+  opacity: 0.4;
+  position: relative;
+}
+
+button#hint.hints-depleted::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 2px;
+  background: #ef4444;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
+}
+
+/* Animação de shake para feedback de erro */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 /* Labels e valores - sem excessos */
@@ -314,7 +443,7 @@ button#timer-label {
   margin-top: 2px;
 
   /* Estados do botão timer */
-  transition: all 0.2s ease-out;
+  transition: all var(--transition-base);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -401,7 +530,7 @@ section i.fa-xmark:hover {
 
 /* Botões de modo - minimalistas */
 button.gameModeOption {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 8px 10px;
@@ -446,38 +575,92 @@ button.gameModeOption.selected:hover {
   transform: scale(1.02);
 }
 
-/* Card de desenvolvedor - estilo similar ao botão tutorial */
+/* Card de desenvolvedor - minimalista com tecnologias */
 a#developer-card {
   position: fixed;
   bottom: 20px;
   left: 20px;
   background: var(--bg-secondary);
-  border: var(--border-width-thick) solid var(--border-primary);
+  border: var(--border-width) solid var(--border-secondary);
   border-radius: var(--radius-base);
-  padding: 8px 12px;
+  padding: 12px 14px;
   z-index: 999;
 
-  font-family: "Pixelify Sans", sans-serif;
-  font-size: var(--font-size-base);
-  color: var(--text-primary);
   text-decoration: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  min-width: 80px;
 
   height: auto;
   cursor: pointer;
   transition: var(--transition-base);
+
+  /* Estado inicial discreto mas visível */
+  opacity: 0.8;
+  transform: scale(1);
 }
 
+/* Estrutura interna do card */
+.dev-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Nome do desenvolvedor */
+.dev-name {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Stack de tecnologias */
+.tech-stack {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Ícones das tecnologias */
+.tech-stack i {
+  font-size: 16px;
+  transition: var(--transition-base);
+}
+
+/* Cores específicas das tecnologias */
+.tech-stack .fa-html5 {
+  color: #e34c26;
+}
+
+.tech-stack .fa-css3-alt {
+  color: #1572b6;
+}
+
+.tech-stack .fa-js-square {
+  color: #f7df1e;
+}
+
+/* Hover effect - mais destaque */
 a#developer-card:hover {
-  background: var(--interactive-primary);
-  border-color: var(--interactive-primary-hover);
+  background: var(--bg-terciary);
+  border-color: var(--border-primary);
+  transform: translateY(-2px);
+  opacity: 1;
+  box-shadow: var(--shadow-subtle);
+}
+
+a#developer-card:hover .dev-name {
   color: var(--text-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+a#developer-card:hover .tech-stack i {
+  transform: scale(1.15);
 }
 
 /* Botão tutorial */
@@ -500,7 +683,7 @@ button#tutorial-btn {
   justify-content: center;
   gap: 6px;
 
-  height: auto;
+  max-height: fit-content;
   cursor: pointer;
   transition: var(--transition-base);
 }
@@ -552,7 +735,7 @@ div#tutorial-card {
   display: none;
 
   /* Smooth transition */
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
 /* Show popover when :popover-open */
@@ -583,7 +766,7 @@ div#tutorial-card .tutorial-header h3 {
 }
 
 div#tutorial-card .tutorial-header .close-btn {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 0.5rem;
@@ -623,6 +806,10 @@ div#tutorial-card .hints-section h4 {
   color: var(--feedback-warning);
 }
 
+div#tutorial-card .hints-section h4 i {
+  color: var(--feedback-warning);
+}
+
 div#tutorial-card .hints-section .step-icon {
   background: var(
     --color-base-800
@@ -633,6 +820,10 @@ div#tutorial-card .hints-section .step-icon {
 
 /* Seção do Modo Difícil - cores vermelhas */
 div#tutorial-card .difficulty-section h4 {
+  color: var(--feedback-danger);
+}
+
+div#tutorial-card .difficulty-section h4 i {
   color: var(--feedback-danger);
 }
 
@@ -698,7 +889,7 @@ div#tutorial-card .game-modes {
 }
 
 div#tutorial-card .mode-badge {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 0.5rem;
@@ -707,28 +898,11 @@ div#tutorial-card .mode-badge {
   font-weight: 500;
 }
 
-div#tutorial-card .mode-badge.easy {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-}
-div#tutorial-card .mode-badge.normal {
-  border-color: var(--interactive-primary);
-  color: var(--interactive-primary);
-}
-div#tutorial-card .mode-badge.medium {
-  border-color: var(--feedback-warning);
-  color: var(--feedback-warning);
-}
-div#tutorial-card .mode-badge.hard {
-  border-color: var(--feedback-danger);
-  color: var(--feedback-danger);
-}
-
 div#tutorial-card .highlight {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   padding: 0.75rem;
   border-radius: var(--radius-base);
-  border-left: 4px solid var(--interactive-primary);
+  border-left: 4px solid var(--feedback-warning);
   margin: 1rem 0;
 }
 
@@ -736,7 +910,6 @@ div#tutorial-card .highlight p {
   margin: 0;
   color: var(--text-primary);
   font-weight: 500;
-  text-align: center;
 }
 
 div#tutorial-card strong {
@@ -750,27 +923,32 @@ div#tutorial-card em {
   font-weight: 500;
 }
 
+/* Destaque especial com ênfase amarela para dica principal */
+.highlight-primary {
+  border-left-color: var(--feedback-warning);
+}
+
+.highlight-primary strong {
+  color: var(--feedback-warning);
+}
+
+/* Destaque secundário com ênfase azul para exemplos */
+.highlight-secondary {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 6px;
+}
+
+.highlight-secondary strong {
+  color: #3b82f6;
+}
+
 /* Popover backdrop */
 div#tutorial-card::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  div#tutorial-card {
-    max-width: 95vw;
-    max-height: 95vh;
-    padding: 1.5rem;
-  }
-
-  div#tutorial-card h3 {
-    font-size: var(--font-size-xl);
-  }
-
-  div#tutorial-card {
-    font-size: var(--font-size-sm);
-  }
 }
 
 /* Wrapper de botões */
@@ -813,7 +991,7 @@ div#tutorial-card::backdrop {
 
 /* Cards de pontuação */
 .pointsCard {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width-thick) solid var(--border-primary);
   border-radius: var(--radius-base);
   padding: 8px;
@@ -860,7 +1038,7 @@ div#tutorial-card::backdrop {
 /* Sem animações - apenas feedback visual básico */
 
 /* ========== DESKTOP SPECIFIC STYLES ========== */
-@media (min-width: 721px) {
+@media (min-width: 769px) {
   /* Garantir que o layout desktop funcione corretamente */
   body {
     height: 100vh;
@@ -1039,7 +1217,7 @@ div#tutorial-card::backdrop {
 
 .tab-btn {
   flex: 1;
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-sm);
   padding: 6px 8px;
@@ -1102,7 +1280,7 @@ div#tutorial-card::backdrop {
 
 /* Item de ranking */
 .rank-item {
-  background: var(--bg-tertiary);
+  background: var(--bg-terciary);
   border: var(--border-width) solid var(--border-primary);
   border-radius: var(--radius-sm);
   padding: 10px 12px;
@@ -1353,35 +1531,6 @@ section.rankingCard.wip {
   border-bottom-color: var(--text-accent);
 }
 
-/* Responsividade do confetti */
-@media (max-width: 768px) {
-  .confetti-piece {
-    width: 6px;
-    height: 6px;
-  }
-
-  .confetti-piece.small {
-    width: 4px;
-    height: 4px;
-  }
-
-  .confetti-piece.medium {
-    width: 6px;
-    height: 6px;
-  }
-
-  .confetti-piece.large {
-    width: 8px;
-    height: 8px;
-  }
-
-  .confetti-piece.triangle {
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 6px;
-  }
-}
-
 /* Performance optimizations */
 .confetti-piece {
   will-change: transform, opacity;
@@ -1390,3 +1539,220 @@ section.rankingCard.wip {
 }
 
 /* ========== END CONFETTI SYSTEM ========== */
+
+/* ========== TOAST NOTIFICATION SYSTEM ========== */
+
+/* Container de toast - canto superior direito */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  max-width: 350px;
+}
+
+/* Toast individual */
+.toast {
+  background: var(--bg-secondary);
+  border: var(--border-width-thick) solid var(--border-primary);
+  border-radius: var(--radius-base);
+  padding: 12px 16px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow: var(--shadow-subtle);
+  pointer-events: auto;
+
+  /* Animação de entrada */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all var(--transition-base);
+}
+
+/* Toast visível */
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Toast saindo */
+.toast.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Tipos de toast com cores específicas */
+.toast.success {
+  border-color: var(--feedback-success);
+}
+
+.toast.success .toast-icon {
+  color: var(--feedback-success);
+}
+
+.toast.warning {
+  border-color: var(--feedback-warning);
+}
+
+.toast.warning .toast-icon {
+  color: var(--feedback-warning);
+}
+
+.toast.error {
+  border-color: var(--feedback-danger);
+}
+
+.toast.error .toast-icon {
+  color: var(--feedback-danger);
+}
+
+.toast.info {
+  border-color: var(--interactive-primary);
+}
+
+.toast.info .toast-icon {
+  color: var(--interactive-primary);
+}
+
+/* ========== END TUTORIAL SYSTEM ========== */
+
+/* ========== HINT CONFIRMATION CARD - EXPANDIDO ========== */
+
+/* Card de confirmação de dica - expandido mas compacto */
+.hint-confirm-card {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+
+  background: var(--bg-secondary);
+  border: var(--border-width-thick) solid var(--feedback-warning);
+  border-radius: var(--radius-base);
+  padding: 14px 18px;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+
+  /* Default hidden state */
+  display: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+
+  /* Smooth transition */
+  transition: all var(--transition-standard);
+}
+
+/* Show state */
+.hint-confirm-card.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Content layout - agora vertical para acomodar mais informações */
+.hint-confirm-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 260px;
+}
+
+/* Seção de informações das dicas */
+.hint-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+/* Texto principal */
+.hint-main-text {
+  display: flex;
+  align-items: center;
+}
+
+.hint-confirm-text {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.hint-confirm-text strong {
+  color: var(--feedback-warning);
+  font-weight: 600;
+}
+
+/* Texto de disponibilidade */
+.hint-availability {
+  display: flex;
+  align-items: center;
+}
+
+.hint-available-text {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Action buttons */
+.hint-confirm-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-cancel,
+.btn-confirm {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.btn-cancel {
+  background: var(--feedback-danger);
+  color: var(--text-primary);
+}
+
+.btn-cancel:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.btn-confirm {
+  background: var(--feedback-success);
+  color: var(--text-primary);
+}
+
+.btn-confirm:hover {
+  background: #16a34a;
+  transform: scale(1.1);
+}
+
+/* ========== END HINT CONFIRMATION CARD ========== */

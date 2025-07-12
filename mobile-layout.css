@@ -1,7 +1,7 @@
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   /* ========== MOBILE GAMING LAYOUT ========== */
 
-  /* Fix do viewport mobile */
+  /* Ajuste do viewport mobile */
   html {
     height: 100%;
     overflow-x: hidden;
@@ -128,6 +128,12 @@
     flex: 1;
   }
 
+  /* Placeholder com tamanho reduzido para mobile */
+  input#userGuess::placeholder {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+  }
+
   form > button[type="submit"] {
     width: 40px;
     height: 40px;
@@ -166,6 +172,19 @@
   button#hint {
     font-size: var(--font-size-xl);
     margin-bottom: 8px;
+  }
+
+  /* Animação de dedução de pontos - ajuste mobile */
+  .points-deduction {
+    top: 5px;
+    right: 5px;
+    font-size: var(--font-size-base);
+  }
+
+  /* Ajustes mobile para estados da dica */
+  button#hint.hints-depleted::after {
+    width: 130%;
+    height: 1.5px;
   }
 
   .card-value {
@@ -344,39 +363,39 @@
   a#developer-card {
     bottom: 15px;
     left: 15px;
-    padding: 10px 14px;
-    font-size: var(--font-size-sm);
+    padding: 8px 10px;
     z-index: 1000;
+
+    /* Ajustes mobile */
+    opacity: 0.8;
+    transform: scale(0.9);
   }
 
-  /* Reduzir efeitos de glow em mobile para performance */
-  .glow-effect {
-    animation: none;
+  /* Ajustes mobile para o conteúdo do card */
+  a#developer-card .dev-name {
+    font-size: 12px;
   }
 
-  /* Ranking items mobile - garantir altura consistente e flexibilidade */
+  a#developer-card .tech-stack i {
+    font-size: 14px;
+  }
+
+  a#developer-card:hover {
+    transform: scale(0.95) translateY(-1px);
+  }
+
+  /* Ajustes específicos do ranking para mobile */
   .ranking-list {
-    gap: 8px;
-    height: 100%;
-    min-height: 200px; /* Altura mínima para garantir espaço adequado */
+    min-height: 200px;
   }
 
   .rank-item {
-    flex: 1;
-    min-height: 50px; /* Altura mínima aumentada para mobile */
-    height: auto;
+    min-height: 50px;
     padding: 12px 10px;
     font-size: var(--font-size-sm);
-
-    /* Melhor espaçamento para mobile */
-    justify-content: space-between;
-    align-items: center;
   }
 
-  /* Ajustes específicos para modo cronometrado mobile */
   .rank-item.timed {
-    grid-template-columns: auto 1fr auto;
-    gap: 10px;
     padding: 12px;
   }
 
@@ -387,13 +406,11 @@
 
   .rank-points {
     font-size: var(--font-size-sm);
-    text-align: center;
   }
 
   .rank-time {
     font-size: var(--font-size-xs);
     min-width: 55px;
-    text-align: right;
   }
 
   /* Manter espaço adequado dentro dos modais mobile */
@@ -402,4 +419,67 @@
     max-height: 300px;
     overflow-y: auto;
   }
+
+  /* ========== CONFETTI MOBILE ADJUSTMENTS ========== */
+  /* Reduzir tamanho do confetti em mobile para melhor performance */
+  .confetti-piece {
+    width: 6px;
+    height: 6px;
+  }
+
+  .confetti-piece.small {
+    width: 4px;
+    height: 4px;
+  }
+
+  .confetti-piece.medium {
+    width: 6px;
+    height: 6px;
+  }
+
+  .confetti-piece.large {
+    width: 8px;
+    height: 8px;
+  }
+
+  .confetti-piece.triangle {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 6px;
+  }
+  /* ========== END CONFETTI MOBILE ========== */
+
+  /* ========== HINT CARD MOBILE ADJUSTMENTS ========== */
+  /* Ajustar card de confirmação de dicas para mobile */
+  .hint-confirm-card {
+    top: 80%;
+    max-width: 90vw;
+    padding: 12px 16px;
+  }
+
+  .hint-confirm-content {
+    min-width: auto;
+    gap: 12px;
+    flex-direction: row;
+  }
+
+  .hint-info-section {
+    gap: 2px;
+  }
+
+  .hint-confirm-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .hint-available-text {
+    font-size: 11px;
+  }
+
+  .btn-cancel,
+  .btn-confirm {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-base);
+  }
+  /* ========== END HINT CARD MOBILE ========== */
 }

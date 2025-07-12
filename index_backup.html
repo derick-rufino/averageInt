@@ -142,7 +142,6 @@
           <div class="points-card feature-card">
             <p class="card-value onTop" id="currentPoints">0</p>
             <span class="card-label">Pontos</span>
-            <span id="pointsDeduction" class="points-deduction"></span>
           </div>
 
           <div class="timer-card feature-card">
@@ -357,6 +356,14 @@
                 <span>Acertou? Ganhe pontos! Errou? Gere novos números</span>
               </li>
             </ul>
+
+            <div class="highlight highlight-secondary">
+              <p>
+                <strong>💡 Exemplo:</strong> Números 2, 6, 10, 14<br />
+                Soma: 2+6+10+14 = 32<br />
+                Média: 32 ÷ 4 = <strong>8</strong> ← Digite este valor
+              </p>
+            </div>
           </div>
         </div>
 
@@ -412,7 +419,20 @@
                 <span class="step-icon">📊</span>
                 <span>Limite por rodada: Aprendiz (1), demais (2-3)</span>
               </li>
-              <li></li>
+              <li>
+                <span class="step-icon">⚠️</span>
+                <span
+                  >Modo <strong>Difícil</strong>: pontos são descontados
+                  imediatamente</span
+                >
+              </li>
+              <li>
+                <span class="step-icon">🔄</span>
+                <span
+                  >Outros modos: pontos só são perdidos se errar a
+                  resposta</span
+                >
+              </li>
             </ul>
 
             <div class="hint-costs">
@@ -469,6 +489,36 @@
                 <span class="step-icon">⚠️</span>
                 <span>Dicas custam mais e são descontadas na hora</span>
               </li>
+              <li>
+                <span class="step-icon">🎯</span>
+                <span>Números animam durante as transições</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tutorial-section">
+            <h4><i class="fa-solid fa-star"></i> Dicas para Iniciantes</h4>
+            <ul>
+              <li>
+                <span class="step-icon">🧮</span>
+                <span
+                  >Calcule mentalmente: some os 4 números e divida por 4</span
+                >
+              </li>
+              <li>
+                <span class="step-icon">⚡</span>
+                <span>Comece no modo Aprendiz, depois suba gradualmente</span>
+              </li>
+              <li>
+                <span class="step-icon">📈</span>
+                <span>Acompanhe seu progresso no ranking</span>
+              </li>
+              <li>
+                <span class="step-icon">💡</span>
+                <span
+                  >Use dicas quando estiver em dúvida, mas com moderação</span
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -478,31 +528,71 @@
     <!-- Container de confetti -->
     <div class="confetti-container" id="confetti-container"></div>
 
-    <!-- Card de confirmação de dica - Expandido -->
-    <div class="hint-confirm-card" id="hintConfirmCard">
-      <div class="hint-confirm-content">
-        <div class="hint-info-section">
-          <div class="hint-main-text">
-            <span class="hint-confirm-text"
-              >Usar dica? <strong id="hintCostText">-2 pts</strong></span
-            >
+    <!-- Card de confirmação de dica -->
+    <div class="hint-confirmation-card" id="hintConfirmationCard">
+      <div class="confirmation-header">
+        <h3><i class="fa-solid fa-lightbulb"></i> Usar Dica?</h3>
+        <button class="close-btn" onclick="closeHintConfirmation()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="confirmation-content">
+        <!-- Informações da dica -->
+        <div class="hint-info">
+          <div class="info-item">
+            <span class="info-label">Modo Atual:</span>
+            <span class="info-value" id="confirmModeDisplay">Normal</span>
           </div>
-          <div class="hint-availability">
-            <span class="hint-available-text" id="hintsAvailableText"
-              >2 de 3 disponíveis</span
-            >
+          <div class="info-item">
+            <span class="info-label">Pontos Atuais:</span>
+            <span class="info-value" id="confirmCurrentPoints">0</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Custo da Dica:</span>
+            <span class="info-value" id="confirmHintCost">2 pts</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Dicas Usadas:</span>
+            <span class="info-value" id="confirmHintsUsed">0/2</span>
           </div>
         </div>
-        <div class="hint-confirm-actions">
-          <button class="btn-cancel" onclick="closeHintConfirmation()">
-            <i class="fa-solid fa-xmark"></i>
+
+        <!-- Aviso específico do modo -->
+        <div class="mode-warning" id="modeWarning">
+          <!-- Conteúdo gerado dinamicamente -->
+        </div>
+
+        <!-- Consequências -->
+        <div class="hint-consequences">
+          <h4>O que acontecerá:</h4>
+          <ul id="consequencesList">
+            <!-- Consequências geradas dinamicamente -->
+          </ul>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="confirmation-actions">
+          <button class="btn-secondary" onclick="closeHintConfirmation()">
+            Cancelar
           </button>
-          <button class="btn-confirm" onclick="confirmHintUsage()">
-            <i class="fas fa-check"></i>
+          <button
+            class="btn-primary"
+            id="confirmHintBtn"
+            onclick="confirmHintUsage()"
+          >
+            Usar Dica
           </button>
         </div>
       </div>
     </div>
+
+    <!-- Overlay para o card de confirmação -->
+    <div
+      class="confirmation-overlay"
+      id="confirmationOverlay"
+      onclick="closeHintConfirmation()"
+    ></div>
 
     <!-- Sistema de dicas -->
     <script src="dicas.js"></script>

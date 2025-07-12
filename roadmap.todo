@@ -1,0 +1,86 @@
+PRIORIDADE ALTA - PRÓXIMAS FEATURES: @high
+
+CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
+	✔ Bug Mode3 e Mode4: Corrigir falta de currentMode = "3" e currentMode = "4" @done
+	✔ Inconsistência de encoding: Corrigir acentos nos toasts (Médio/Difícil) @done
+	✔ Breakpoints responsivos: Unificar 768px mobile vs 769px desktop, eliminar conflitos CSS @done
+	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
+	☐ Validar correções com testes manuais completos
+
+Sistema de Pontuação & Rankings:
+	☐ Guardar os pontos feitos em localStorage
+	☐ Comparar os pontos feitos com os pontos guardados no localStorage
+	☐ Guardar os 5 pontos mais altos no localStorage e exibir nos rankings
+		☐ Guardar 5 sem timer (modos comuns)
+		☐ Guardar 5 com timer (modo difícil)
+	☐ Novos records devem ser comemorados e exibidos no final da rodada de acertos
+
+Cards de Compartilhamento:
+	☐ Criar cards visuais para pontuação e recordes
+	☐ Implementar geração e compartilhamento desses cards como PNG com link para o jogo
+
+IMPLEMENTAÇÕES FUTURAS:
+
+Modo Difícil - Melhorias:
+	☐ Além do timer(que conta a rodada atual para adivinhar o número), Construir *cronômetro* (continua contando enquanto o usuário acertar, em caso de erro, guarda os pontos feitos e reseta)
+	☐ Parar o timer, para também o cronometro e guarda os pontos feitos
+
+Multiplayer Local - Funcionalidade Social: @future
+	☐ Modo 2 jogadores local (alternando turnos)
+	☐ Sistema de pontuação competitiva (quem acerta mais em X rodadas)
+	☐ Interface split para mostrar pontos de ambos jogadores
+	☐ Modo cooperativo (jogadores se ajudam com dicas)
+	☐ Sistema de desafios entre jogadores locais
+
+Backend & Rankings Globais - Expansão Online: @future
+	☐ API backend simples para rankings globais
+	☐ Sistema de nickname para rankings mundiais
+	☐ Leaderboards por modo de jogo (Aprendiz, Normal, Médio, Difícil)
+	☐ Rankings semanais/mensais além do global
+	☐ Sistema de conquistas globais
+	☐ Comparação com outros jogadores (percentil)
+	☐ API para estatísticas avançadas (tempo médio, dicas usadas, etc.)
+
+CONCLUÍDO ✅ - Sistema de Dicas Dinâmicas: @done
+    ✔ Criar o arquivo `dicas.js` contendo todos os arrays de dicas (Aprendiz, Normal, Médio, Difícil e Independentes) @done
+	✔ Importar o `dicas.js` no script principal (index.html) @done
+	✔ Desenvolver a função de escolha de dica baseada no modo atual e média real @done
+	✔ Integrar com HTML - elemento `<p id="message">` para exibir dicas @done
+	✔ Implementar acionamento via botão "Dica" @done
+	✔ Sistema de custos: dicas dos modos comuns consomem pontos equivalentes à dificuldade, mas permitem uso mesmo sem pontos @done
+	✔ Dicas independentes consomem menos pontos (1 ponto) @done
+	✔ Modo Difícil: dicas consomem mais pontos (5) e exigem pontos positivos @done
+	✔ Sistema de dicas dinâmicas: gera dicas sempre verdadeiras baseadas na média e sequência real @done
+	✔ Limite de dicas por rodada implementado (Aprendiz: 1, Normal: 2, Médio: 2, Difícil: 3) @done
+	✔ Testado em todos os modos - dicas específicas + independentes funcionando @done
+	✔ UX otimizada: dicas claras, úteis e não interferem no desafio principal @done
+	✔ Prevenção de dicas falsas através de validação dinâmica @done
+	✔ Implementar tutorial interativo para sistema de dicas @done
+	✔ Corrigir borda amarela no card de dica principal e sistema de paginação por abas @done
+	✔ Corrigir coloração dos ícones (lâmpada e relógio) nas seções do tutorial @done
+	✔ Revisar tutorial completo: linguagem direta, acessível, explicativa e concisa @done
+	✔ Adicionar exemplo prático de cálculo de média na aba Básico @done
+	✔ Melhorar explicação do sistema de dicas (quando pontos são perdidos) @done
+	✔ Aprimorar aba Avançado com informações claras sobre modo difícil @done
+	✔ Corrigir duplicação de conteúdo na aba de Dicas @done
+	✔ Adicionar estilo highlight-secondary para exemplos práticos @done
+	✔ Corrigir caracteres Unicode corrompidos (�) no tutorial @done
+	✔ Remover duplicação de CSS que estava causando problemas de layout @done
+	✔ CORREÇÃO CRÍTICA: Restaurar arquivo HTML gravemente corrompido @done
+	✔ Reconstruir arquivo index.html limpo com todo o tutorial corrigido @done
+
+MELHORIAS DE UX - AJUSTES FINOS:
+	✔ Adicionar animação sutil ao comprar dicas: -X (escrito pequeno) ao lado dos pontos, por um breve momento @done
+
+LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
+	✔ Remover variáveis CSS legacy (--bg-blue, --txt-white, etc.) e manter apenas as modernas @done
+	✔ Unificar cores dos badges de modo em uma única definição @done
+	✔ Consolidar estilos mobile/desktop mantendo apenas diferenças específicas @done
+	✔ Remover variáveis CSS não utilizadas (--color-base-* não usadas) @done
+	✔ Consolidar sistema de ranking (remover duplicações) @done
+	✔ Criar variável única para transições CSS similares @done
+	✔ Remover duplicação completa do sistema de tutorial @done
+	✔ Implementar feedback visual quando dicas estão esgotadas @done
+	✔ Adicionar contador visual de dicas restantes na rodada @done
+	✔ Melhorar feedback quando não há pontos suficientes no modo difícil @done
+	✔ Reposicionar card de confirmação de dica (não cobrir input) @done

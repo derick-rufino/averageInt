@@ -1,9 +1,10 @@
 PRIORIDADE ALTA - PRÓXIMAS FEATURES: @high
 
-CORREÇÃO DE BUGS CRÍTICOS - EM ANDAMENTO: @doing
+CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
 	✔ Bug Mode3 e Mode4: Corrigir falta de currentMode = "3" e currentMode = "4" @done
 	✔ Inconsistência de encoding: Corrigir acentos nos toasts (Médio/Difícil) @done
 	✔ Breakpoints responsivos: Unificar 768px mobile vs 769px desktop, eliminar conflitos CSS @done
+	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
 	☐ Validar correções com testes manuais completos
 
 Sistema de Pontuação & Rankings:
@@ -79,6 +80,7 @@ LIMPEZA DE CSS - OTIMIZAÇÃO: @doing
 	✔ Consolidar sistema de ranking (remover duplicações) @done
 	✔ Criar variável única para transições CSS similares @done
 	✔ Remover duplicação completa do sistema de tutorial @done
-	☐ Implementar feedback visual quando dicas estão esgotadas
+	✔ Implementar feedback visual quando dicas estão esgotadas @done
 	☐ Adicionar contador visual de dicas restantes na rodada
-	☐ Melhorar feedback quando não há pontos suficientes no modo difícil
+	✔ Melhorar feedback quando não há pontos suficientes no modo difícil @done
+	✔ Reposicionar card de confirmação de dica (não cobrir input) @done

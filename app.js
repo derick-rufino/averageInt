@@ -126,7 +126,7 @@ let currentTimerValue = null;
 
 //Sistema de Dicas
 let dicaUsada = false; //indica se é possível usar novas dicas ou não
-let dicasEstaoDisponiveis = false; // indica se as dicas estao disponiveis para uso no modo atual ou nao
+let dicasEstaoDisponiveis = true; // indica se as dicas estao disponiveis para uso no modo atual ou nao - iniciado como true pois modo padrão é Normal
 let dicasUsadasNaRodada = []; // Array para guardar dicas já usadas na rodada atual
 let dicasUsadasNoJogo = 0; // Contador total de dicas usadas (para compartilhamento)
 
@@ -269,7 +269,6 @@ function usarDica() {
 
   // Desabilitar botão de dica temporariamente
   botaoDica.disabled = true;
-  dicaUsada = true;
 
   // Reabilitar botão Após 3 segundos se ainda houver dicas disponíveis
   setTimeout(() => {
@@ -279,6 +278,9 @@ function usarDica() {
 
 // Função para atualizar estado do botão de dica
 function updateHintButtonState() {
+  // Remover classes anteriores
+  botaoDica.classList.remove("hints-depleted");
+
   if (!dicasEstaoDisponiveis || !mediaAtual) {
     botaoDica.disabled = true;
     return;
@@ -300,10 +302,21 @@ function updateHintButtonState() {
   );
 
   if (verificacao.pode && !tentativaFeita) {
+    // Estado habilitado - dica disponível
     botaoDica.disabled = false;
-    dicaUsada = false;
   } else {
+    // Estado desabilitado
     botaoDica.disabled = true;
+
+    // Se dicas estão esgotadas, adicionar classe especial
+    const modoMap = { 1: "aprendiz", 2: "normal", 3: "medio", 4: "dificil" };
+    const modo = modoMap[currentMode] || "normal";
+    const limiteAtingido =
+      dicasUsadasNaRodada.length >= DicasSystem.limites[modo];
+
+    if (limiteAtingido) {
+      botaoDica.classList.add("hints-depleted");
+    }
   }
 }
 
@@ -336,6 +349,9 @@ function resetGame() {
   dicasUsadasNaRodada = []; // Reset das dicas da rodada
   // NãO resetar dicasUsadasNoJogo - isso é estatística do jogo todo
 
+  // Reset estados visuais do botão de dica
+  botaoDica.classList.remove("hints-depleted");
+
   // Atualizar estado do Formulário baseado na Situação atual
   updateFormState();
 }
@@ -350,14 +366,6 @@ function resetForNewRound() {
 
   // Atualizar estado do Formulário
   updateFormState();
-}
-
-function updateHintButtonState() {
-  if (dicasEstaoDisponiveis && !dicaUsada) {
-    botaoDica.disabled = false; // Habilita o botão de dica
-  } else {
-    botaoDica.disabled = true; // Desabilita o botão de dica
-  }
 }
 
 // Função para atualizar o display do modo atual
@@ -1056,6 +1064,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar estado do Formulário (desabilitado até gerar Números)
   updateFormState();
 
+  // Inicializar modo padrão (Normal) corretamente
+  updateModeDisplay();
+  highlightSelectedMode();
+
+  // Garantir que o estado das dicas seja configurado corretamente
+  updateHintButtonState();
+
   // Abas do ranking
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1169,13 +1184,36 @@ function showHintConfirmation() {
   );
 
   if (!verificacao.pode) {
-    showWarningToast(verificacao.motivo);
+    // Feedback específico para modo difícil quando faltam pontos
+    if (currentMode === "4" && verificacao.motivo.includes("pontos")) {
+      showErrorToast(
+        `💰 ${verificacao.motivo} para usar dicas no modo Difícil!`
+      );
+
+      // Animação de "shake" no botão de dica
+      botaoDica.style.animation = "shake 0.5s ease-in-out";
+      setTimeout(() => {
+        botaoDica.style.animation = "";
+      }, 500);
+    } else {
+      showWarningToast(verificacao.motivo);
+    }
     return;
   }
 
   // Atualizar custo da dica no card
   const hintCostText = document.getElementById("hintCostText");
   hintCostText.textContent = `-${verificacao.custo} pts`;
+
+  // Calcular e mostrar disponibilidade das dicas
+  const modoMap = { 1: "aprendiz", 2: "normal", 3: "medio", 4: "dificil" };
+  const modo = modoMap[currentMode] || "normal";
+  const limiteTotal = DicasSystem.limites[modo];
+  const dicasUsadas = dicasUsadasNaRodada.length;
+  const dicasRestantes = limiteTotal - dicasUsadas;
+
+  const hintsAvailableText = document.getElementById("hintsAvailableText");
+  hintsAvailableText.textContent = `${dicasRestantes} de ${limiteTotal} disponíveis`;
 
   // Mostrar card
   const card = document.getElementById("hintConfirmCard");

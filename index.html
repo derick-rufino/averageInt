@@ -477,17 +477,28 @@
     <!-- Container de confetti -->
     <div class="confetti-container" id="confetti-container"></div>
 
-    <!-- Card de confirmação de dica - Compacto -->
+    <!-- Card de confirmação de dica - Expandido -->
     <div class="hint-confirm-card" id="hintConfirmCard">
       <div class="hint-confirm-content">
-        <span class="hint-confirm-text"
-          >Usar dica? <strong id="hintCostText">-2 pts</strong></span
-        >
+        <div class="hint-info-section">
+          <div class="hint-main-text">
+            <span class="hint-confirm-text"
+              >Usar dica? <strong id="hintCostText">-2 pts</strong></span
+            >
+          </div>
+          <div class="hint-availability">
+            <span class="hint-available-text" id="hintsAvailableText"
+              >2 de 3 disponíveis</span
+            >
+          </div>
+        </div>
         <div class="hint-confirm-actions">
           <button class="btn-cancel" onclick="closeHintConfirmation()">
-            ✕
+            <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn-confirm" onclick="confirmHintUsage()">✓</button>
+          <button class="btn-confirm" onclick="confirmHintUsage()">
+            <i class="fas fa-check"></i>
+          </button>
         </div>
       </div>
     </div>

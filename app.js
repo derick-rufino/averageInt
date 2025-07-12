@@ -871,13 +871,14 @@ document.getElementById("mode2")?.addEventListener("click", () => {
 
 document.getElementById("mode3")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 3");
+  currentMode = "3";
   dicasEstaoDisponiveis = true;
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
 
   // Toast de confirmação
-  showSuccessToast("Modo alterado para Medio");
+  showSuccessToast("Modo alterado para Médio");
 
   // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);
@@ -885,13 +886,14 @@ document.getElementById("mode3")?.addEventListener("click", () => {
 
 document.getElementById("mode4")?.addEventListener("click", () => {
   console.log("Troca de modo. Atual: 4");
+  currentMode = "4";
   dicasEstaoDisponiveis = true;
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
 
   // Toast de confirmação
-  showSuccessToast("Modo alterado para Dificil");
+  showSuccessToast("Modo alterado para Difícil");
 
   // Fechar modal Após seleção (apenas mobile)
   closeModal(gameModeModal);

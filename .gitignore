@@ -1,4 +1,23 @@
+# Vercel
 .vercel
+
+# Dependências
+node_modules/
+
+# Análises técnicas temporárias
+BUGS_ANALYSIS.md
+
+# Scripts de desenvolvimento
+*.ps1
+fix_encoding_ultimate.ps1
+
+# VS Code configurações específicas do usuário (manter tasks.json compartilhado)
+.vscode/settings.json
+settings.json
+
+# Arquivos de backup específicos
+index_backup.html
+app_backup_antes_correcao_codificacao.js
 
 # Backup files - mantidos localmente mas não versionados
 *_backup*.js
@@ -10,3 +29,17 @@ backup_*.js
 *.log
 *.tmp
 temp_*
+
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores
+*.swp
+*.swo
+*~
+
+# Arquivos temporários do navegador
+.chrome_temp/
+.firefox_temp/

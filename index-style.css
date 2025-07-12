@@ -1,5 +1,35 @@
 /* ========== MINIMALIST DESIGN - PURPOSE-DRIVEN COLORS ========== */
 
+/* ========== UNIFIED MODE COLORS ========== */
+/* Cores dos modos de jogo usadas em badges, nomes e ícones */
+.mode-badge.easy,
+.mode-name.easy {
+  border-left-color: #22c55e;
+  color: #22c55e;
+}
+
+.mode-badge.normal,
+.mode-name.normal {
+  border-left-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.mode-badge.medium,
+.mode-name.medium {
+  border-left-color: #f59e0b;
+  background: #f59e0b;
+  color: white;
+}
+
+.mode-badge.hard,
+.mode-name.hard {
+  border-left-color: #ef4444;
+  background: #ef4444;
+  color: white;
+}
+
+/* ========== END UNIFIED MODE COLORS ========== */
+
 /* Header limpo */
 header {
   width: 100%;
@@ -317,7 +347,7 @@ button#timer-label {
   margin-top: 2px;
 
   /* Estados do botão timer */
-  transition: all 0.2s ease-out;
+  transition: all var(--transition-base);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -609,7 +639,7 @@ div#tutorial-card {
   display: none;
 
   /* Smooth transition */
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
 /* Show popover when :popover-open */
@@ -772,23 +802,6 @@ div#tutorial-card .mode-badge {
   font-weight: 500;
 }
 
-div#tutorial-card .mode-badge.easy {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-}
-div#tutorial-card .mode-badge.normal {
-  border-color: var(--interactive-primary);
-  color: var(--interactive-primary);
-}
-div#tutorial-card .mode-badge.medium {
-  border-color: var(--feedback-warning);
-  color: var(--feedback-warning);
-}
-div#tutorial-card .mode-badge.hard {
-  border-color: var(--feedback-danger);
-  color: var(--feedback-danger);
-}
-
 div#tutorial-card .highlight {
   background: var(--bg-terciary);
   padding: 0.75rem;
@@ -840,23 +853,6 @@ div#tutorial-card em {
 div#tutorial-card::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  div#tutorial-card {
-    max-width: 95vw;
-    max-height: 95vh;
-    padding: 1.5rem;
-  }
-
-  div#tutorial-card h3 {
-    font-size: var(--font-size-xl);
-  }
-
-  div#tutorial-card {
-    font-size: var(--font-size-sm);
-  }
 }
 
 /* Wrapper de botões */
@@ -946,7 +942,7 @@ div#tutorial-card::backdrop {
 /* Sem animações - apenas feedback visual básico */
 
 /* ========== DESKTOP SPECIFIC STYLES ========== */
-@media (min-width: 721px) {
+@media (min-width: 769px) {
   /* Garantir que o layout desktop funcione corretamente */
   body {
     height: 100vh;
@@ -1439,35 +1435,6 @@ section.rankingCard.wip {
   border-bottom-color: var(--text-accent);
 }
 
-/* Responsividade do confetti */
-@media (max-width: 768px) {
-  .confetti-piece {
-    width: 6px;
-    height: 6px;
-  }
-
-  .confetti-piece.small {
-    width: 4px;
-    height: 4px;
-  }
-
-  .confetti-piece.medium {
-    width: 6px;
-    height: 6px;
-  }
-
-  .confetti-piece.large {
-    width: 8px;
-    height: 8px;
-  }
-
-  .confetti-piece.triangle {
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 6px;
-  }
-}
-
 /* Performance optimizations */
 .confetti-piece {
   will-change: transform, opacity;
@@ -1513,7 +1480,7 @@ section.rankingCard.wip {
   /* Animação de entrada */
   transform: translateX(100%);
   opacity: 0;
-  transition: all 0.3s ease-out;
+  transition: all var(--transition-base);
 }
 
 /* Toast visível */
@@ -1563,417 +1530,6 @@ section.rankingCard.wip {
 
 /* ========== END TUTORIAL SYSTEM ========== */
 
-/* ========== TUTORIAL SYSTEM ========== */
-
-/* Botão do tutorial - posicionado no canto superior direito */
-#tutorial-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 999;
-
-  background: var(--interactive-primary);
-  border: var(--border-width) solid var(--interactive-primary);
-  border-radius: var(--radius-full);
-
-  padding: 12px 16px;
-
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  cursor: pointer;
-  transition: var(--transition-base);
-}
-
-#tutorial-btn:hover {
-  background: var(--interactive-hover);
-  border-color: var(--interactive-hover);
-  transform: translateY(-2px);
-}
-
-#tutorial-btn i {
-  font-size: var(--font-size-base);
-}
-
-/* Card do tutorial */
-.tutorial-card {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-
-  background: var(--bg-primary);
-  border: var(--border-width-thick) solid var(--border-primary);
-  border-radius: var(--radius-lg);
-
-  width: 90vw;
-  max-width: 600px;
-  max-height: 80vh;
-
-  display: flex;
-  flex-direction: column;
-
-  box-shadow: var(--shadow-elevated);
-}
-
-/* Header do tutorial */
-.tutorial-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 20px 24px;
-  border-bottom: var(--border-width) solid var(--border-primary);
-
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
-.tutorial-header h3 {
-  color: var(--text-primary);
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  margin: 0;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tutorial-header h3 i {
-  color: var(--interactive-primary);
-}
-
-.close-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-size: var(--font-size-lg);
-  cursor: pointer;
-
-  width: 32px;
-  height: 32px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: var(--radius-base);
-  transition: var(--transition-base);
-}
-
-.close-btn:hover {
-  background: var(--bg-terciary);
-  color: var(--text-primary);
-}
-
-/* Abas do tutorial */
-.tutorial-tabs {
-  display: flex;
-  background: var(--bg-secondary);
-  border-bottom: var(--border-width) solid var(--border-primary);
-  overflow-x: auto;
-}
-
-.tutorial-tab-btn {
-  background: transparent;
-  border: none;
-
-  padding: 12px 20px;
-
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  cursor: pointer;
-  transition: var(--transition-base);
-
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-}
-
-.tutorial-tab-btn:hover {
-  background: var(--bg-terciary);
-  color: var(--text-primary);
-}
-
-.tutorial-tab-btn.active {
-  color: var(--interactive-primary);
-  border-bottom-color: var(--interactive-primary);
-  background: var(--bg-terciary);
-}
-
-.tutorial-tab-btn i {
-  font-size: var(--font-size-base);
-}
-
-/* Conteúdo do tutorial */
-.tutorial-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
-}
-
-.tutorial-panel {
-  display: none;
-  padding: 24px;
-  line-height: 1.6;
-}
-
-.tutorial-panel.active {
-  display: block;
-}
-
-/* Seções do tutorial */
-.tutorial-section {
-  margin-bottom: 24px;
-}
-
-.tutorial-section:last-child {
-  margin-bottom: 0;
-}
-
-.tutorial-section h4 {
-  color: var(--text-primary);
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  margin: 0 0 16px 0;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tutorial-section h4 i {
-  color: var(--interactive-primary);
-}
-
-.tutorial-section h5 {
-  color: var(--text-primary);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  margin: 0 0 12px 0;
-}
-
-.tutorial-section p {
-  color: var(--text-secondary);
-  margin: 0 0 16px 0;
-}
-
-.tutorial-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tutorial-section li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 12px;
-
-  color: var(--text-secondary);
-}
-
-.tutorial-section li:last-child {
-  margin-bottom: 0;
-}
-
-/* Ícones dos passos */
-.step-icon {
-  background: var(--interactive-primary);
-  color: var(--text-primary);
-
-  width: 24px;
-  height: 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-
-  flex-shrink: 0;
-}
-
-/* Destaque especial */
-.highlight {
-  background: var(--bg-terciary);
-  border: var(--border-width) solid var(--border-primary);
-  border-left: 4px solid var(--interactive-primary);
-  border-radius: var(--radius-base);
-
-  padding: 16px;
-  margin-bottom: 20px;
-}
-
-.highlight p {
-  margin: 0;
-  color: var(--text-primary);
-}
-
-/* Badges dos modos de jogo */
-.game-modes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.mode-badge {
-  background: var(--bg-terciary);
-  border: var(--border-width) solid var(--border-primary);
-  border-radius: var(--radius-base);
-
-  padding: 12px;
-  text-align: center;
-
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  line-height: 1.4;
-
-  transition: var(--transition-base);
-}
-
-.mode-badge.easy {
-  border-left-color: #22c55e;
-}
-
-.mode-badge.normal {
-  border-left-color: #3b82f6;
-}
-
-.mode-badge.medium {
-  border-left-color: #f59e0b;
-}
-
-.mode-badge.hard {
-  border-left-color: #ef4444;
-}
-
-.mode-badge strong {
-  color: var(--text-primary);
-  display: block;
-  margin: 4px 0;
-}
-
-/* Seção de dicas */
-.hints-section ul li {
-  align-items: center;
-}
-
-.hint-costs {
-  background: var(--bg-secondary);
-  border: var(--border-width) solid var(--border-primary);
-  border-radius: var(--radius-base);
-
-  padding: 16px;
-  margin-top: 16px;
-}
-
-.cost-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-}
-
-.cost-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: var(--bg-terciary);
-  border: var(--border-width) solid var(--border-primary);
-  border-radius: var(--radius-base);
-
-  padding: 12px;
-}
-
-.mode-name {
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-sm);
-}
-
-.mode-name.medium {
-  background: #f59e0b;
-  color: white;
-}
-
-.mode-name.hard {
-  background: #ef4444;
-  color: white;
-}
-
-.cost-value {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Seção de dificuldade */
-.difficulty-section ul li .step-icon {
-  background: var(--feedback-warning);
-}
-
-/* Responsividade */
-@media (max-width: 720px) {
-  #tutorial-btn {
-    top: 15px;
-    right: 15px;
-    padding: 10px 14px;
-    font-size: var(--font-size-xs);
-  }
-
-  .tutorial-card {
-    width: 95vw;
-    max-height: 90vh;
-  }
-
-  .tutorial-header {
-    padding: 16px 20px;
-  }
-
-  .tutorial-header h3 {
-    font-size: var(--font-size-lg);
-  }
-
-  .tutorial-panel {
-    padding: 20px;
-  }
-
-  .tutorial-tabs {
-    overflow-x: auto;
-  }
-
-  .tutorial-tab-btn {
-    padding: 10px 16px;
-    font-size: var(--font-size-xs);
-  }
-
-  .game-modes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .cost-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ========== END TUTORIAL SYSTEM ========== */
-
 /* ========== HINT CONFIRMATION CARD - COMPACT ========== */
 
 /* Card de confirmação de dica - pequeno e direto */
@@ -1998,7 +1554,7 @@ section.rankingCard.wip {
   transform: translate(-50%, -50%) scale(0.8);
 
   /* Smooth transition */
-  transition: all 0.15s ease-out;
+  transition: all var(--transition-standard);
 }
 
 /* Show state */
@@ -2074,30 +1630,6 @@ section.rankingCard.wip {
 .btn-confirm:hover {
   background: #16a34a;
   transform: scale(1.1);
-}
-
-/* Responsive adjustments for mobile */
-@media (max-width: 768px) {
-  .hint-confirm-card {
-    max-width: 90vw;
-    padding: 10px 14px;
-  }
-
-  .hint-confirm-content {
-    min-width: auto;
-    gap: 10px;
-  }
-
-  .hint-confirm-text {
-    font-size: var(--font-size-sm);
-  }
-
-  .btn-cancel,
-  .btn-confirm {
-    width: 28px;
-    height: 28px;
-    font-size: var(--font-size-base);
-  }
 }
 
 /* ========== END HINT CONFIRMATION CARD ========== */

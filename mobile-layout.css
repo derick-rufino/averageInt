@@ -1,4 +1,4 @@
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   /* ========== MOBILE GAMING LAYOUT ========== */
 
   /* Ajuste do viewport mobile */
@@ -371,34 +371,18 @@
     transform: scale(0.95) translateY(-1px);
   }
 
-  /* Reduzir efeitos de glow em mobile para performance */
-  .glow-effect {
-    animation: none;
-  }
-
-  /* Ranking items mobile - garantir altura consistente e flexibilidade */
+  /* Ajustes específicos do ranking para mobile */
   .ranking-list {
-    gap: 8px;
-    height: 100%;
-    min-height: 200px; /* Altura mínima para garantir espaço adequado */
+    min-height: 200px;
   }
 
   .rank-item {
-    flex: 1;
-    min-height: 50px; /* Altura mínima aumentada para mobile */
-    height: auto;
+    min-height: 50px;
     padding: 12px 10px;
     font-size: var(--font-size-sm);
-
-    /* Melhor espaçamento para mobile */
-    justify-content: space-between;
-    align-items: center;
   }
 
-  /* Ajustes específicos para modo cronometrado mobile */
   .rank-item.timed {
-    grid-template-columns: auto 1fr auto;
-    gap: 10px;
     padding: 12px;
   }
 
@@ -409,13 +393,11 @@
 
   .rank-points {
     font-size: var(--font-size-sm);
-    text-align: center;
   }
 
   .rank-time {
     font-size: var(--font-size-xs);
     min-width: 55px;
-    text-align: right;
   }
 
   /* Manter espaço adequado dentro dos modais mobile */
@@ -424,4 +406,57 @@
     max-height: 300px;
     overflow-y: auto;
   }
+
+  /* ========== CONFETTI MOBILE ADJUSTMENTS ========== */
+  /* Reduzir tamanho do confetti em mobile para melhor performance */
+  .confetti-piece {
+    width: 6px;
+    height: 6px;
+  }
+
+  .confetti-piece.small {
+    width: 4px;
+    height: 4px;
+  }
+
+  .confetti-piece.medium {
+    width: 6px;
+    height: 6px;
+  }
+
+  .confetti-piece.large {
+    width: 8px;
+    height: 8px;
+  }
+
+  .confetti-piece.triangle {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 6px;
+  }
+  /* ========== END CONFETTI MOBILE ========== */
+
+  /* ========== HINT CARD MOBILE ADJUSTMENTS ========== */
+  /* Ajustar card de confirmação de dicas para mobile */
+  .hint-confirm-card {
+    max-width: 90vw;
+    padding: 10px 14px;
+  }
+
+  .hint-confirm-content {
+    min-width: auto;
+    gap: 10px;
+  }
+
+  .hint-confirm-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .btn-cancel,
+  .btn-confirm {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-base);
+  }
+  /* ========== END HINT CARD MOBILE ========== */
 }

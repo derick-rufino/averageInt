@@ -5,7 +5,7 @@ CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
 	✔ Inconsistência de encoding: Corrigir acentos nos toasts (Médio/Difícil) @done
 	✔ Breakpoints responsivos: Unificar 768px mobile vs 769px desktop, eliminar conflitos CSS @done
 	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
-	☐ Validar correções com testes manuais completos
+	✔ Validar correções com testes manuais completos
 
 Sistema de Pontuação & Rankings:
 	☐ Guardar os pontos feitos em localStorage
@@ -18,6 +18,11 @@ Sistema de Pontuação & Rankings:
 Cards de Compartilhamento:
 	☐ Criar cards visuais para pontuação e recordes
 	☐ Implementar geração e compartilhamento desses cards como PNG com link para o jogo
+	☐ Integrar html2canvas para renderização de cards visuais
+	☐ Adicionar Web Share API com fallback para download
+	☐ Criar QR code para link do jogo nos cards
+	☐ Design responsivo dos cards (formato Instagram/Stories)
+	☐ Testar compartilhamento em mobile (Instagram, WhatsApp, etc.)
 
 IMPLEMENTAÇÕES FUTURAS:
 

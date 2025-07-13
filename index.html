@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="/public/favicon-48x48.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/public/favicon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon-180x180.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon-180.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/public/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/public/favicon-192.png" />
   <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+  <link rel="manifest" href="/public/manifest.json" />
   <title>AverageInt - Game</title>
   <meta name="description"
     content="Calcule a média de 4 números antes do tempo acabar. Um desafio mental rápido e viciante. Jogue agora!" />
@@ -21,19 +22,35 @@
   <link rel="canonical" href="https://average-int.vercel.app/" />
 
   <!-- Open Graph (para redes sociais) -->
-  <!-- <meta property="og:title" content="AverageInt – Desafio de média mental" />
-    <meta
-      property="og:description"
-      content="Teste sua agilidade: calcule a média de 4 números antes do tempo acabar!"
-    />
-    <meta
-      property="og:image"
-      content="https://average-int.vercel.app/preview.png"
-    />
-    <meta property="og:url" content="https://average-int.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AverageInt" />
+  <meta property="og:title" content="AverageInt – Desafio de média mental" />
+  <meta property="og:description"
+    content="Teste sua agilidade: calcule a média de 4 números antes do tempo acabar! Jogo educativo e viciante." />
+  <meta property="og:image" content="https://average-int.vercel.app/public/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AverageInt - Jogo de cálculo de média mental" />
+  <meta property="og:url" content="https://average-int.vercel.app/" />
+  <meta property="og:locale" content="pt_BR" />
 
-    Twitter Card
-    <meta name="twitter:card" content="summary_large_image" /> -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@derico_dev" />
+  <meta name="twitter:creator" content="@derico_dev" />
+  <meta name="twitter:title" content="AverageInt – Desafio de média mental" />
+  <meta name="twitter:description" content="Teste sua agilidade: calcule a média de 4 números antes do tempo acabar!" />
+  <meta name="twitter:image" content="https://average-int.vercel.app/public/og-preview.png" />
+  <meta name="twitter:image:alt" content="AverageInt - Jogo de cálculo de média mental" />
+
+  <!-- PWA Theme Color para diferentes navegadores -->
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="msapplication-navbutton-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">

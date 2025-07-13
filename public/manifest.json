@@ -1,0 +1,108 @@
+{
+  "name": "AverageInt - Jogo de Média Mental",
+  "short_name": "AverageInt",
+  "description": "Calcule a média de 4 números antes do tempo acabar. Um desafio mental rápido e viciante!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["games", "education", "puzzle"],
+  "screenshots": [
+    {
+      "src": "/public/screenshot-narrow-1.png",
+      "sizes": "640x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Página inicial em jogo - Mobile"
+    },
+    {
+      "src": "/public/screenshot-narrow-2.png",
+      "sizes": "640x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tutorial do jogo - Mobile"
+    },
+    {
+      "src": "/public/screenshot-wide-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Página inicial em jogo - Desktop"
+    },
+    {
+      "src": "/public/screenshot-wide-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Feedback de acerto - Desktop"
+    },
+    {
+      "src": "/public/screenshot-wide-3.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Tutorial do jogo - Desktop"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/public/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/public/favicon-192.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Novo Jogo",
+      "short_name": "Jogar",
+      "description": "Iniciar uma nova partida",
+      "url": "/?action=new-game",
+      "icons": [
+        {
+          "src": "/public/favicon-192.png",
+          "sizes": "384x384"
+        }
+      ]
+    },
+    {
+      "name": "Tutorial",
+      "short_name": "Tutorial",
+      "description": "Aprender como jogar",
+      "url": "/?action=tutorial",
+      "icons": [
+        {
+          "src": "/public/favicon-192.png",
+          "sizes": "384x384"
+        }
+      ]
+    },
+    {
+      "name": "Ranking",
+      "short_name": "Ranking",
+      "description": "Ver pontuações",
+      "url": "/?action=ranking",
+      "icons": [
+        {
+          "src": "/public/favicon-192.png",
+          "sizes": "384x384"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

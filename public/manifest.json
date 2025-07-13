@@ -59,7 +59,7 @@
       "src": "/public/favicon-192.png",
       "sizes": "384x384",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [

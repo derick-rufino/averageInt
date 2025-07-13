@@ -1,5 +1,173 @@
 ﻿// ========== BASIC FEEDBACK ==========
 
+// ========== RANKING SYSTEM WITH PERSISTENCE ==========
+
+/**
+ * Atualiza a exibição dos rankings com dados do localStorage
+ */
+function updateRankingDisplay() {
+  if (!window.StorageSystem) {
+    console.warn('[Rankings] Sistema de storage não disponível');
+    return;
+  }
+
+  const rankings = StorageSystem.getRankings();
+  
+  // Atualizar ranking geral
+  updateRankingTab('general', rankings.general);
+  
+  // Atualizar ranking cronometrado
+  updateRankingTab('timed', rankings.timed);
+}
+
+/**
+ * Atualiza uma aba específica do ranking
+ */
+function updateRankingTab(tabType, rankingData) {
+  const tabPanel = document.getElementById(`${tabType}-tab`);
+  if (!tabPanel) return;
+
+  const rankingList = tabPanel.querySelector('.ranking-list');
+  if (!rankingList) return;
+
+  // Limpar conteúdo atual
+  rankingList.innerHTML = '';
+
+  // Se não há dados, mostrar placeholders
+  if (!rankingData || rankingData.length === 0) {
+    for (let i = 1; i <= 5; i++) {
+      const rankItem = document.createElement('div');
+      rankItem.className = tabType === 'timed' ? 'rank-item timed' : 'rank-item';
+      
+      if (tabType === 'timed') {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i}º</span>
+          <span class="rank-points">0 pts</span>
+          <span class="rank-time">00:00</span>
+        `;
+      } else {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i}º</span>
+          <span class="rank-points">0 pts</span>
+        `;
+      }
+      
+      rankingList.appendChild(rankItem);
+    }
+    return;
+  }
+
+  // Exibir dados reais (máximo 5 posições)
+  for (let i = 0; i < Math.max(5, rankingData.length); i++) {
+    const rankItem = document.createElement('div');
+    rankItem.className = tabType === 'timed' ? 'rank-item timed' : 'rank-item';
+    
+    if (i < rankingData.length) {
+      const data = rankingData[i];
+      const modeNames = { "1": "Aprendiz", "2": "Normal", "3": "Médio", "4": "Difícil" };
+      const modeName = modeNames[data.mode] || "Normal";
+      
+      if (tabType === 'timed') {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i + 1}º</span>
+          <span class="rank-points">${data.points} pts</span>
+          <span class="rank-time">${data.time}</span>
+        `;
+        rankItem.title = `Modo: ${modeName} | Data: ${new Date(data.date).toLocaleDateString()}`;
+      } else {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i + 1}º</span>
+          <span class="rank-points">${data.points} pts</span>
+        `;
+        rankItem.title = `Modo: ${modeName} | Data: ${new Date(data.date).toLocaleDateString()}`;
+      }
+    } else {
+      // Posições vazias
+      if (tabType === 'timed') {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i + 1}º</span>
+          <span class="rank-points">0 pts</span>
+          <span class="rank-time">00:00</span>
+        `;
+      } else {
+        rankItem.innerHTML = `
+          <span class="rank-position">${i + 1}º</span>
+          <span class="rank-points">0 pts</span>
+        `;
+      }
+    }
+    
+    rankingList.appendChild(rankItem);
+  }
+}
+
+/**
+ * Salva pontuação no ranking apropriado
+ */
+function saveScoreToRanking(points, mode, timeElapsed = null) {
+  if (!window.StorageSystem) {
+    console.warn('[Rankings] Sistema de storage não disponível');
+    return false;
+  }
+
+  const success = StorageSystem.addScore(points, mode, timeElapsed);
+  
+  if (success) {
+    // Atualizar display imediatamente
+    updateRankingDisplay();
+    console.info(`[Rankings] Pontuação salva: ${points} pontos no modo ${mode}`);
+  } else {
+    console.error('[Rankings] Falha ao salvar pontuação');
+  }
+  
+  return success;
+}
+
+/**
+ * Carrega configurações salvas e aplica ao jogo
+ */
+function loadGameSettings() {
+  if (!window.StorageSystem) return;
+
+  const settings = StorageSystem.getSettings();
+  
+  // Aplicar modo salvo
+  if (settings.currentMode && settings.currentMode !== currentMode) {
+    currentMode = settings.currentMode;
+    updateModeDisplay();
+    highlightSelectedMode();
+  }
+  
+  console.info(`[Settings] Configurações carregadas: modo ${currentMode}`);
+}
+
+/**
+ * Salva configurações atuais
+ */
+function saveGameSettings() {
+  if (!window.StorageSystem) return;
+
+  const settings = {
+    currentMode: currentMode,
+    soundEnabled: true, // TODO: implementar som se necessário
+    lastPlayed: new Date().toISOString()
+  };
+  
+  StorageSystem.saveSettings(settings);
+}
+
+/**
+ * Atualiza estatísticas do jogador
+ */
+function updatePlayerStatistics(points, wasCorrect) {
+  if (!window.StorageSystem) return;
+
+  const stats = StorageSystem.updateGameStatistics(points, currentMode, wasCorrect);
+  console.info(`[Statistics] Stats atualizados: ${stats.totalGames} jogos, ${stats.totalPoints} pontos totais`);
+}
+
+// ========== END RANKING SYSTEM ==========
+
 // ========== TOAST NOTIFICATION SYSTEM ==========
 
 // Função para criar container de toast se não existir
@@ -648,15 +816,30 @@ function animateNumberDisplays(finalNumbers, duration = 3000) {
 // ✅ CORREã‡ãƒO: handleCorrectAnswer no modo difícil com Animação
 function handleCorrectAnswer() {
   // Para o timer se estiver rodando
+  let timeElapsed = null;
   if (currentMode === "4" && countdownInterval) {
+    // Calcular tempo decorrido no modo difícil
+    const secondsElapsed = 60 - parseInt(displayTimer.innerText);
+    timeElapsed = StorageSystem.formatTime(secondsElapsed);
+    
     clearPreviousTimer(); // Usa a nova Função
     botaoPararTimer.disabled = true; // Desabilita o botão de parar
   }
 
-  pontos += pontosPorAcerto();
+  const pointsEarned = pontosPorAcerto();
+  pontos += pointsEarned;
+
+  // ✅ PERSISTENCE: Atualizar estatísticas
+  updatePlayerStatistics(pointsEarned, true);
+
+  // ✅ PERSISTENCE: Salvar pontuação no ranking (se modo cronometrado, incluir tempo)
+  saveScoreToRanking(pontos, currentMode, timeElapsed);
+
+  // ✅ PERSISTENCE: Salvar configurações atuais
+  saveGameSettings();
 
   // ✅ ANIMAã‡ãƒO DE CONFETTI: Usar Função de sucesso COM confetti
-  showSuccessMessageWithConfetti(`Correto! +${pontosPorAcerto()} pontos`);
+  showSuccessMessageWithConfetti(`Correto! +${pointsEarned} pontos`);
 
   tentativaFeita = true;
 
@@ -724,6 +907,12 @@ function handleWrongAnswer() {
     clearPreviousTimer(); // Usa a nova Função
     botaoPararTimer.disabled = true; // Desabilita o botão de parar
   }
+
+  // ✅ PERSISTENCE: Atualizar estatísticas (0 pontos, resposta incorreta)
+  updatePlayerStatistics(0, false);
+
+  // ✅ PERSISTENCE: Salvar configurações atuais
+  saveGameSettings();
 
   // ✅ NOVA ANIMAã‡ãƒO: Usar Função de erro
   showErrorMessage(`Errado! A resposta era ${mediaAtual}`);
@@ -858,6 +1047,9 @@ document.getElementById("mode1")?.addEventListener("click", () => {
   highlightSelectedMode();
   resetGame();
 
+  // ✅ PERSISTENCE: Salvar nova configuração de modo
+  saveGameSettings();
+
   // Toast de confirmação
   showSuccessToast("Modo alterado para Aprendiz");
 
@@ -872,6 +1064,9 @@ document.getElementById("mode2")?.addEventListener("click", () => {
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
+
+  // ✅ PERSISTENCE: Salvar nova configuração de modo
+  saveGameSettings();
 
   // Toast de confirmação
   showSuccessToast("Modo alterado para Normal");
@@ -888,6 +1083,9 @@ document.getElementById("mode3")?.addEventListener("click", () => {
   highlightSelectedMode();
   resetGame();
 
+  // ✅ PERSISTENCE: Salvar nova configuração de modo
+  saveGameSettings();
+
   // Toast de confirmação
   showSuccessToast("Modo alterado para Médio");
 
@@ -902,6 +1100,9 @@ document.getElementById("mode4")?.addEventListener("click", () => {
   updateModeDisplay();
   highlightSelectedMode();
   resetGame();
+
+  // ✅ PERSISTENCE: Salvar nova configuração de modo
+  saveGameSettings();
 
   // Toast de confirmação
   showSuccessToast("Modo alterado para Difícil");
@@ -1063,6 +1264,14 @@ function switchRankingTab(tabName) {
 document.addEventListener("DOMContentLoaded", () => {
   // Inicializar layout mobile
   initializeMobileLayout();
+
+  // ✅ PERSISTENCE: Carregar configurações e dados salvos
+  loadGameSettings();
+  
+  // ✅ PERSISTENCE: Aguardar que o StorageSystem seja inicializado e então atualizar rankings
+  setTimeout(() => {
+    updateRankingDisplay();
+  }, 100);
 
   // Inicializar estado do Formulário (desabilitado até gerar Números)
   updateFormState();

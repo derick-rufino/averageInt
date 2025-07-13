@@ -7,6 +7,9 @@ node_modules/
 # Análises técnicas temporárias
 BUGS_ANALYSIS.md
 
+# Guias de implementação (documentação local)
+PWA_IMPLEMENTATION_GUIDE.md
+
 # Scripts de desenvolvimento
 *.ps1
 fix_encoding_ultimate.ps1

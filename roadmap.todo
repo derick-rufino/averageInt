@@ -7,6 +7,18 @@ CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
 	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
 	✔ Validar correções com testes manuais completos
 
+PWA - Progressive Web App (OFFLINE ACCESS): @high
+	☐ Criar Service Worker (sw.js) para cache offline de recursos estáticos
+	☐ Implementar estratégias de cache (Cache First para estáticos, Network First para dinâmicos)
+	☐ Registrar Service Worker no index.html
+	☐ Adicionar indicador visual de status online/offline
+	☐ Implementar botão "Instalar App" com prompt personalizado
+	☐ Otimizar manifest.json para melhor experiência PWA
+	☐ Testar funcionamento offline completo
+	☐ Validar instalação em diferentes dispositivos (Android, iOS, Desktop)
+	☐ Configurar atualizações automáticas do cache
+	☐ Implementar feedback visual para usuário quando app está funcionando offline
+
 Sistema de Pontuação & Rankings:
 	☐ Guardar os pontos feitos em localStorage
 	☐ Comparar os pontos feitos com os pontos guardados no localStorage

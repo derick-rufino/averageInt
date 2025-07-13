@@ -467,7 +467,10 @@
   }
 
   a#developer-card:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-primary);
     transform: scale(1.05);
+    opacity: 1;
   }
 
   /* Ajustes específicos do ranking para mobile */

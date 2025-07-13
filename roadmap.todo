@@ -15,7 +15,11 @@ SEMANA 1 - PWA CORE (Dias 1-4): ✅ CONCLUÍDO
 		✔ Adicionar indicador visual de status online/offline @done
 		✔ Otimizar manifest.json para melhor experiência PWA @done
 		✔ Testar funcionamento offline completo @done
-		☐ Implementar botão "Instalar App" com prompt personalizado
+		✔ Implementar botão "Instalar App" com prompt personalizado @done
+			✔ Toast reformulado com mensagens melhoradas @done
+			✔ Toast offline maior com botão de instalação @done
+			✔ Detecção automática de disponibilidade de instalação @done
+			✔ UX otimizada para incentivar instalação @done
 	
 	Sistema de Versionamento Básico: @done ✅
 		✔ Definir versão inicial do projeto como v1.0.0 (primeira versão PWA estável) @done

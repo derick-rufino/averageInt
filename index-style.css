@@ -592,7 +592,6 @@ a#developer-card {
   transition: var(--transition-base);
 
   /* Estado inicial discreto mas visível */
-  opacity: 0.8;
   transform: scale(1);
 }
 

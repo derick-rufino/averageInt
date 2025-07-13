@@ -85,9 +85,16 @@
 </head>
 
 <body>
-  <!-- PWA Status Indicator -->
+  <!-- PWA Status Indicator & Install Prompt -->
   <div id="connection-status" class="connection-status">
-    <span id="status-text">Offline</span>
+    <div class="status-content">
+      <span id="status-text">Offline</span>
+      <p id="status-description" class="status-description"></p>
+      <button id="install-btn" class="install-btn" style="display: none;">
+        <i class="fa-solid fa-download"></i>
+        Instalar App
+      </button>
+    </div>
   </div>
   <header>
     <h1>AverageInt</h1>
@@ -465,11 +472,23 @@
   <!-- Sistema de dicas -->
   <script src="dicas.js"></script>
   <script src="app.js"></script>
-  <!-- REGISTRO DO PWA -->
+  <!-- REGISTRO DO PWA + INSTALAÇÃO -->
   <script>
     // Constante de versão
     const APP_VERSION = '1.0.0';
     console.log(`[PWA] AverageInt versão ${APP_VERSION}`);
+
+    // Variável para o prompt de instalação
+    let deferredPrompt;
+    let isInstallable = false;
+
+    // Capturar o evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('[PWA] App pode ser instalado');
+      e.preventDefault();
+      deferredPrompt = e;
+      isInstallable = true;
+    });
 
     // Registrar Service Worker
     if ('serviceWorker' in navigator) {
@@ -479,6 +498,11 @@
         navigator.serviceWorker.register('/sw.js')
           .then((registration) => {
             console.log('[PWA] Service Worker registrado:', registration.scope);
+
+            // Mostrar toast de status após alguns segundos
+            setTimeout(() => {
+              showConnectionStatus(navigator.onLine);
+            }, 3000);
 
             // Detectar nova versão
             registration.addEventListener('updatefound', () => {
@@ -513,6 +537,43 @@
       });
     }
 
+    // Função para instalar o PWA
+    async function installPWA() {
+      if (!deferredPrompt) {
+        console.log('[PWA] Prompt de instalação não disponível');
+        return;
+      }
+
+      try {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+
+        if (outcome === 'accepted') {
+          console.log('[PWA] Usuário instalou o app');
+          deferredPrompt = null;
+          isInstallable = false;
+
+          // Esconder o toast após instalação
+          const indicator = document.getElementById('connection-status');
+          if (indicator) {
+            indicator.classList.remove('show');
+          }
+        } else {
+          console.log('[PWA] Usuário rejeitou a instalação');
+        }
+      } catch (error) {
+        console.error('[PWA] Erro na instalação:', error);
+      }
+    }
+
+    // Configurar evento de clique do botão de instalação
+    document.addEventListener('DOMContentLoaded', () => {
+      const installBtn = document.getElementById('install-btn');
+      if (installBtn) {
+        installBtn.addEventListener('click', installPWA);
+      }
+    });
+
     // Funções de feedback
     function showUpdateToast() {
       console.log('[PWA] TODO: Mostrar toast de atualização');
@@ -524,21 +585,76 @@
       // Implementar depois: toast "App pronto para uso offline!"
     }
 
+    // DEBUG: Estado do PWA na inicialização
+    console.log('[PWA INIT] Service Worker support:', 'serviceWorker' in navigator);
+    console.log('[PWA INIT] beforeinstallprompt support:', 'onbeforeinstallprompt' in window);
+    console.log('[PWA INIT] manifest link found:', document.querySelector('link[rel="manifest"]') ? 'Sim' : 'Não');
+    console.log('[PWA INIT] HTTPS/localhost:', location.protocol === 'https:' || location.hostname === 'localhost');
+
+    // Verificar se já está instalado
+    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('[PWA INIT] App já instalado (modo standalone)');
+    }
+
+    // DEBUG: Fallback para mostrar botão após 3 segundos (para teste)
+    setTimeout(() => {
+      console.log('[PWA FALLBACK] Verificando botão após 3s...');
+      const installBtn = document.getElementById('install-btn');
+      if (installBtn && !isInstallable) {
+        console.log('[PWA FALLBACK] Ativando botão de fallback');
+        isInstallable = true;
+        // Se estiver offline, mostrar botão
+        if (!navigator.onLine) {
+          showConnectionStatus(false);
+        }
+      }
+    }, 3000);
+
     function showConnectionStatus(isOnline) {
       const indicator = document.getElementById('connection-status');
       const statusText = document.getElementById('status-text');
+      const statusDescription = document.getElementById('status-description');
+      const installBtn = document.getElementById('install-btn');
 
       if (indicator && statusText) {
         indicator.classList.remove('online', 'offline', 'show');
         indicator.classList.add(isOnline ? 'online' : 'offline');
-        statusText.textContent = isOnline ? 'Online' : 'Offline';
-        indicator.classList.add('show');
 
-        // Esconder após 3 segundos se online
         if (isOnline) {
+          statusText.textContent = 'Online';
+          statusDescription.textContent = '';
+          installBtn.style.display = 'none';
+
+          // Esconder após 3 segundos
+          indicator.classList.add('show');
           setTimeout(() => {
             indicator.classList.remove('show');
           }, 3000);
+        } else {
+          statusText.textContent = 'Modo Offline';
+          statusDescription.textContent = 'Jogue mesmo sem internet! Instale o app para uma experiência completa.';
+
+          // DEBUG: Mostrar informações de instalação
+          console.log('[PWA DEBUG] isInstallable:', isInstallable);
+          console.log('[PWA DEBUG] deferredPrompt:', deferredPrompt);
+          console.log('[PWA DEBUG] installBtn:', installBtn);
+
+          // Mostrar botão de instalação sempre no modo offline para teste
+          if (installBtn) {
+            if (isInstallable) {
+              installBtn.style.display = 'flex';
+              installBtn.textContent = '📱 Instalar App';
+            } else {
+              // Fallback: mostrar botão informativo se PWA não disponível
+              installBtn.style.display = 'flex';
+              installBtn.innerHTML = '<i class="fa-solid fa-info-circle"></i> PWA em teste';
+              installBtn.disabled = true;
+              installBtn.style.opacity = '0.7';
+            }
+          }
+
+          // Toast offline fica visível até voltar online
+          indicator.classList.add('show');
         }
       }
 

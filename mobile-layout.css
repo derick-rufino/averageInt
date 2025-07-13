@@ -22,50 +22,54 @@
     overflow-y: auto;
   }
 
-  /* Header responsivo */
+  /* Header responsivo - mais compacto */
   header {
-    padding: 15px 5px;
-    min-height: 40px;
+    padding: 10px 5px;
+    min-height: 35px;
     height: auto;
     flex-shrink: 0;
   }
 
   header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
+    margin: 0;
   }
 
-  /* Main layout mobile */
+  /* Main layout mobile - melhor posicionamento para uso com uma mão */
   main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 15px;
     flex: 1;
-    padding: 10px;
-    padding-bottom: 80px; /* Espaço para os botões fixos */
-    min-height: calc(100vh - 60px);
+    padding: 0 10px;
+    padding-top: 40px; /* Espaço superior para centralizar melhor */
+    padding-bottom: 120px; /* Espaço inferior aumentado */
+    min-height: calc(100vh - 45px);
     overflow-y: auto;
   }
 
   .main-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
     align-items: center;
+    margin-top: 20px; /* Espaço adicional para melhor centralização */
   }
 
-  /* Seção do jogo adaptada */
+  /* Seção do jogo adaptada - posição otimizada para uma mão */
   section.game {
     width: 100%;
-    height: 280px;
-    max-height: 280px;
+    height: 300px;
+    max-height: 300px;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    padding: 15px;
+    padding: 20px 15px;
     overflow: hidden;
+    margin-bottom: 10px; /* Espaço extra abaixo do jogo */
   }
 
   /* Container dos números mobile */
@@ -81,15 +85,16 @@
     font-size: var(--font-size-lg);
     aspect-ratio: 1;
   }
-  /* Botão randomize mobile */
+  /* Botão randomize mobile - tamanho otimizado para uma mão */
   button#randomize-btn {
     grid-column: 1/6;
     grid-row: 2/3;
-    padding: 8px 12px;
-    font-size: var(--font-size-sm);
-    height: 32px;
-    width: 80%;
+    padding: 12px 16px;
+    font-size: var(--font-size-base);
+    height: 44px; /* Altura otimizada para toque */
+    width: 85%;
     justify-self: center;
+    margin: 5px 0;
   }
 
   /* Mensagem mobile */
@@ -109,23 +114,25 @@
     justify-content: center;
   }
 
-  /* Form mobile */
+  /* Form mobile - otimizado para alcance com uma mão */
   form#guessForm {
     grid-column: 1/6;
     grid-row: 4/5;
-    gap: 8px;
-    padding: 0 5px;
-    height: 40px;
+    gap: 10px;
+    padding: 5px;
+    height: 44px; /* Altura ajustada para combinar com botões menores */
     display: flex;
     align-items: center;
+    margin-top: 5px;
   }
 
   input#userGuess {
-    height: 40px;
+    height: 44px; /* Altura ajustada para combinar com submit */
     font-size: var(--font-size-base);
     max-width: none;
-    min-width: 100px;
+    min-width: 120px;
     flex: 1;
+    padding: 0 15px;
   }
 
   /* Placeholder com tamanho reduzido para mobile */
@@ -135,31 +142,33 @@
   }
 
   form > button[type="submit"] {
-    width: 40px;
-    height: 40px;
+    width: 40px; /* Tamanho original mantido */
+    height: 40px; /* Tamanho original mantido */
     font-size: var(--font-size-sm);
   }
 
-  /* Extra features - Cards em linha */
+  /* Extra features - Cards em linha com espaçamento otimizado */
   section.extra-features {
     width: 100%;
     height: auto;
-    min-height: 120px;
+    min-height: 110px;
 
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    padding: 10px;
+    gap: 8px;
+    padding: 15px 10px;
+    margin-top: 10px; /* Espaço superior para melhor separação */
 
     grid-template-columns: none;
     grid-template-rows: none;
   }
 
-  /* Cards mobile - menores */
+  /* Cards mobile - tamanhos otimizados */
   .feature-card {
     flex: 1;
-    min-height: 100px;
-    padding: 10px;
+    min-height: 95px;
+    padding: 8px;
+    /* border-radius removido para manter visual reto como no desktop */
   }
 
   .hint-card,
@@ -302,20 +311,21 @@
     border-radius: var(--radius-base);
   }
 
-  /* Wrapper de botões mobile */
+  /* Wrapper de botões mobile - posicionamento otimizado */
   div.button-wrapper {
     width: 100%;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    padding: 10px 0;
+    padding: 20px 0 15px 0; /* Mais espaço superior */
     flex-shrink: 0;
+    margin-top: 15px; /* Separação adicional do conteúdo acima */
   }
 
   button.openModalBtn {
     flex: 1;
-    max-width: 150px;
-    height: 60px;
+    max-width: 160px;
+    height: 56px; /* Altura otimizada para toque */
 
     background: var(--bg-secondary);
     border: 2px solid var(--border-primary);

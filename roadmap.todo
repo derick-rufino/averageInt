@@ -22,9 +22,18 @@ SEMANA 1 - PWA CORE (Dias 1-4): ✅ CONCLUÍDO
 		✔ Adicionar campo "version" no manifest.json do PWA @done
 		✔ Incluir meta tag de versão no index.html @done
 		✔ Criar constante VERSION no JavaScript principal @done
-		☐ Adicionar versão no footer da página (visível ao usuário)
 
 SEMANA 2 - RANKINGS + VALIDAÇÃO (Dias 5-10):
+	✔ UX Mobile - Otimização para uso com uma mão @done
+		✔ Reposicionar jogo mais abaixo na viewport mobile @done
+		✔ Aumentar tamanho dos botões principais (Randomize, Submit) @done
+		✔ Otimizar alturas de inputs e botões para melhor toque @done
+		✔ Ajustar espaçamentos e margens para centralização ideal @done
+		✔ Header mais compacto para aproveitar melhor o espaço @done
+		✔ Corrigir inconsistências visuais entre localhost e mobile @done
+			✔ Remover border-radius indesejado dos cards dicas/pontos/timer @done
+			✔ Ajustar tamanho do botão submit para consistência @done
+
 	Modo Difícil - Melhorias:
 		☐ Além do timer(que conta a rodada atual para adivinhar o número), Construir *cronômetro* (continua contando enquanto o usuário acertar, em caso de erro, guarda os pontos feitos e reseta)
 		☐ Parar o timer, para também o cronometro e guarda os pontos feitos

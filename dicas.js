@@ -1,3 +1,17 @@
+/*
+ * AverageInt - Educational Math Game - Tips System
+ * Copyright (c) 2024 Derick Rufino. All rights reserved.
+ * 
+ * Licensed under Creative Commons BY-NC-SA 4.0 for non-commercial use.
+ * Commercial use requires explicit permission from the copyright holder.
+ * 
+ * Contact for commercial licensing: derick10011@gmail.com
+ * GitHub: https://github.com/derick-rufino/averageInt
+ * Website: https://average-int.vercel.app/
+ * 
+ * This project is governed by Brazilian law.
+ */
+
 const DicasSystem = {
   // Arrays de dicas por modo
   aprendiz: [

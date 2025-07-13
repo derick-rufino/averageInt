@@ -1,3 +1,17 @@
+/*
+ * AverageInt - Educational Math Game - Global Styles
+ * Copyright (c) 2024 Derick Rufino. All rights reserved.
+ * 
+ * Licensed under Creative Commons BY-NC-SA 4.0 for non-commercial use.
+ * Commercial use requires explicit permission from the copyright holder.
+ * 
+ * Contact for commercial licensing: derick10011@gmail.com
+ * GitHub: https://github.com/derick-rufino/averageInt
+ * Website: https://average-int.vercel.app/
+ * 
+ * This project is governed by Brazilian law.
+ */
+
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&display=swap");
 :root {
   /* ========== 60-30-10 COLOR SYSTEM ========== */

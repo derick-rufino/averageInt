@@ -1,11 +1,11 @@
 {
-  "name": "AverageInt - Jogo de Média Mental",
+  "name": "AverageInt - Jogo de Média Rápida",
   "short_name": "AverageInt",
   "description": "Calcule a média de 4 números antes do tempo acabar. Um desafio mental rápido e viciante!",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0f1a",
-  "theme_color": "#3b82f6",
+  "theme_color": "#04122f",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "pt-BR",
@@ -68,30 +68,6 @@
       "short_name": "Jogar",
       "description": "Iniciar uma nova partida",
       "url": "/?action=new-game",
-      "icons": [
-        {
-          "src": "/public/favicon-192.png",
-          "sizes": "384x384"
-        }
-      ]
-    },
-    {
-      "name": "Tutorial",
-      "short_name": "Tutorial",
-      "description": "Aprender como jogar",
-      "url": "/?action=tutorial",
-      "icons": [
-        {
-          "src": "/public/favicon-192.png",
-          "sizes": "384x384"
-        }
-      ]
-    },
-    {
-      "name": "Ranking",
-      "short_name": "Ranking",
-      "description": "Ver pontuações",
-      "url": "/?action=ranking",
       "icons": [
         {
           "src": "/public/favicon-192.png",

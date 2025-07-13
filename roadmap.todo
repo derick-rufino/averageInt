@@ -1,31 +1,100 @@
-PRIORIDADE ALTA - PRÓXIMAS FEATURES: @high
+🚨 ALTÍSSIMA PRIORIDADE - ANTES DE PRODUÇÃO: @critical
+	☐ REMOVER texto "Preview" de og:site_name no index.html (linha ~25)
+	☐ REMOVER indicadores de preview antes do deploy para produção
+	Archive:
 
-CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
-	✔ Bug Mode3 e Mode4: Corrigir falta de currentMode = "3" e currentMode = "4" @done
-	✔ Inconsistência de encoding: Corrigir acentos nos toasts (Médio/Difícil) @done
-	✔ Breakpoints responsivos: Unificar 768px mobile vs 769px desktop, eliminar conflitos CSS @done
-	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
-	✔ Validar correções com testes manuais completos
+PRIORIDADE MÁXIMA - ENTREGA 10 DIAS (13/07 a 23/07/2025): @critical
 
-PWA - Progressive Web App (OFFLINE ACCESS): @high
-	☐ Criar Service Worker (sw.js) para cache offline de recursos estáticos
-	☐ Implementar estratégias de cache (Cache First para estáticos, Network First para dinâmicos)
-	☐ Registrar Service Worker no index.html
-	☐ Adicionar indicador visual de status online/offline
-	☐ Implementar botão "Instalar App" com prompt personalizado
-	☐ Otimizar manifest.json para melhor experiência PWA
-	☐ Testar funcionamento offline completo
-	☐ Validar instalação em diferentes dispositivos (Android, iOS, Desktop)
-	☐ Configurar atualizações automáticas do cache
-	☐ Implementar feedback visual para usuário quando app está funcionando offline
+FOCO: JOGO BASE + PWA + OFFLINE + RANKINGS LOCAIS
 
-Sistema de Pontuação & Rankings:
-	☐ Guardar os pontos feitos em localStorage
-	☐ Comparar os pontos feitos com os pontos guardados no localStorage
-	☐ Guardar os 5 pontos mais altos no localStorage e exibir nos rankings
-		☐ Guardar 5 sem timer (modos comuns)
-		☐ Guardar 5 com timer (modo difícil)
-	☐ Novos records devem ser comemorados e exibidos no final da rodada de acertos
+SEMANA 1 - PWA CORE (Dias 1-4):
+	PWA - Progressive Web App (OFFLINE ACCESS): @high
+		☐ Criar Service Worker (sw.js) para cache offline de recursos estáticos
+		☐ Implementar estratégias de cache (Cache First para estáticos, Network First para dinâmicos)
+		☐ Registrar Service Worker no index.html
+		☐ Adicionar indicador visual de status online/offline
+		☐ Otimizar manifest.json para melhor experiência PWA
+		☐ Testar funcionamento offline completo
+		☐ Implementar botão "Instalar App" com prompt personalizado
+	
+	Sistema de Versionamento Básico: @high
+		☐ Definir versão inicial do projeto como v1.0.0 (primeira versão PWA estável)
+		☐ Adicionar campo "version" no manifest.json do PWA
+		☐ Incluir meta tag de versão no index.html
+		☐ Criar constante VERSION no JavaScript principal
+		☐ Adicionar versão no footer da página (visível ao usuário)
+
+SEMANA 2 - RANKINGS + VALIDAÇÃO (Dias 5-10):
+	Modo Difícil - Melhorias:
+		☐ Além do timer(que conta a rodada atual para adivinhar o número), Construir *cronômetro* (continua contando enquanto o usuário acertar, em caso de erro, guarda os pontos feitos e reseta)
+		☐ Parar o timer, para também o cronometro e guarda os pontos feitos
+
+	Sistema de Pontuação & Rankings Locais: @high
+		☐ Guardar os pontos feitos em localStorage
+		☐ Comparar os pontos feitos com os pontos guardados no localStorage
+		☐ Guardar os 5 pontos mais altos no localStorage e exibir nos rankings
+			☐ Guardar 5 sem timer (modos comuns: Aprendiz, Normal, Médio)
+			☐ Guardar 5 com timer (modo difícil)
+		☐ Novos records devem ser comemorados e exibidos no final da rodada de acertos
+		☐ Interface de rankings melhorada (mostrar posição, pontos, data)
+	
+	Validação & Deploy Final:
+		☐ Validar instalação em diferentes dispositivos (Android, iOS, Desktop)
+		☐ Testar todos os 4 modos de jogo funcionando offline
+		☐ Verificar sistema de dicas funcionando em todos os modos
+		☐ Validar salvamento e carregamento de rankings
+		☐ Testar responsividade completa (mobile + desktop)
+		☐ Criar arquivo CHANGELOG.md básico
+		☐ Configurar tags de versão no Git (v1.0.0)
+		☐ Deploy final no Vercel com todas as funcionalidades core
+
+FUNCIONALIDADES MANTIDAS - JÁ FUNCIONANDO: ✅
+	- 4 Modos de jogo (Aprendiz, Normal, Médio, Difícil)
+	- Sistema de dicas dinâmicas completo
+	- Interface responsiva (mobile + desktop)
+	- Tutorial interativo
+	- Feedback visual e animações
+
+FUTURO - QUANDO HOUVER TEMPO E NECESSIDADE: @future
+
+Sistema de Versionamento Avançado:
+	☐ Sistema de detecção de nova versão disponível
+	☐ Notificação visual para usuário quando há atualização
+	☐ Botão "Atualizar App" para forçar reload da nova versão
+	☐ Sistema de "O que há de novo" após atualizações
+	☐ Query string versionada nos recursos (app.js?v=1.0.0)
+	☐ Automatizar bump de versão no deploy
+
+Modo Personalizado - Completo:
+	☐ Interface de configuração do modo personalizado
+	☐ Slider/input para quantidade de números (3 a 8 caixas)
+	☐ Configuração de range de números (mín/máx, incluindo negativos)
+	☐ Ajuste de timer (0 = sem tempo, ou entre 15s a 300s)
+	☐ Sistema de pontuação fixa: +100 pontos por acerto (não salva)
+	☐ Interface diferenciada (cor/selo "Não Ranqueado")
+
+Sistema de Anúncios & Monetização:
+	☐ Integração com Google AdSense ou similar
+	☐ Sistema de desbloqueio: 1 anúncio = acesso ao modo personalizado
+	☐ Cooldown de 1 hora após assistir anúncio
+	☐ Sistema de compartilhamento de configurações via URL
+
+Sistema de Versionamento - Funcionalidades Avançadas:
+	☐ Sistema de detecção de nova versão disponível
+	☐ Notificação visual para usuário quando há atualização
+	☐ Botão "Atualizar App" para forçar reload da nova versão
+	☐ Sistema de "O que há de novo" após atualizações
+	☐ Modal/toast mostrando novidades da versão atual
+	☐ Histórico de versões acessível nas configurações do app
+	☐ Criar releases no GitHub com notas de versão
+	☐ Automatizar bump de versão no deploy (package.json)
+
+Modo Personalizado - Funcionalidades Avançadas:
+	☐ Sistema de desbloqueio: 1 anúncio = acesso ao modo personalizado
+	☐ Cooldown de 1 hora após assistir anúncio (ou configurável)
+	☐ Sistema de compartilhamento de configurações via URL
+	☐ Ranking local temporário (apenas visual, não persistente)
+	☐ Histórico de configurações usadas na sessão atual
 
 Cards de Compartilhamento:
 	☐ Criar cards visuais para pontuação e recordes
@@ -36,11 +105,64 @@ Cards de Compartilhamento:
 	☐ Design responsivo dos cards (formato Instagram/Stories)
 	☐ Testar compartilhamento em mobile (Instagram, WhatsApp, etc.)
 
-IMPLEMENTAÇÕES FUTURAS:
+IMPLEMENTAÇÕES FUTURAS - LONGO PRAZO: @future
 
-Modo Difícil - Melhorias:
-	☐ Além do timer(que conta a rodada atual para adivinhar o número), Construir *cronômetro* (continua contando enquanto o usuário acertar, em caso de erro, guarda os pontos feitos e reseta)
-	☐ Parar o timer, para também o cronometro e guarda os pontos feitos
+Modo Professor - Salas Educacionais Personalizadas: @future @high
+	Authentication & Access:
+		☐ Implementar Firebase Auth com login Google (Gmail)
+		☐ Criar interface de login simples para professores
+		☐ Sistema sem anúncios para professores (experiência premium)
+		☐ Botão "Apoie o desenvolvedor" no painel do professor
+		☐ Acesso de alunos via nickname simples (sem cadastro)
+	
+	Criação & Configuração de Salas:
+		☐ Interface para criar sala personalizada
+		☐ Configurar nome da sala/modo customizado
+		☐ Definir quantidade de números por rodada (3 a 8 números)
+		☐ Configurar range dos números (ex: -50 a 50, 1 a 100, etc.)
+		☐ Ajustar tempo por rodada (15s, 30s, 1min, 2min, etc.)
+		☐ Definir quantidade total de rodadas (5, 10, 20, personalizado)
+		☐ Configurar quantidade de posições no ranking (top 3, 5, 10, todos)
+		☐ Definir pontuação por acerto (10, 50, 100 pontos)
+		☐ Sistema de templates rápidos (Fácil, Médio, Difícil, Caótico)
+		☐ Gerar link compartilhável da sala (URL única)
+		☐ Gerar QR Code para acesso rápido dos alunos
+	
+	Backend & Infraestrutura:
+		☐ Configurar Firestore para salvar configurações das salas
+		☐ Implementar Firebase Realtime Database para ranking ao vivo
+		☐ Sistema de identificação única por sala (room codes)
+		☐ Gerenciamento de sessões ativas e expiração de salas
+		☐ Sincronização em tempo real entre professor e alunos
+	
+	Interface de Jogo Educacional:
+		☐ Painel do professor: monitor de sala em tempo real
+		☐ Visualização de alunos conectados na sala
+		☐ Ranking ao vivo durante o jogo (professor e alunos)
+		☐ Controles de sala: pausar, continuar, encerrar sessão
+		☐ Interface do aluno: entrada via nickname + código da sala
+		☐ Adaptação da interface de jogo para regras customizadas
+	
+	Relatórios & Análises:
+		☐ Ranking final detalhado pós-jogo
+		☐ Lista completa: nicknames + pontuação + estatísticas
+		☐ Exportação como relatório PNG (para impressão/compartilhamento)
+		☐ Exportação como CSV (para análise em planilhas)
+		☐ Geração de cards visuais do ranking final
+		☐ Estatísticas da sessão: tempo médio, acertos/erros, participação
+	
+	Funcionalidades Avançadas:
+		☐ Histórico de salas criadas pelo professor
+		☐ Reutilização de configurações salvas
+		☐ Integração com Web Share API para compartilhar resultados
+	
+	Monetização & Sustentabilidade:
+		☐ Implementar botão "Apoie este projeto" (não invasivo)
+		☐ Sistema de créditos ou selo "Educador Apoiador"
+		☐ Planejamento de features premium (estatísticas avançadas, exportações, etc.)
+		☐ Manter funcionalidades core sempre gratuitas
+
+IMPLEMENTAÇÕES FUTURAS:
 
 Multiplayer Local - Funcionalidade Social: @future
 	☐ Modo 2 jogadores local (alternando turnos)
@@ -114,3 +236,14 @@ CORREÇÃO DO SISTEMA DE TUTORIAL: @done
 	✔ Substituir todos os emojis por ícones Font Awesome para consistência visual @done
 	✔ Ajustar CSS para ícones Font Awesome (tamanho, cores, herança) @done
 	✔ Validar funcionamento completo do sistema de abas @done
+
+===================================================================
+HISTÓRICO - CONCLUÍDO ✅
+===================================================================
+
+CORREÇÃO DE BUGS CRÍTICOS - CONCLUÍDO: @done
+	✔ Bug Mode3 e Mode4: Corrigir falta de currentMode = "3" e currentMode = "4" @done
+	✔ Inconsistência de encoding: Corrigir acentos nos toasts (Médio/Difícil) @done
+	✔ Breakpoints responsivos: Unificar 768px mobile vs 769px desktop, eliminar conflitos CSS @done
+	✔ Bug sistema de dicas: Corrigir função duplicada que impedia uso de múltiplas dicas por rodada @done
+	✔ Validar correções com testes manuais completos

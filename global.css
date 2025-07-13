@@ -137,3 +137,47 @@ button:active {
 input {
   accent-color: var(--interactive-primary);
 }
+
+
+/* ========================================
+   PWA - INDICADOR OFFLINE/ONLINE
+======================================== */
+.connection-status {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
+}
+
+.connection-status.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.connection-status.offline {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-left: 4px solid #b91c1c;
+}
+
+.connection-status.online {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-left: 4px solid #047857;
+}
+
+@media (max-width: 768px) {
+  .connection-status {
+    top: 5px;
+    right: 5px;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}

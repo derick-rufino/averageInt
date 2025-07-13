@@ -1,6 +1,7 @@
 {
   "name": "AverageInt - Jogo de Média Rápida",
-  "short_name": "AverageInt",
+  "version": "1.0.0",
+  "short_name": "AverageInt - Preview",
   "description": "Calcule a média de 4 números antes do tempo acabar. Um desafio mental rápido e viciante!",
   "start_url": "/",
   "display": "standalone",
@@ -59,7 +60,7 @@
       "src": "/public/favicon-192.png",
       "sizes": "384x384",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [

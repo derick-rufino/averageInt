@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="version" content="1.0.0" />
   <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon-180.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32.png" />
@@ -23,7 +24,7 @@
 
   <!-- Open Graph (para redes sociais) -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="AverageInt" />
+  <meta property="og:site_name" content="AverageInt - Preview" />
   <meta property="og:title" content="AverageInt – Desafio de média mental" />
   <meta property="og:description"
     content="Teste sua agilidade: calcule a média de 4 números antes do tempo acabar! Jogo educativo e viciante." />
@@ -38,7 +39,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@derico_dev" />
   <meta name="twitter:creator" content="@derico_dev" />
-  <meta name="twitter:title" content="AverageInt – Desafio de média mental" />
+  <meta name="twitter:title" content="AverageInt – Desafio de média rápida" />
   <meta name="twitter:description" content="Teste sua agilidade: calcule a média de 4 números antes do tempo acabar!" />
   <meta name="twitter:image" content="https://average-int.vercel.app/public/og-preview.png" />
   <meta name="twitter:image:alt" content="AverageInt - Jogo de cálculo de média mental" />
@@ -84,6 +85,10 @@
 </head>
 
 <body>
+  <!-- PWA Status Indicator -->
+  <div id="connection-status" class="connection-status">
+    <span id="status-text">Offline</span>
+  </div>
   <header>
     <h1>AverageInt</h1>
   </header>
@@ -460,6 +465,86 @@
   <!-- Sistema de dicas -->
   <script src="dicas.js"></script>
   <script src="app.js"></script>
+  <!-- REGISTRO DO PWA -->
+  <script>
+    // Constante de versão
+    const APP_VERSION = '1.0.0';
+    console.log(`[PWA] AverageInt versão ${APP_VERSION}`);
+
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        console.log('[PWA] Registrando Service Worker...');
+
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('[PWA] Service Worker registrado:', registration.scope);
+
+            // Detectar nova versão
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    console.log('[PWA] Nova versão disponível!');
+                    showUpdateToast();
+                  } else {
+                    console.log('[PWA] App pronto para funcionar offline!');
+                    showOfflineReadyToast();
+                  }
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('[PWA] Erro ao registrar Service Worker:', error);
+          });
+      });
+
+      // Detectar mudanças de conectividade
+      window.addEventListener('online', () => {
+        console.log('[PWA] Conexão restaurada');
+        showConnectionStatus(true);
+      });
+
+      window.addEventListener('offline', () => {
+        console.log('[PWA] Funcionando offline');
+        showConnectionStatus(false);
+      });
+    }
+
+    // Funções de feedback
+    function showUpdateToast() {
+      console.log('[PWA] TODO: Mostrar toast de atualização');
+      // Implementar depois: toast com botão "Atualizar"
+    }
+
+    function showOfflineReadyToast() {
+      console.log('[PWA] TODO: Mostrar toast de offline pronto');
+      // Implementar depois: toast "App pronto para uso offline!"
+    }
+
+    function showConnectionStatus(isOnline) {
+      const indicator = document.getElementById('connection-status');
+      const statusText = document.getElementById('status-text');
+
+      if (indicator && statusText) {
+        indicator.classList.remove('online', 'offline', 'show');
+        indicator.classList.add(isOnline ? 'online' : 'offline');
+        statusText.textContent = isOnline ? 'Online' : 'Offline';
+        indicator.classList.add('show');
+
+        // Esconder após 3 segundos se online
+        if (isOnline) {
+          setTimeout(() => {
+            indicator.classList.remove('show');
+          }, 3000);
+        }
+      }
+
+      console.log('[PWA] Status:', isOnline ? 'Online' : 'Offline');
+    }
+  </script>
 </body>
 
 </html>

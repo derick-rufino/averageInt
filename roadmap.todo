@@ -7,21 +7,21 @@ PRIORIDADE MÁXIMA - ENTREGA 10 DIAS (13/07 a 23/07/2025): @critical
 
 FOCO: JOGO BASE + PWA + OFFLINE + RANKINGS LOCAIS
 
-SEMANA 1 - PWA CORE (Dias 1-4):
-	PWA - Progressive Web App (OFFLINE ACCESS): @high
-		☐ Criar Service Worker (sw.js) para cache offline de recursos estáticos
-		☐ Implementar estratégias de cache (Cache First para estáticos, Network First para dinâmicos)
-		☐ Registrar Service Worker no index.html
-		☐ Adicionar indicador visual de status online/offline
-		☐ Otimizar manifest.json para melhor experiência PWA
-		☐ Testar funcionamento offline completo
+SEMANA 1 - PWA CORE (Dias 1-4): ✅ CONCLUÍDO
+	PWA - Progressive Web App (OFFLINE ACCESS): @done ✅
+		✔ Criar Service Worker (sw.js) para cache offline de recursos estáticos @done
+		✔ Implementar estratégias de cache (Cache First para estáticos, Network First para dinâmicos) @done
+		✔ Registrar Service Worker no index.html @done
+		✔ Adicionar indicador visual de status online/offline @done
+		✔ Otimizar manifest.json para melhor experiência PWA @done
+		✔ Testar funcionamento offline completo @done
 		☐ Implementar botão "Instalar App" com prompt personalizado
 	
-	Sistema de Versionamento Básico: @high
-		☐ Definir versão inicial do projeto como v1.0.0 (primeira versão PWA estável)
-		☐ Adicionar campo "version" no manifest.json do PWA
-		☐ Incluir meta tag de versão no index.html
-		☐ Criar constante VERSION no JavaScript principal
+	Sistema de Versionamento Básico: @done ✅
+		✔ Definir versão inicial do projeto como v1.0.0 (primeira versão PWA estável) @done
+		✔ Adicionar campo "version" no manifest.json do PWA @done
+		✔ Incluir meta tag de versão no index.html @done
+		✔ Criar constante VERSION no JavaScript principal @done
 		☐ Adicionar versão no footer da página (visível ao usuário)
 
 SEMANA 2 - RANKINGS + VALIDAÇÃO (Dias 5-10):
@@ -236,6 +236,13 @@ CORREÇÃO DO SISTEMA DE TUTORIAL: @done
 	✔ Substituir todos os emojis por ícones Font Awesome para consistência visual @done
 	✔ Ajustar CSS para ícones Font Awesome (tamanho, cores, herança) @done
 	✔ Validar funcionamento completo do sistema de abas @done
+
+LIMPEZA DE ARQUIVOS - CONCLUÍDO: @done ✅
+	✔ Remover app_backup_antes_correcao_codificacao.js @done
+	✔ Remover index_backup.html @done  
+	✔ Remover BUGS_ANALYSIS.md @done
+	✔ Remover PWA_IMPLEMENTATION_GUIDE.md (mantido apenas PWA_IMPLEMENTATION_GUIDE_SIMPLE.md) @done
+	✔ Atualizar roadmap marcando PWA como concluído @done
 
 ===================================================================
 HISTÓRICO - CONCLUÍDO ✅
